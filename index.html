@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SuperGAll PRO DJ Bot Builder</title><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#ff00ff"><link rel="icon" href="icon.svg"><link rel="apple-touch-icon" href="icon-192.png">
+<title>Super G Music</title><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#ff00ff"><link rel="icon" href="icon.svg"><link rel="apple-touch-icon" href="icon-192.png">
 <style>
 :root{--n:#0ff;--m:#f0f;--g:#39ff14;--bg:#07040d}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#2a0636,#07040d 60%);color:#ddd;font-family:'Courier New',monospace}
@@ -22,8 +22,19 @@ label{display:block;font-size:.85em;margin-top:4px}input[type=range]{width:100%;
 canvas{width:100%;height:60px;background:#000;border:1px solid #0ff4}
 #auto.on{animation:p 1s infinite}@keyframes p{50%{box-shadow:0 0 25px var(--m)}}
 </style></head><body>
-<h1>🐉 SuperG<span>All</span> PRO DJ Bot Builder 🐉</h1><div class="sub">Techno · Smoczy Neon · Web Audio · <span id="actBot">Bot: domyślny</span> <button id="install" style="display:none">📲 Zainstaluj</button></div>
-<div class="row"><button class="tab on" data-tab="main">🎛 PANEL DJ</button><button class="tab" data-tab="builder">🤖 KREATOR BOTÓW</button></div>
+<h1>🐉 Super <span>G</span> Music 🐉</h1><div class="sub">Techno · Smoczy Neon · Web Audio · <span id="actBot">Bot: domyślny</span> <button id="install" style="display:none">📲 Zainstaluj</button> <button id="proBtn">👑 PRO</button></div>
+<div id="pay" style="display:none;position:fixed;inset:0;background:#000c;z-index:99;overflow:auto"><div class="panel" style="max-width:520px;margin:40px auto;text-align:center">
+<h2 style="font-size:1.6em">👑 SUPER G MUSIC PRO 🐉</h2><div id="payMsg" style="color:#39ff14"></div>
+<p>Odblokuj wszystko: <b>Deck B</b>, <b>wszystkie 8 wzorców</b>, <b>Kreator Botów</b>, <b>nagrywanie WAV/WebM</b>, <b>MIDI (Roland MC-707)</b>, pełny AUTO DJ.</p>
+<p style="font-size:1.8em;color:#f0f;text-shadow:0 0 10px #f0f">50 zł <span style="color:#888">lub</span> 10 USD</p>
+<div style="border:1px dashed #0ff;padding:10px;border-radius:8px">💸 <b>Przelew BLIK na telefon 730377357 (Daniel Dydo), w tytule wpisz swój e-mail</b></div>
+<p><a id="waLink" target="_blank" rel="noopener" href="https://wa.me/48730377357"><button style="border-color:#25D366;color:#25D366">💬 Wyślij potwierdzenie na WhatsApp</button></a></p>
+<p style="font-size:.85em">Po weryfikacji płatności otrzymasz kod odblokowujący przypisany do Twojego e-maila.</p>
+<label>E-mail (ten z tytułu przelewu)</label><input id="payEmail" type="email" style="width:100%">
+<label>Kod odblokowujący</label><input id="payCode" placeholder="SGM-XXXX-XXXX-XXXX" style="width:100%;text-transform:uppercase">
+<p><button id="payUnlock">🔓 ODBLOKUJ PRO</button><button id="payClose">✖ Zamknij</button></p></div></div>
+<style>.locked{opacity:.4;position:relative}.lockt::after{content:" 🔒"}#proBtn.on{background:#ffd700;color:#000;border-color:#ffd700}</style>
+<div class="row"><button class="tab on" data-tab="main">🎛 PANEL DJ</button><button class="tab" data-tab="builder">🤖 KREATOR BOTÓW</button><button class="tab" data-tab="viz">🌌 WIZUALIZER</button></div>
 <div id="tab-builder" style="display:none"><div class="row"><div class="panel" style="max-width:520px;flex:1"><h2>EDYTOR BOTA</h2>
 <label>Nazwa</label><input id="bName" value="Mój Smok">
 <label>Styl</label><select id="bStyle"><option>Techno</option><option>Acid</option><option>House</option><option>Trance</option><option>Dub</option><option>Breaks</option><option>Hard</option><option>Electro</option><option>Mix</option></select>
@@ -33,14 +44,16 @@ canvas{width:100%;height:60px;background:#000;border:1px solid #0ff4}
 <label>Interwał AUTO DJ (takty) min / max</label><input id="bIMin" type="number" min="1" max="64" value="8"> <input id="bIMax" type="number" min="1" max="64" value="16">
 <label>Długość crossfadu (takty)</label><input id="bXf" type="number" min="1" max="16" value="4">
 <label><input type="checkbox" id="bMidi" checked> Zapisz bieżącą mapę MIDI w presecie</label>
-<div><button id="bSave">💾 ZAPISZ BOTA</button><button id="bNew">✚ NOWY</button><button id="bStyleFill">Pula wg stylu</button></div></div>
+<div><button id="bSave">💾 ZAPISZ BOTA</button><button id="bNew">✚ NOWY</button><button id="bStyleFill">Pula wg stylu</button><button id="bGen">🎲 Auto-generuj bota</button></div></div>
 <div class="panel" style="max-width:520px;flex:1"><h2>MOJE BOTY</h2><div id="bList"></div>
 <div style="margin-top:8px"><button id="bExport">⬇ EKSPORT JSON</button><label style="display:inline"><button onclick="document.getElementById('bImp').click()">⬆ IMPORT JSON</button></label><input type="file" id="bImp" accept=".json,application/json" style="display:none"></div></div></div></div>
+<div id="tab-viz" style="display:none"><div class="row"><div class="panel" style="flex:1;max-width:1100px;text-align:center"><canvas id="viz" width="1000" height="520" style="height:auto;max-height:75vh"></canvas><br>
+<button id="vizFs">⛶ PEŁNY EKRAN</button><button id="vizMode">Tryb: SMOK</button><span id="vizNote" style="font-size:.8em;color:#888"></span></div></div></div>
 <div id="tab-main">
 <div class="row"><div class="panel" style="text-align:center">
 <button id="start">▶ URUCHOM AUDIO</button>
 <label>BPM: <b id="bpmv">128</b></label><input type="range" id="bpm" min="80" max="180" value="128" data-ctl="bpm">
-<button id="tap">TAP TEMPO</button><button id="auto">🤖 AUTO DJ</button>
+<button id="tap">TAP TEMPO</button><button id="auto">🤖 AUTO DJ</button><button id="smart">🧠 SMART DJ</button><div>Faza: <b id="phase">—</b> · Energia: <b id="energy">0</b></div>
 <div id="beat"><span></span><span></span><span></span><span></span></div><div>Takt: <b id="bar">0</b></div>
 <label>Crossfader A ⟷ B</label><input type="range" id="xf" min="0" max="1" step="0.01" value="0.5" data-ctl="xf">
 <label>Master</label><input type="range" id="master" min="0" max="1" step="0.01" value="0.8" data-ctl="master">
@@ -66,7 +79,7 @@ const PAT=[
  {n:'Dub Techno',k:'x...x...x...x...',s:'................',h:'..x...x...x...x.',b:[33,0,0,0,0,0,0,0,33,0,0,0,0,0,0,0],sy:[0,0,57,0,0,0,0,0,0,0,60,0,0,0,0,0]},
  {n:'Hardgroove',k:'x..xx...x..xx..x',s:'....x.......x...',h:'.xxx.xxx.xxx.xxx',b:[38,0,38,0,0,38,0,50,38,0,0,38,0,41,0,0],sy:[]},
  {n:'Electro',k:'x......x..x.....',s:'....x.......x...',h:'x.xxx.xxx.xxx.xx',b:[40,40,0,52,0,40,0,43,40,0,40,0,52,0,47,0],sy:[0,0,0,0,76,0,0,0,0,0,0,79,0,0,0,0]}];
-let ctx,master,an,recDest,noiseBuf,revBuf,bpm=128,step=0,bar=0,nextT=0,running=false,seqOn=true,autoOn=false,nextAuto=8;
+let smartOn=false,ctx,master,an,recDest,noiseBuf,revBuf,bpm=128,step=0,bar=0,nextT=0,running=false,seqOn=true,autoOn=false,nextAuto=8;
 const seqRows=['KICK','SNARE','HAT','CLAP'],seq=seqRows.map(()=>Array(16).fill(0));
 function log(m){const l=$('#log');l.innerHTML=`[${new Date().toLocaleTimeString()}] ${m}<br>`+l.innerHTML}
 const mtof=m=>440*Math.pow(2,(m-69)/12);
@@ -83,8 +96,8 @@ class Deck{constructor(id){this.id=id;this.pat=id=='A'?0:3;this.pend=null;this.p
  setDist(a){this.ws.curve=a>0?distCurve(a*50):null}
  setDelayTime(){this.dl.delayTime.value=60/bpm*.75}
  sweep(){const f=this.flt.frequency,t=ctx.currentTime,d=60/bpm*8;f.cancelScheduledValues(t);f.setValueAtTime(18000,t);f.exponentialRampToValueAtTime(200,t+d/2);f.exponentialRampToValueAtTime(18000,t+d);log(`Deck ${this.id}: sweep filtra`)}
- play(s,t){if(!this.playing)return;const p=PAT[this.pat];if(p.k[s]=='x')kick(this.inp,t);if(p.s[s]=='x')snare(this.inp,t);if(p.h[s]=='x')hat(this.inp,t,s%4==2?.35:.18);
-  if(p.b[s])bass(this.inp,t,p.b[s],this.pat==1);if(p.sy[s])synth(this.inp,t,p.sy[s])}}
+ play(s,t){if(!this.playing)return;const p=PAT[this.pat],M=this.mute||{};if(p.k[s]=='x'&&!M.k)kick(this.inp,t);if(p.s[s]=='x')snare(this.inp,t);if(p.h[s]=='x')hat(this.inp,t,s%4==2?.35:.18);
+  if(p.b[s]&&!M.b)bass(this.inp,t,p.b[s],this.pat==1);if(p.sy[s])synth(this.inp,t,p.sy[s])}}
 function env(g,t,a,v,d){g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+a);g.gain.exponentialRampToValueAtTime(.001,t+d)}
 function kick(o,t){const s=ctx.createOscillator(),g=ctx.createGain();s.frequency.setValueAtTime(150,t);s.frequency.exponentialRampToValueAtTime(45,t+.12);env(g,t,.002,1,.4);s.connect(g).connect(o);s.start(t);s.stop(t+.45)}
 function noise(o,t,type,f,v,d){const n=ctx.createBufferSource();n.buffer=noiseBuf;const fl=ctx.createBiquadFilter();fl.type=type;fl.frequency.value=f;const g=ctx.createGain();env(g,t,.001,v,d);n.connect(fl).connect(g).connect(o);n.start(t);n.stop(t+d+.05)}
@@ -98,7 +111,7 @@ function init(){ctx=new (window.AudioContext||window.webkitAudioContext)();maste
  noiseBuf=ctx.createBuffer(1,ctx.sampleRate,ctx.sampleRate);const d=noiseBuf.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;revBuf=mkRev();
  seqOut=ctx.createGain();seqOut.gain.value=.7;seqOut.connect(master);
  decks.A=new Deck('A');decks.B=new Deck('B');setXf(.5);buildDecks();nextT=ctx.currentTime+.1;running=true;setInterval(sched,25);drawScope();log('Audio uruchomione. Smok się budzi 🐉')}
-function sched(){while(nextT<ctx.currentTime+.12){if(step==0){for(const k in decks){const dk=decks[k];if(dk.pend!==null){dk.pat=dk.pend;dk.pend=null;log(`Deck ${k}: wzorzec → ${PAT[dk.pat].n}`);updDeckUI()}}if(autoOn&&bar>=nextAuto)autoDJ()}
+function sched(){while(nextT<ctx.currentTime+.12){if(step==0){for(const k in decks){const dk=decks[k];if(dk.pend!==null){dk.pat=dk.pend;dk.pend=null;log(`Deck ${k}: wzorzec → ${PAT[dk.pat].n}`);updDeckUI()}}if(autoOn&&!smartOn&&bar>=nextAuto)autoDJ();if(smartOn)smartBar(nextT)}
  for(const k in decks)decks[k].play(step,nextT);
  if(seqOn){if(seq[0][step])kick(seqOut,nextT);if(seq[1][step])snare(seqOut,nextT);if(seq[2][step])hat(seqOut,nextT,.25);if(seq[3][step])clap(seqOut,nextT)}
  const s=step,dt=(nextT-ctx.currentTime)*1000;setTimeout(()=>ui(s),Math.max(0,dt));
@@ -152,8 +165,8 @@ $('#learnBtn').onclick=()=>{learn=!learn;$('#learnBtn').classList.toggle('on',le
 $('#clrMap').onclick=()=>{map=defMap();localStorage.removeItem('sgMidi');log('Mapa MIDI zresetowana')};
 // Recording
 let mr,chunks=[];
-$('#rec').onclick=()=>{if(!ctx)return;chunks=[];mr=new MediaRecorder(recDest.stream);mr.ondataavailable=e=>chunks.push(e.data);mr.onstop=async()=>{const blob=new Blob(chunks,{type:mr.mimeType||'audio/webm'});const u=URL.createObjectURL(blob);const ts=Date.now();$('#dl').innerHTML=`<a style="color:#0ff" download="supergall-${ts}.webm" href="${u}">⬇ WebM</a> `;
- try{const ab=await ctx.decodeAudioData(await blob.arrayBuffer());$('#dl').innerHTML+=`<a style="color:#f0f" download="supergall-${ts}.wav" href="${URL.createObjectURL(wav(ab))}">⬇ WAV</a>`}catch(e){$('#dl').innerHTML+=' (WAV niedostępny: '+e.message+')'}};mr.start();$('#rec').classList.add('on');$('#stopRec').disabled=false;log('⏺ Nagrywanie...')};
+$('#rec').onclick=()=>{if(!ctx)return;chunks=[];mr=new MediaRecorder(recDest.stream);mr.ondataavailable=e=>chunks.push(e.data);mr.onstop=async()=>{const blob=new Blob(chunks,{type:mr.mimeType||'audio/webm'});const u=URL.createObjectURL(blob);const ts=Date.now();$('#dl').innerHTML=`<a style="color:#0ff" download="supergmusic-${ts}.webm" href="${u}">⬇ WebM</a> `;
+ try{const ab=await ctx.decodeAudioData(await blob.arrayBuffer());$('#dl').innerHTML+=`<a style="color:#f0f" download="supergmusic-${ts}.wav" href="${URL.createObjectURL(wav(ab))}">⬇ WAV</a>`}catch(e){$('#dl').innerHTML+=' (WAV niedostępny: '+e.message+')'}};mr.start();$('#rec').classList.add('on');$('#stopRec').disabled=false;log('⏺ Nagrywanie...')};
 $('#stopRec').onclick=()=>{mr.stop();$('#rec').classList.remove('on');$('#stopRec').disabled=true;log('⏹ Nagranie gotowe')};
 function wav(b){const ch=b.numberOfChannels,len=b.length*ch*2+44,v=new DataView(new ArrayBuffer(len));let o=0;const ws=s=>{for(const c of s)v.setUint8(o++,c.charCodeAt(0))},u32=x=>{v.setUint32(o,x,true);o+=4},u16=x=>{v.setUint16(o,x,true);o+=2};
  ws('RIFF');u32(len-8);ws('WAVEfmt ');u32(16);u16(1);u16(ch);u32(b.sampleRate);u32(b.sampleRate*ch*2);u16(ch*2);u16(16);ws('data');u32(len-44);const cs=[...Array(ch)].map((_,i)=>b.getChannelData(i));
@@ -169,6 +182,35 @@ $('#auto').onclick=()=>{autoOn=!autoOn;$('#auto').classList.toggle('on',autoOn);
 $('#seqOn').onclick=()=>{seqOn=!seqOn;$('#seqOn').classList.toggle('on',seqOn)};$('#seqOn').classList.add('on');
 $('#seqClr').onclick=()=>{seq.forEach(r=>r.fill(0));document.querySelectorAll('.cell.a').forEach(c=>c.classList.remove('a'))};
 buildGrid();bindLearn();
+
+// ===== PRO / PAYWALL =====
+const SGM_SECRET='SGM-3f8d0cacb14a98fc49fffd615261c414';
+function sha256(bytes){const K=[0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];
+ let H=[0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];const l=bytes.length,n=((l+9+63)>>6)<<6,m=new Uint8Array(n);m.set(bytes);m[l]=0x80;const bl=l*8;for(let i=0;i<4;i++)m[n-1-i]=(bl/Math.pow(2,8*i))&255;
+ const W=new Uint32Array(64),r=(x,k)=>(x>>>k)|(x<<(32-k));for(let o=0;o<n;o+=64){for(let i=0;i<16;i++)W[i]=(m[o+4*i]<<24)|(m[o+4*i+1]<<16)|(m[o+4*i+2]<<8)|m[o+4*i+3];
+ for(let i=16;i<64;i++){const a=W[i-15],b=W[i-2];W[i]=(W[i-16]+(r(a,7)^r(a,18)^(a>>>3))+W[i-7]+(r(b,17)^r(b,19)^(b>>>10)))>>>0}
+ let [a,b,c,d,e,f,g,h]=H;for(let i=0;i<64;i++){const t1=(h+(r(e,6)^r(e,11)^r(e,25))+((e&f)^(~e&g))+K[i]+W[i])>>>0,t2=((r(a,2)^r(a,13)^r(a,22))+((a&b)^(a&c)^(b&c)))>>>0;h=g;g=f;f=e;e=(d+t1)>>>0;d=c;c=b;b=a;a=(t1+t2)>>>0}
+ H=H.map((x,i)=>(x+[a,b,c,d,e,f,g,h][i])>>>0)}const out=new Uint8Array(32);H.forEach((x,i)=>{out[4*i]=x>>>24;out[4*i+1]=(x>>>16)&255;out[4*i+2]=(x>>>8)&255;out[4*i+3]=x&255});return out}
+function hmac(key,msg){const enc=new TextEncoder();let k=enc.encode(key);if(k.length>64)k=sha256(k);const kp=new Uint8Array(64);kp.set(k);const ip=kp.map(x=>x^0x36),op=kp.map(x=>x^0x5c),mb=enc.encode(msg);
+ const a=new Uint8Array(64+mb.length);a.set(ip);a.set(mb,64);const ih=sha256(a),b=new Uint8Array(96);b.set(op);b.set(ih,64);return sha256(b)}
+function codeFor(email){const h=hmac(SGM_SECRET,email.trim().toLowerCase());const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<12;i++)s+=A[h[i]%32];return 'SGM-'+s.slice(0,4)+'-'+s.slice(4,8)+'-'+s.slice(8,12)}
+function checkCode(email,code){return !!email&&codeFor(email)===String(code).trim().toUpperCase().replace(/\s/g,'')}
+let PRO=false;try{const p=JSON.parse(localStorage.getItem('sgmPro')||'null');PRO=!!p&&checkCode(p.email,p.code)}catch(e){}
+function paywall(msg){$('#payMsg').textContent=msg||'';$('#pay').style.display='block'}
+function lockedEl(el){if(PRO||!el)return false;const d=el.dataset||{};if(d.deck=='B')return true;if(d.pat!==undefined&&+d.pat>=3)return true;if(d.tab=='builder')return true;
+ return ['smart','vizFs','bGen','playB','swB','rec','stopRec','midiBtn','learnBtn','clrMap'].includes(el.id)||(d.run!==undefined)}
+document.addEventListener('click',e=>{const el=e.target.closest('button,[data-ctl],.tab');if(el&&!el.closest('#pay')&&lockedEl(el)){e.preventDefault();e.stopImmediatePropagation();paywall('🔒 Ta funkcja jest dostępna w wersji PRO')}},true);
+function applyLocks(){document.querySelectorAll('button').forEach(b=>b.classList.toggle('lockt',lockedEl(b)));['volB','fltB','delB','revB','disB'].forEach(id=>{const el=document.getElementById(id);if(el)el.disabled=!PRO});
+ const pb=document.getElementById('playB');if(pb)pb.closest('.panel').classList.toggle('locked',!PRO);$('#proBtn').textContent=PRO?'👑 PRO AKTYWNE':'👑 KUP PRO';$('#proBtn').classList.toggle('on',PRO);
+ if(!PRO&&decks.B){decks.B.playing=false;setXf(0);$('#xf').value=0}}
+const _bd=buildDecks;buildDecks=function(){_bd();applyLocks()};
+const _ad=autoDJ;autoDJ=function(){if(PRO)return _ad();const A=decks.A;A.playing=true;A.pend=Math.floor(Math.random()*3);if(Math.random()<.4)A.sweep();nextAuto=bar+8+Math.floor(Math.random()*9);log('🤖 AUTO DJ (FREE): Deck A → '+PAT[A.pend].n+' · pełny AUTO DJ w PRO 👑')};
+const _om=onMidi;onMidi=function(e){if(PRO)_om(e)};
+$('#proBtn').onclick=()=>paywall(PRO?'✅ PRO aktywne dla: '+JSON.parse(localStorage.getItem('sgmPro')).email:'');
+$('#payClose').onclick=()=>$('#pay').style.display='none';
+$('#payEmail').oninput=e=>{$('#waLink').href='https://wa.me/48730377357?text='+encodeURIComponent('Super G Music PRO – wysłałem BLIK, e-mail: '+e.target.value)};
+$('#payUnlock').onclick=()=>{const em=$('#payEmail').value.trim().toLowerCase(),c=$('#payCode').value;if(checkCode(em,c)){localStorage.setItem('sgmPro',JSON.stringify({email:em,code:c.trim().toUpperCase()}));PRO=true;applyLocks();$('#payMsg').textContent='✅ PRO odblokowane! Dziękujemy 🐉';log('👑 PRO odblokowane')}else $('#payMsg').textContent='❌ Nieprawidłowy kod dla tego e-maila'};
+applyLocks();
 
 // ===== BOT BUILDER =====
 const STYLE_POOL={Techno:[0,5,6],Acid:[1,6,0],House:[3,4,0],Trance:[4,3,0],Dub:[5,0,3],Breaks:[2,7,1],Hard:[6,1,0],Electro:[7,2,1],Mix:[0,1,2,3,4,5,6,7]};
@@ -201,13 +243,56 @@ function runBot(id){actId=id;const b=activeBot();saveBots();if(b.midi){map=Objec
 $('#bList').onclick=e=>{const t=e.target.dataset;if(t.run)runBot(t.run);else if(t.edit)fillEditor(bots.find(b=>b.id==t.edit));
  else if(t.dup){const b=bots.find(x=>x.id==t.dup);bots.push(norm(Object.assign({},b,{id:null,name:b.name+' (kopia)'})));saveBots();renderBots()}
  else if(t.del){if(bots.length<2)return alert('Musi zostać przynajmniej jeden bot');if(!confirm('Usunąć bota?'))return;bots=bots.filter(b=>b.id!=t.del);if(actId==t.del)actId=bots[0].id;saveBots();renderBots()}};
-$('#bExport').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({app:'SuperGAll PRO DJ Bot Builder',version:1,bots},null,2)],{type:'application/json'}));a.download='supergall-boty.json';a.click()};
+$('#bExport').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({app:'Super G Music',version:1,bots},null,2)],{type:'application/json'}));a.download='supergmusic-boty.json';a.click()};
 $('#bImp').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const j=JSON.parse(await f.text());const arr=Array.isArray(j)?j:(j.bots||[j]);let n=0;arr.forEach(x=>{const b=norm(x);const i=bots.findIndex(y=>y.id==b.id);if(i>=0)bots[i]=b;else bots.push(b);n++});saveBots();renderBots();log(`⬆ Zaimportowano ${n} botów`)}catch(err){alert('Błędny JSON: '+err.message)}e.target.value=''};
-function showTab(t){document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.tab==t));$('#tab-main').style.display=t=='main'?'':'none';$('#tab-builder').style.display=t=='builder'?'':'none'}
+function showTab(t){document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.tab==t));$('#tab-main').style.display=t=='main'?'':'none';$('#tab-builder').style.display=t=='builder'?'':'none';$('#tab-viz').style.display=t=='viz'?'':'none'}
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
 renderBots();fillEditor(activeBot());
 // PWA
 let deferred;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e;$('#install').style.display=''});
 $('#install').onclick=async()=>{if(deferred){deferred.prompt();deferred=null;$('#install').style.display='none'}};
 if('serviceWorker' in navigator&&location.protocol!='file:')navigator.serviceWorker.register('sw.js').catch(e=>console.warn('SW',e));
+// ===== VISUALIZER =====
+let vizMode=0,parts=[],lastBeat=-1,flash=0;
+function vizLoop(){const c=$('#viz'),g=c.getContext('2d'),W=c.width,H=c.height;requestAnimationFrame(vizLoop);if($('#tab-viz').style.display=='none'&&!document.fullscreenElement)return;
+ g.fillStyle='rgba(7,4,13,.35)';g.fillRect(0,0,W,H);if(!an){g.fillStyle='#0ff';g.font='24px monospace';g.textAlign='center';g.fillText('Uruchom audio ▶',W/2,H/2);return}
+ const f=new Uint8Array(an.frequencyBinCount);an.getByteFrequencyData(f);let bass=0;for(let i=0;i<8;i++)bass+=f[i];bass/=8*255;
+ const beat=Math.floor(step/4);if(beat!=lastBeat){lastBeat=beat;flash=1}flash*=.88;
+ g.fillStyle=`rgba(255,0,255,${flash*.18})`;g.fillRect(0,0,W,H);
+ const N=96,bw=W/N;for(let i=0;i<N;i++){const v=f[Math.floor(i*f.length/N/2)]/255,h=v*H*.6;g.fillStyle=`hsl(${280-i*1.8},100%,${45+v*25}%)`;g.shadowColor=g.fillStyle;g.shadowBlur=PRO?12:0;g.fillRect(i*bw,H-h,bw-2,h)}g.shadowBlur=0;
+ if(!PRO){$('#vizNote').textContent=' 🔒 Smok, cząsteczki i pełny ekran w PRO';return}
+ if(vizMode==0){const t=performance.now()/1000;g.lineWidth=8+bass*20;g.strokeStyle='#0ff';g.shadowColor='#0ff';g.shadowBlur=20;g.beginPath();
+  for(let i=0;i<=60;i++){const x=W*.1+i*W*.8/60,y=H*.38+Math.sin(i*.25+t*3)*(40+bass*90)*Math.sin(i/60*Math.PI);i?g.lineTo(x,y):g.moveTo(x,y)}g.stroke();
+  const hx=W*.9,hy=H*.38;g.fillStyle='#f0f';g.beginPath();g.moveTo(hx,hy-30);g.lineTo(hx+70,hy);g.lineTo(hx,hy+30);g.fill();g.fillStyle='#39ff14';g.beginPath();g.arc(hx+20,hy-8,6,0,7);g.fill();
+  if(bass>.55)for(let i=0;i<6;i++)parts.push({x:hx+70,y:hy,vx:4+Math.random()*8,vy:(Math.random()-.5)*6,l:1,c:'#ff6a00'});g.shadowBlur=0}
+ if(flash>.95)for(let i=0;i<25*(.3+bass);i++)parts.push({x:W/2,y:H*.4,vx:(Math.random()-.5)*14,vy:(Math.random()-.5)*14,l:1,c:Math.random()<.5?'#f0f':'#0ff'});
+ parts=parts.filter(p=>(p.l-=.015)>0&&p.x>-10&&p.x<W+10);for(const p of parts){p.x+=p.vx;p.y+=p.vy;p.vy+=.05;g.globalAlpha=p.l;g.fillStyle=p.c;g.fillRect(p.x,p.y,3,3)}g.globalAlpha=1;
+ if(smartOn){g.fillStyle='#39ff14';g.font='18px monospace';g.textAlign='left';g.fillText('🧠 '+phase.toUpperCase()+' · energia '+energy,12,24)}}
+$('#vizFs').onclick=()=>{const c=$('#viz');(c.requestFullscreen||c.webkitRequestFullscreen).call(c)};
+$('#vizMode').onclick=()=>{vizMode=(vizMode+1)%2;$('#vizMode').textContent='Tryb: '+['SMOK','CZĄSTECZKI'][vizMode]};
+vizLoop();
+// ===== SMART AUTO DJ (energy arc) =====
+let phase='intro',phaseLeft=8,energy=3;
+const ARC={intro:['build'],groove:['build','breakdown','groove'],breakdown:['build'],build:['drop'],drop:['groove','breakdown']};
+const LEN={intro:[8,8],groove:[8,16],breakdown:[4,8],build:[2,4],drop:[8,16]};
+function cur(){return +$('#xf').value<.5?decks.A:decks.B}
+function riser(t,bars){const d=60/bpm*4*bars,n=ctx.createBufferSource();n.buffer=noiseBuf;n.loop=true;const f=ctx.createBiquadFilter();f.type='bandpass';f.Q.value=4;f.frequency.setValueAtTime(300,t);f.frequency.exponentialRampToValueAtTime(9000,t+d);
+ const g=ctx.createGain();g.gain.setValueAtTime(.001,t);g.gain.exponentialRampToValueAtTime(.35,t+d);g.gain.linearRampToValueAtTime(0,t+d+.05);n.connect(f).connect(g).connect(master);n.start(t);n.stop(t+d+.1)}
+function roll(t,bars){const sx=60/bpm/4,n=bars*16;for(let i=0;i<n;i++){const p=i/n,div=p<.5?4:p<.75?2:1;if(i%div==0){const g=ctx.createGain();g.gain.value=.3+p*.7;g.connect(master);snare(g,t+i*sx)}}}
+function enter(ph,t){phase=ph;const L=LEN[ph];phaseLeft=L[0]+Math.floor(Math.random()*(L[1]-L[0]+1));const D=cur(),fr=D.flt.frequency;
+ if(ph=='breakdown'){energy=2;D.mute={k:true,b:Math.random()<.6};fr.cancelScheduledValues(t);fr.setTargetAtTime(500+Math.random()*700,t,.8);D.rSend.gain.setTargetAtTime(.5,t,.5);log(`🧠 BREAKDOWN (${phaseLeft} t.): filtr w dół, bez stopy${D.mute.b?' i basu':''}`)}
+ else if(ph=='build'){energy=6;D.mute={k:Math.random()<.5,b:true};riser(t,phaseLeft);roll(t+60/bpm*4*Math.max(0,phaseLeft-1),1);fr.cancelScheduledValues(t);fr.setValueAtTime(Math.max(200,fr.value),t);fr.exponentialRampToValueAtTime(12000,t+60/bpm*4*phaseLeft);log(`🧠 BUILD-UP (${phaseLeft} t.): riser + werbel roll`)}
+ else if(ph=='drop'){energy=9;D.mute={};fr.cancelScheduledValues(t);fr.setValueAtTime(18000,t);D.rSend.gain.setTargetAtTime(.05,t,.1);kick(master,t);noise(master,t,'highpass',3000,.6,1.2);
+  if(Math.random()<.6){_ad();log('🧠 DROP! + zmiana decku/wzorca')}else log('🧠 DROP! 💥')}
+ else if(ph=='groove'){energy=6+Math.floor(Math.random()*2);D.mute={};if(Math.random()<.5)D.sweep();log(`🧠 GROOVE (${phaseLeft} t.)`)}
+ else{energy=3;log('🧠 INTRO')}
+ $('#phase').textContent=ph.toUpperCase();$('#energy').textContent=energy}
+function smartBar(t){if(--phaseLeft>0)return;const nx=ARC[phase];let n=nx[Math.floor(Math.random()*nx.length)];if(phase=='groove'&&energy<7&&Math.random()<.5)n='build';enter(n,t)}
+$('#smart').onclick=()=>{if(!ctx)$('#start').click();smartOn=!smartOn;$('#smart').classList.toggle('on',smartOn);for(const k in decks)decks[k].mute={};if(smartOn){decks.A.playing=true;updDeckUI();enter('intro',ctx.currentTime);log('🧠 SMART DJ WŁĄCZONY – łuk energii: intro → build → drop → groove/breakdown')}else{log('🧠 SMART DJ wyłączony');$('#phase').textContent='—'}};
+// ===== AUTO-GENERATE BOT =====
+$('#bGen').onclick=()=>{const A=['Neonowy','Kwasowy','Mroczny','Ognisty','Cyber','Głęboki','Szalony','Kosmiczny','Stalowy','Elektryczny'],B=['Smok','Wiwern','Bazyliszek','Feniks','Golem','Kraken','Tytan','Duch','Robot','Wilk'],C=['z Krakowa','z Otchłani','2077','Nocy','Burzy','MK-707','z Wawy','Zero','Alfa','Omega'];
+ const r=a=>a[Math.floor(Math.random()*a.length)],st=r(Object.keys(STYLE_POOL)),base={Techno:126,Acid:134,House:122,Trance:138,Dub:116,Breaks:132,Hard:142,Electro:128,Mix:128}[st];
+ let pool=[...STYLE_POOL[st]];PAT.forEach((_,i)=>{if(!pool.includes(i)&&Math.random()<.2)pool.push(i)});const iMin=4+Math.floor(Math.random()*9);
+ const b=norm({name:`${r(A)} ${r(B)} ${r(C)}`,style:st,bpmMin:base-2-Math.floor(Math.random()*6),bpmMax:base+2+Math.floor(Math.random()*6),pool,fx:20+Math.floor(Math.random()*80),iMin,iMax:iMin+4+Math.floor(Math.random()*8),xfBars:[1,2,4,8][Math.floor(Math.random()*4)]});
+ bots.push(b);saveBots();renderBots();fillEditor(b);log('🎲 Wygenerowano bota: '+b.name)};
 </script></body></html>

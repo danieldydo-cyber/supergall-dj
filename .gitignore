@@ -1,0 +1,5 @@
+tools/
+android/
+dist/
+*.jks
+*.idsig
