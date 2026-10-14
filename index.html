@@ -1,0 +1,213 @@
+<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SuperGAll PRO DJ Bot Builder</title><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#ff00ff"><link rel="icon" href="icon.svg"><link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root{--n:#0ff;--m:#f0f;--g:#39ff14;--bg:#07040d}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#2a0636,#07040d 60%);color:#ddd;font-family:'Courier New',monospace}
+h1{text-align:center;margin:10px;font-size:2.2em;color:var(--m);text-shadow:0 0 8px var(--m),0 0 20px var(--n);letter-spacing:4px}
+h1 span{color:var(--n)}.sub{text-align:center;color:#888;margin-top:-6px}
+.row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;padding:8px}
+.panel{border:1px solid var(--m);border-radius:10px;padding:12px;background:#120a1ccc;box-shadow:0 0 14px #f0f5,inset 0 0 20px #0ff2;min-width:300px}
+.panel h2{margin:0 0 8px;color:var(--n);text-shadow:0 0 6px var(--n);font-size:1.1em}
+button{background:#1a0f26;color:var(--n);border:1px solid var(--n);border-radius:6px;padding:6px 10px;margin:2px;cursor:pointer;font-family:inherit}
+button:hover{box-shadow:0 0 8px var(--n)}button.on{background:var(--m);color:#000;border-color:var(--m);box-shadow:0 0 12px var(--m)}
+button.pend{border-color:var(--g);color:var(--g)}
+label{display:block;font-size:.85em;margin-top:4px}input[type=range]{width:100%;accent-color:#f0f}
+.learn{outline:2px dashed var(--g)!important}
+#grid{display:grid;grid-template-columns:70px repeat(16,1fr);gap:3px}
+.cell{height:24px;border:1px solid #0ff6;border-radius:3px;cursor:pointer;background:#0b0614}
+.cell.a{background:var(--m);box-shadow:0 0 8px var(--m)}.cell.cur{outline:2px solid var(--g)}
+.cell:nth-child(17n+6),.cell:nth-child(17n+10),.cell:nth-child(17n+14){margin-left:4px}
+#log{height:70px;overflow:auto;font-size:.8em;color:var(--g)}
+#beat span{display:inline-block;width:16px;height:16px;margin:2px;border-radius:50%;background:#222}#beat span.on{background:var(--g);box-shadow:0 0 8px var(--g)}
+canvas{width:100%;height:60px;background:#000;border:1px solid #0ff4}
+#auto.on{animation:p 1s infinite}@keyframes p{50%{box-shadow:0 0 25px var(--m)}}
+</style></head><body>
+<h1>🐉 SuperG<span>All</span> PRO DJ Bot Builder 🐉</h1><div class="sub">Techno · Smoczy Neon · Web Audio · <span id="actBot">Bot: domyślny</span> <button id="install" style="display:none">📲 Zainstaluj</button></div>
+<div class="row"><button class="tab on" data-tab="main">🎛 PANEL DJ</button><button class="tab" data-tab="builder">🤖 KREATOR BOTÓW</button></div>
+<div id="tab-builder" style="display:none"><div class="row"><div class="panel" style="max-width:520px;flex:1"><h2>EDYTOR BOTA</h2>
+<label>Nazwa</label><input id="bName" value="Mój Smok">
+<label>Styl</label><select id="bStyle"><option>Techno</option><option>Acid</option><option>House</option><option>Trance</option><option>Dub</option><option>Breaks</option><option>Hard</option><option>Electro</option><option>Mix</option></select>
+<label>BPM min / max</label><input id="bMin" type="number" min="80" max="180" value="124"> <input id="bMax" type="number" min="80" max="180" value="132">
+<label>Pula wzorców</label><div id="bPool"></div>
+<label>Intensywność FX: <b id="bFxV">50</b>%</label><input id="bFx" type="range" min="0" max="100" value="50">
+<label>Interwał AUTO DJ (takty) min / max</label><input id="bIMin" type="number" min="1" max="64" value="8"> <input id="bIMax" type="number" min="1" max="64" value="16">
+<label>Długość crossfadu (takty)</label><input id="bXf" type="number" min="1" max="16" value="4">
+<label><input type="checkbox" id="bMidi" checked> Zapisz bieżącą mapę MIDI w presecie</label>
+<div><button id="bSave">💾 ZAPISZ BOTA</button><button id="bNew">✚ NOWY</button><button id="bStyleFill">Pula wg stylu</button></div></div>
+<div class="panel" style="max-width:520px;flex:1"><h2>MOJE BOTY</h2><div id="bList"></div>
+<div style="margin-top:8px"><button id="bExport">⬇ EKSPORT JSON</button><label style="display:inline"><button onclick="document.getElementById('bImp').click()">⬆ IMPORT JSON</button></label><input type="file" id="bImp" accept=".json,application/json" style="display:none"></div></div></div></div>
+<div id="tab-main">
+<div class="row"><div class="panel" style="text-align:center">
+<button id="start">▶ URUCHOM AUDIO</button>
+<label>BPM: <b id="bpmv">128</b></label><input type="range" id="bpm" min="80" max="180" value="128" data-ctl="bpm">
+<button id="tap">TAP TEMPO</button><button id="auto">🤖 AUTO DJ</button>
+<div id="beat"><span></span><span></span><span></span><span></span></div><div>Takt: <b id="bar">0</b></div>
+<label>Crossfader A ⟷ B</label><input type="range" id="xf" min="0" max="1" step="0.01" value="0.5" data-ctl="xf">
+<label>Master</label><input type="range" id="master" min="0" max="1" step="0.01" value="0.8" data-ctl="master">
+<canvas id="scope" width="400" height="60"></canvas>
+</div></div>
+<div class="row" id="decks"></div>
+<div class="row"><div class="panel" style="flex:1;max-width:900px"><h2>SEKWENCER 16 KROKÓW <button id="seqOn">WŁ/WYŁ</button><button id="seqClr">WYCZYŚĆ</button></h2><div id="grid"></div></div></div>
+<div class="row"><div class="panel"><h2>MIDI (Roland MC-707)</h2><button id="midiBtn">Włącz MIDI</button><button id="learnBtn">MIDI LEARN</button><button id="clrMap">Reset mapy</button>
+<div style="font-size:.8em">Domyślnie: nuty 36-41 = wzorce Deck A, 42-47 = Deck B, 48/49 = play A/B; CC1-8 = głośności/filtry; CC10 = crossfader. LEARN: kliknij przycisk, potem kontrolkę, potem ruszaj gałką/padem.</div><div id="midiSt">MIDI: wyłączone</div></div>
+<div class="panel"><h2>NAGRYWANIE</h2><button id="rec">⏺ NAGRAJ</button><button id="stopRec" disabled>⏹ STOP</button><div id="dl"></div></div>
+<div class="panel"><h2>DZIENNIK BOTA</h2><div id="log"></div></div></div>
+</div>
+<style>input,select{background:#0b0614;color:#0ff;border:1px solid #f0f;border-radius:4px;padding:4px;font-family:inherit}#bName,#bStyle{width:100%}.bot{border:1px solid #0ff5;border-radius:6px;padding:6px;margin:4px 0}.bot.act{border-color:#39ff14;box-shadow:0 0 8px #39ff14}#bPool label{display:inline-block;margin-right:8px}</style>
+<script>
+'use strict';
+const $=s=>document.querySelector(s);
+const PAT=[
+ {n:'Techno Prosto',k:'x...x...x...x...',s:'....x.......x...',h:'..x...x...x...x.',b:[36,0,0,36,0,0,36,0,0,36,0,0,36,0,39,0],sy:[0,0,0,0,60,0,0,0,0,0,63,0,0,0,0,0]},
+ {n:'Kwas Smoka',k:'x...x...x...x...',s:'................',h:'xxxxxxxxxxxxxxxx',b:[36,36,48,36,39,36,46,36,36,48,36,41,36,43,36,48],sy:[]},
+ {n:'Breakbeat',k:'x.....x...x.....',s:'....x.......x..x',h:'x.x.x.x.x.x.x.x.',b:[41,0,0,41,0,0,0,44,0,0,41,0,0,0,39,0],sy:[65,0,0,0,0,0,68,0,0,0,0,0,72,0,0,0]},
+ {n:'House',k:'x...x...x...x...',s:'....x.......x...',h:'..x...x...x...x.',b:[0,0,43,0,0,0,43,0,0,0,43,0,0,0,46,0],sy:[67,0,0,70,0,0,74,0,0,0,0,0,0,0,0,0]},
+ {n:'Trans Neon',k:'x...x...x...x...',s:'........x.......',h:'..x...x...x...x.',b:[0,45,45,0,45,45,0,45,0,48,48,0,48,48,0,48],sy:[69,72,76,72,69,72,76,72,67,71,74,71,67,71,74,71]},
+ {n:'Dub Techno',k:'x...x...x...x...',s:'................',h:'..x...x...x...x.',b:[33,0,0,0,0,0,0,0,33,0,0,0,0,0,0,0],sy:[0,0,57,0,0,0,0,0,0,0,60,0,0,0,0,0]},
+ {n:'Hardgroove',k:'x..xx...x..xx..x',s:'....x.......x...',h:'.xxx.xxx.xxx.xxx',b:[38,0,38,0,0,38,0,50,38,0,0,38,0,41,0,0],sy:[]},
+ {n:'Electro',k:'x......x..x.....',s:'....x.......x...',h:'x.xxx.xxx.xxx.xx',b:[40,40,0,52,0,40,0,43,40,0,40,0,52,0,47,0],sy:[0,0,0,0,76,0,0,0,0,0,0,79,0,0,0,0]}];
+let ctx,master,an,recDest,noiseBuf,revBuf,bpm=128,step=0,bar=0,nextT=0,running=false,seqOn=true,autoOn=false,nextAuto=8;
+const seqRows=['KICK','SNARE','HAT','CLAP'],seq=seqRows.map(()=>Array(16).fill(0));
+function log(m){const l=$('#log');l.innerHTML=`[${new Date().toLocaleTimeString()}] ${m}<br>`+l.innerHTML}
+const mtof=m=>440*Math.pow(2,(m-69)/12);
+function distCurve(a){const c=new Float32Array(1024);for(let i=0;i<1024;i++){const x=i/512-1;c[i]=(1+a)*x/(1+a*Math.abs(x))}return c}
+function mkRev(){const L=ctx.sampleRate*2.5,b=ctx.createBuffer(2,L,ctx.sampleRate);for(let c=0;c<2;c++){const d=b.getChannelData(c);for(let i=0;i<L;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/L,3)}return b}
+class Deck{constructor(id){this.id=id;this.pat=id=='A'?0:3;this.pend=null;this.playing=false;
+ this.inp=ctx.createGain();this.ws=ctx.createWaveShaper();this.ws.oversample='2x';this.setDist(0);
+ this.flt=ctx.createBiquadFilter();this.flt.type='lowpass';this.flt.frequency.value=18000;this.flt.Q.value=6;
+ this.dl=ctx.createDelay(2);this.fb=ctx.createGain();this.fb.gain.value=.4;this.dSend=ctx.createGain();this.dSend.gain.value=0;
+ this.cv=ctx.createConvolver();this.cv.buffer=revBuf;this.rSend=ctx.createGain();this.rSend.gain.value=0;
+ this.vol=ctx.createGain();this.vol.gain.value=.8;this.xg=ctx.createGain();
+ this.inp.connect(this.ws).connect(this.flt).connect(this.vol);this.flt.connect(this.dSend).connect(this.dl).connect(this.fb).connect(this.dl);this.dl.connect(this.vol);
+ this.flt.connect(this.rSend).connect(this.cv).connect(this.vol);this.vol.connect(this.xg).connect(master);this.setDelayTime()}
+ setDist(a){this.ws.curve=a>0?distCurve(a*50):null}
+ setDelayTime(){this.dl.delayTime.value=60/bpm*.75}
+ sweep(){const f=this.flt.frequency,t=ctx.currentTime,d=60/bpm*8;f.cancelScheduledValues(t);f.setValueAtTime(18000,t);f.exponentialRampToValueAtTime(200,t+d/2);f.exponentialRampToValueAtTime(18000,t+d);log(`Deck ${this.id}: sweep filtra`)}
+ play(s,t){if(!this.playing)return;const p=PAT[this.pat];if(p.k[s]=='x')kick(this.inp,t);if(p.s[s]=='x')snare(this.inp,t);if(p.h[s]=='x')hat(this.inp,t,s%4==2?.35:.18);
+  if(p.b[s])bass(this.inp,t,p.b[s],this.pat==1);if(p.sy[s])synth(this.inp,t,p.sy[s])}}
+function env(g,t,a,v,d){g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+a);g.gain.exponentialRampToValueAtTime(.001,t+d)}
+function kick(o,t){const s=ctx.createOscillator(),g=ctx.createGain();s.frequency.setValueAtTime(150,t);s.frequency.exponentialRampToValueAtTime(45,t+.12);env(g,t,.002,1,.4);s.connect(g).connect(o);s.start(t);s.stop(t+.45)}
+function noise(o,t,type,f,v,d){const n=ctx.createBufferSource();n.buffer=noiseBuf;const fl=ctx.createBiquadFilter();fl.type=type;fl.frequency.value=f;const g=ctx.createGain();env(g,t,.001,v,d);n.connect(fl).connect(g).connect(o);n.start(t);n.stop(t+d+.05)}
+function snare(o,t){noise(o,t,'bandpass',1800,.6,.2);const s=ctx.createOscillator(),g=ctx.createGain();s.frequency.value=190;env(g,t,.001,.4,.1);s.connect(g).connect(o);s.start(t);s.stop(t+.15)}
+function hat(o,t,v){noise(o,t,'highpass',8000,v,.05)}
+function clap(o,t){for(let i=0;i<3;i++)noise(o,t+i*.01,'bandpass',1200,.4,.15)}
+function bass(o,t,m,acid){const s=ctx.createOscillator(),f=ctx.createBiquadFilter(),g=ctx.createGain(),d=60/bpm/4;s.type='sawtooth';s.frequency.value=mtof(m);f.type='lowpass';f.Q.value=acid?18:4;f.frequency.setValueAtTime(acid?2500:900,t);f.frequency.exponentialRampToValueAtTime(120,t+d);env(g,t,.003,.45,d*.95);s.connect(f).connect(g).connect(o);s.start(t);s.stop(t+d)}
+function synth(o,t,m){const d=60/bpm/2;[0,7].forEach((det,i)=>{const s=ctx.createOscillator(),g=ctx.createGain();s.type='square';s.frequency.value=mtof(m);s.detune.value=i?det:-det;env(g,t,.005,.08,d);s.connect(g).connect(o);s.start(t);s.stop(t+d+.05)})}
+let decks={},seqOut;
+function init(){ctx=new (window.AudioContext||window.webkitAudioContext)();master=ctx.createGain();master.gain.value=.8;an=ctx.createAnalyser();recDest=ctx.createMediaStreamDestination();master.connect(an).connect(ctx.destination);master.connect(recDest);
+ noiseBuf=ctx.createBuffer(1,ctx.sampleRate,ctx.sampleRate);const d=noiseBuf.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;revBuf=mkRev();
+ seqOut=ctx.createGain();seqOut.gain.value=.7;seqOut.connect(master);
+ decks.A=new Deck('A');decks.B=new Deck('B');setXf(.5);buildDecks();nextT=ctx.currentTime+.1;running=true;setInterval(sched,25);drawScope();log('Audio uruchomione. Smok się budzi 🐉')}
+function sched(){while(nextT<ctx.currentTime+.12){if(step==0){for(const k in decks){const dk=decks[k];if(dk.pend!==null){dk.pat=dk.pend;dk.pend=null;log(`Deck ${k}: wzorzec → ${PAT[dk.pat].n}`);updDeckUI()}}if(autoOn&&bar>=nextAuto)autoDJ()}
+ for(const k in decks)decks[k].play(step,nextT);
+ if(seqOn){if(seq[0][step])kick(seqOut,nextT);if(seq[1][step])snare(seqOut,nextT);if(seq[2][step])hat(seqOut,nextT,.25);if(seq[3][step])clap(seqOut,nextT)}
+ const s=step,dt=(nextT-ctx.currentTime)*1000;setTimeout(()=>ui(s),Math.max(0,dt));
+ nextT+=60/bpm/4;step=(step+1)%16;if(step==0){bar++}}}
+function ui(s){document.querySelectorAll('.cell.cur').forEach(c=>c.classList.remove('cur'));document.querySelectorAll(`.cell[data-s="${s}"]`).forEach(c=>c.classList.add('cur'));
+ document.querySelectorAll('#beat span').forEach((b,i)=>b.classList.toggle('on',Math.floor(s/4)==i));$('#bar').textContent=bar}
+function setXf(v){const a=Math.cos(v*Math.PI/2),b=Math.cos((1-v)*Math.PI/2);if(decks.A){decks.A.xg.gain.setTargetAtTime(a,ctx.currentTime,.02);decks.B.xg.gain.setTargetAtTime(b,ctx.currentTime,.02)}}
+function setBpm(v){bpm=Math.max(80,Math.min(180,Math.round(v)));$('#bpm').value=bpm;$('#bpmv').textContent=bpm;for(const k in decks)decks[k].setDelayTime()}
+function buildDecks(){const c=$('#decks');c.innerHTML='';for(const k of ['A','B']){const p=document.createElement('div');p.className='panel';p.innerHTML=`<h2>DECK ${k}</h2><div class="pats">${PAT.map((x,i)=>`<button data-deck="${k}" data-pat="${i}" data-ctl="pat${k}${i}">${x.n}</button>`).join('')}</div>
+<button id="play${k}" data-ctl="play${k}">▶ GRAJ / ⏹ STOP</button>
+<label>Głośność</label><input type="range" min="0" max="1" step="0.01" value="0.8" id="vol${k}" data-ctl="vol${k}">
+<label>Filtr LP</label><input type="range" min="0" max="1" step="0.001" value="1" id="flt${k}" data-ctl="flt${k}"><button id="sw${k}" data-ctl="sw${k}">SWEEP</button>
+<label>Delay</label><input type="range" min="0" max="1" step="0.01" value="0" id="del${k}" data-ctl="del${k}">
+<label>Pogłos</label><input type="range" min="0" max="1" step="0.01" value="0" id="rev${k}" data-ctl="rev${k}">
+<label>Przester</label><input type="range" min="0" max="1" step="0.01" value="0" id="dis${k}" data-ctl="dis${k}">`;c.appendChild(p);
+ const d=decks[k];p.querySelectorAll('[data-pat]').forEach(b=>b.onclick=()=>{d.pend=+b.dataset.pat;if(!d.playing){d.pat=d.pend;d.pend=null}updDeckUI()});
+ $('#play'+k).onclick=()=>{d.playing=!d.playing;updDeckUI();log(`Deck ${k}: ${d.playing?'GRA':'STOP'}`)};
+ $('#sw'+k).onclick=()=>d.sweep();
+ $('#vol'+k).oninput=e=>d.vol.gain.setTargetAtTime(+e.target.value,ctx.currentTime,.02);
+ $('#flt'+k).oninput=e=>d.flt.frequency.setTargetAtTime(80*Math.pow(225,+e.target.value),ctx.currentTime,.02);
+ $('#del'+k).oninput=e=>d.dSend.gain.setTargetAtTime(+e.target.value*.7,ctx.currentTime,.02);
+ $('#rev'+k).oninput=e=>d.rSend.gain.setTargetAtTime(+e.target.value,ctx.currentTime,.02);
+ $('#dis'+k).oninput=e=>d.setDist(+e.target.value)}updDeckUI();bindLearn()}
+function updDeckUI(){for(const k in decks){const d=decks[k];document.querySelectorAll(`[data-deck="${k}"]`).forEach(b=>{b.classList.toggle('on',+b.dataset.pat==d.pat);b.classList.toggle('pend',+b.dataset.pat===d.pend)});$('#play'+k).classList.toggle('on',d.playing)}}
+function setCtl(id,v){const el=document.getElementById(id);if(!el)return;el.value=v;el.dispatchEvent(new Event('input'))}
+// AUTO DJ
+let xfAnim=null;
+function autoDJ(){const A=decks.A,B=decks.B;if(!A.playing&&!B.playing){A.playing=true}
+ const BOT=activeBot();const xf=+$('#xf').value,target=xf<.5?'B':'A',other=target=='A'?'B':'A',T=decks[target];
+ {const pool=BOT.pool.length?BOT.pool:PAT.map((_,i)=>i);T.pat=pool[Math.floor(Math.random()*pool.length)]};T.playing=true;
+ ['del','rev','dis'].forEach(f=>{const I=BOT.fx/100;setCtl(f+target,(Math.random()<.2+.5*I?Math.random()*I*(f=='dis'?.6:.8):0).toFixed(2))});setCtl('flt'+target,1);
+ if(Math.random()<.2+.5*BOT.fx/100)decks[other].sweep();
+ const dur=60/bpm*4*BOT.xfBars,t0=performance.now(),from=xf,to=target=='B'?1:0;clearInterval(xfAnim);
+ xfAnim=setInterval(()=>{const p=Math.min(1,(performance.now()-t0)/(dur*1000));setCtl('xf',from+(to-from)*p);if(p>=1)clearInterval(xfAnim)},50);
+ if(bpm<BOT.bpmMin||bpm>BOT.bpmMax)setBpm(BOT.bpmMin+Math.random()*(BOT.bpmMax-BOT.bpmMin));else if(Math.random()<.3)setBpm(Math.max(BOT.bpmMin,Math.min(BOT.bpmMax,bpm+(Math.random()<.5?-2:2))));
+ nextAuto=bar+BOT.iMin+Math.floor(Math.random()*(BOT.iMax-BOT.iMin+1));updDeckUI();log(`🤖 ${BOT.name}: Deck ${target} → ${PAT[T.pat].n}, crossfade ${BOT.xfBars} takty, następna zmiana w takcie ${nextAuto}`)}
+// grid
+function buildGrid(){const g=$('#grid');seqRows.forEach((r,ri)=>{const l=document.createElement('div');l.textContent=r;l.style.color='#0ff';g.appendChild(l);for(let s=0;s<16;s++){const c=document.createElement('div');c.className='cell';c.dataset.s=s;c.dataset.ctl=`seq${ri}_${s}`;c.onclick=()=>{seq[ri][s]^=1;c.classList.toggle('a',!!seq[ri][s])};g.appendChild(c)}})}
+// MIDI
+let map=JSON.parse(localStorage.getItem('sgMidi')||'null')||defMap(),learn=false,learnTarget=null;
+function defMap(){const m={};for(let i=0;i<6;i++){m['n'+(36+i)]='patA'+i;m['n'+(42+i)]='patB'+i}m.n48='playA';m.n49='playB';m.c1='volA';m.c2='volB';m.c3='fltA';m.c4='fltB';m.c5='delA';m.c6='delB';m.c7='revA';m.c8='revB';m.c10='xf';return m}
+function bindLearn(){document.querySelectorAll('[data-ctl]').forEach(el=>{el.addEventListener('pointerdown',e=>{if(!learn)return;document.querySelectorAll('.learn').forEach(x=>x.classList.remove('learn'));learnTarget=el.dataset.ctl;el.classList.add('learn')},true)})}
+function ctlEl(id){return document.querySelector(`[data-ctl="${id}"]`)}
+function onMidi(ev){const [st,d1,d2]=ev.data,cmd=st&0xf0;let key=null,val=0;if(cmd==0x90&&d2>0){key='n'+d1;val=1}else if(cmd==0xB0){key='c'+d1;val=d2/127}else if(cmd==0xF8)return;if(!key)return;
+ $('#midiSt').textContent=`MIDI: ${key} = ${d2}`;
+ if(learn&&learnTarget){map[key]=learnTarget;localStorage.setItem('sgMidi',JSON.stringify(map));log(`MIDI LEARN: ${key} → ${learnTarget}`);document.querySelectorAll('.learn').forEach(x=>x.classList.remove('learn'));learnTarget=null;return}
+ const id=map[key];if(!id)return;const el=ctlEl(id);if(!el)return;
+ if(el.type=='range'){const mn=+el.min,mx=+el.max;el.value=key[0]=='n'?mx:mn+(mx-mn)*val;el.dispatchEvent(new Event('input'))}else if(key[0]=='n'||val>.5)el.click()}
+$('#midiBtn').onclick=async()=>{if(!navigator.requestMIDIAccess){$('#midiSt').textContent='Brak Web MIDI w tej przeglądarce';return}try{const m=await navigator.requestMIDIAccess();const hook=()=>{const ins=[...m.inputs.values()];ins.forEach(i=>i.onmidimessage=onMidi);$('#midiSt').textContent='MIDI wejścia: '+(ins.map(i=>i.name).join(', ')||'brak')};hook();m.onstatechange=hook}catch(e){$('#midiSt').textContent='MIDI odmowa: '+e.message}};
+$('#learnBtn').onclick=()=>{learn=!learn;$('#learnBtn').classList.toggle('on',learn);if(!learn)document.querySelectorAll('.learn').forEach(x=>x.classList.remove('learn'))};
+$('#clrMap').onclick=()=>{map=defMap();localStorage.removeItem('sgMidi');log('Mapa MIDI zresetowana')};
+// Recording
+let mr,chunks=[];
+$('#rec').onclick=()=>{if(!ctx)return;chunks=[];mr=new MediaRecorder(recDest.stream);mr.ondataavailable=e=>chunks.push(e.data);mr.onstop=async()=>{const blob=new Blob(chunks,{type:mr.mimeType||'audio/webm'});const u=URL.createObjectURL(blob);const ts=Date.now();$('#dl').innerHTML=`<a style="color:#0ff" download="supergall-${ts}.webm" href="${u}">⬇ WebM</a> `;
+ try{const ab=await ctx.decodeAudioData(await blob.arrayBuffer());$('#dl').innerHTML+=`<a style="color:#f0f" download="supergall-${ts}.wav" href="${URL.createObjectURL(wav(ab))}">⬇ WAV</a>`}catch(e){$('#dl').innerHTML+=' (WAV niedostępny: '+e.message+')'}};mr.start();$('#rec').classList.add('on');$('#stopRec').disabled=false;log('⏺ Nagrywanie...')};
+$('#stopRec').onclick=()=>{mr.stop();$('#rec').classList.remove('on');$('#stopRec').disabled=true;log('⏹ Nagranie gotowe')};
+function wav(b){const ch=b.numberOfChannels,len=b.length*ch*2+44,v=new DataView(new ArrayBuffer(len));let o=0;const ws=s=>{for(const c of s)v.setUint8(o++,c.charCodeAt(0))},u32=x=>{v.setUint32(o,x,true);o+=4},u16=x=>{v.setUint16(o,x,true);o+=2};
+ ws('RIFF');u32(len-8);ws('WAVEfmt ');u32(16);u16(1);u16(ch);u32(b.sampleRate);u32(b.sampleRate*ch*2);u16(ch*2);u16(16);ws('data');u32(len-44);const cs=[...Array(ch)].map((_,i)=>b.getChannelData(i));
+ for(let i=0;i<b.length;i++)for(let c=0;c<ch;c++){const s=Math.max(-1,Math.min(1,cs[c][i]));v.setInt16(o,s*32767,true);o+=2}return new Blob([v],{type:'audio/wav'})}
+function drawScope(){const c=$('#scope'),g=c.getContext('2d'),d=new Uint8Array(an.fftSize);(function f(){an.getByteTimeDomainData(d);g.fillStyle='#000';g.fillRect(0,0,c.width,c.height);g.strokeStyle='#f0f';g.shadowColor='#0ff';g.shadowBlur=6;g.beginPath();for(let i=0;i<d.length;i+=4){const x=i/d.length*c.width,y=d[i]/255*c.height;i?g.lineTo(x,y):g.moveTo(x,y)}g.stroke();requestAnimationFrame(f)})()}
+// globals
+let taps=[];
+$('#start').onclick=()=>{if(!ctx){init();decks.A.playing=true;updDeckUI();$('#start').textContent='🐉 AUDIO AKTYWNE'}else ctx.resume()};
+$('#bpm').oninput=e=>setBpm(+e.target.value);
+$('#tap').onclick=()=>{const n=performance.now();taps=taps.filter(t=>n-t<2000);taps.push(n);if(taps.length>1){const iv=(taps[taps.length-1]-taps[0])/(taps.length-1);setBpm(60000/iv);log('TAP: '+bpm+' BPM')}};
+$('#xf').oninput=e=>setXf(+e.target.value);$('#master').oninput=e=>{if(master)master.gain.value=+e.target.value};
+$('#auto').onclick=()=>{autoOn=!autoOn;$('#auto').classList.toggle('on',autoOn);nextAuto=bar+1;log('🤖 AUTO DJ '+(autoOn?'WŁĄCZONY':'WYŁĄCZONY'))};
+$('#seqOn').onclick=()=>{seqOn=!seqOn;$('#seqOn').classList.toggle('on',seqOn)};$('#seqOn').classList.add('on');
+$('#seqClr').onclick=()=>{seq.forEach(r=>r.fill(0));document.querySelectorAll('.cell.a').forEach(c=>c.classList.remove('a'))};
+buildGrid();bindLearn();
+
+// ===== BOT BUILDER =====
+const STYLE_POOL={Techno:[0,5,6],Acid:[1,6,0],House:[3,4,0],Trance:[4,3,0],Dub:[5,0,3],Breaks:[2,7,1],Hard:[6,1,0],Electro:[7,2,1],Mix:[0,1,2,3,4,5,6,7]};
+const DEFBOT={id:'default',name:'Domyślny Smok',style:'Mix',bpmMin:120,bpmMax:140,pool:[0,1,2,3,4,5,6,7],fx:50,iMin:8,iMax:16,xfBars:4,midi:null};
+let bots=JSON.parse(localStorage.getItem('sgBots')||'null')||[DEFBOT,
+ {id:'acid',name:'Kwasowy Smok',style:'Acid',bpmMin:130,bpmMax:145,pool:[1,6,0],fx:80,iMin:8,iMax:12,xfBars:2,midi:null},
+ {id:'dub',name:'Głęboki Dub',style:'Dub',bpmMin:110,bpmMax:122,pool:[5,0,3],fx:70,iMin:12,iMax:16,xfBars:8,midi:null}];
+let actId=localStorage.getItem('sgActBot')||'default',editId=null;
+function saveBots(){localStorage.setItem('sgBots',JSON.stringify(bots));localStorage.setItem('sgActBot',actId)}
+function norm(b){const c=(v,a,z,d)=>{v=+v;return isFinite(v)?Math.max(a,Math.min(z,Math.round(v))):d};const o={id:String(b.id||('b'+Date.now()+Math.random().toString(36).slice(2,6))),name:String(b.name||'Bot').slice(0,40),style:String(b.style||'Mix'),
+ bpmMin:c(b.bpmMin,80,180,120),bpmMax:c(b.bpmMax,80,180,140),pool:(Array.isArray(b.pool)?b.pool:[]).map(Number).filter(i=>i>=0&&i<PAT.length),fx:c(b.fx,0,100,50),iMin:c(b.iMin,1,64,8),iMax:c(b.iMax,1,64,16),xfBars:c(b.xfBars,1,16,4),midi:b.midi&&typeof b.midi=='object'?b.midi:null};
+ if(o.bpmMax<o.bpmMin)[o.bpmMin,o.bpmMax]=[o.bpmMax,o.bpmMin];if(o.iMax<o.iMin)[o.iMin,o.iMax]=[o.iMax,o.iMin];return o}
+bots=bots.map(norm);
+function activeBot(){return bots.find(b=>b.id==actId)||bots[0]||norm(DEFBOT)}
+function esc(t){return String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function renderBots(){$('#bList').innerHTML=bots.map(b=>`<div class="bot ${b.id==actId?'act':''}"><b>${esc(b.name)}</b> · ${esc(b.style)} · ${b.bpmMin}-${b.bpmMax} BPM · FX ${b.fx}% · co ${b.iMin}-${b.iMax} taktów${b.midi?' · 🎹MIDI':''}<br>
+<button data-run="${esc(b.id)}">▶ URUCHOM</button><button data-edit="${esc(b.id)}">✎ EDYTUJ</button><button data-dup="${esc(b.id)}">⧉</button><button data-del="${esc(b.id)}">🗑</button></div>`).join('');$('#actBot').textContent='Bot: '+activeBot().name}
+function fillEditor(b){editId=b?b.id:null;b=b||norm({name:'Nowy Smok'});$('#bName').value=b.name;$('#bStyle').value=b.style;$('#bMin').value=b.bpmMin;$('#bMax').value=b.bpmMax;$('#bFx').value=b.fx;$('#bFxV').textContent=b.fx;$('#bIMin').value=b.iMin;$('#bIMax').value=b.iMax;$('#bXf').value=b.xfBars;
+ document.querySelectorAll('#bPool input').forEach(c=>c.checked=b.pool.includes(+c.value))}
+$('#bPool').innerHTML=PAT.map((p,i)=>`<label><input type="checkbox" value="${i}" checked>${p.n}</label>`).join('');
+$('#bFx').oninput=e=>$('#bFxV').textContent=e.target.value;
+$('#bStyleFill').onclick=()=>{const p=STYLE_POOL[$('#bStyle').value]||[];document.querySelectorAll('#bPool input').forEach(c=>c.checked=p.includes(+c.value))};
+$('#bNew').onclick=()=>fillEditor(null);
+$('#bSave').onclick=()=>{const old=bots.find(b=>b.id==editId);const b=norm({id:editId||undefined,name:$('#bName').value,style:$('#bStyle').value,bpmMin:$('#bMin').value,bpmMax:$('#bMax').value,fx:$('#bFx').value,iMin:$('#bIMin').value,iMax:$('#bIMax').value,xfBars:$('#bXf').value,
+ pool:[...document.querySelectorAll('#bPool input:checked')].map(c=>+c.value),midi:$('#bMidi').checked?JSON.parse(JSON.stringify(map)):(old?old.midi:null)});
+ if(old)bots[bots.indexOf(old)]=b;else bots.push(b);editId=b.id;saveBots();renderBots();log('💾 Zapisano bota: '+b.name)};
+function runBot(id){actId=id;const b=activeBot();saveBots();if(b.midi){map=Object.assign({},b.midi);localStorage.setItem('sgMidi',JSON.stringify(map))}
+ if(!ctx){init();decks.A.playing=true;$('#start').textContent='🐉 AUDIO AKTYWNE'}else ctx.resume();
+ if(bpm<b.bpmMin||bpm>b.bpmMax)setBpm((b.bpmMin+b.bpmMax)/2);autoOn=true;$('#auto').classList.add('on');nextAuto=bar+1;updDeckUI();renderBots();log('🤖 Uruchomiono bota: '+b.name);showTab('main')}
+$('#bList').onclick=e=>{const t=e.target.dataset;if(t.run)runBot(t.run);else if(t.edit)fillEditor(bots.find(b=>b.id==t.edit));
+ else if(t.dup){const b=bots.find(x=>x.id==t.dup);bots.push(norm(Object.assign({},b,{id:null,name:b.name+' (kopia)'})));saveBots();renderBots()}
+ else if(t.del){if(bots.length<2)return alert('Musi zostać przynajmniej jeden bot');if(!confirm('Usunąć bota?'))return;bots=bots.filter(b=>b.id!=t.del);if(actId==t.del)actId=bots[0].id;saveBots();renderBots()}};
+$('#bExport').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({app:'SuperGAll PRO DJ Bot Builder',version:1,bots},null,2)],{type:'application/json'}));a.download='supergall-boty.json';a.click()};
+$('#bImp').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const j=JSON.parse(await f.text());const arr=Array.isArray(j)?j:(j.bots||[j]);let n=0;arr.forEach(x=>{const b=norm(x);const i=bots.findIndex(y=>y.id==b.id);if(i>=0)bots[i]=b;else bots.push(b);n++});saveBots();renderBots();log(`⬆ Zaimportowano ${n} botów`)}catch(err){alert('Błędny JSON: '+err.message)}e.target.value=''};
+function showTab(t){document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.tab==t));$('#tab-main').style.display=t=='main'?'':'none';$('#tab-builder').style.display=t=='builder'?'':'none'}
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
+renderBots();fillEditor(activeBot());
+// PWA
+let deferred;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e;$('#install').style.display=''});
+$('#install').onclick=async()=>{if(deferred){deferred.prompt();deferred=null;$('#install').style.display='none'}};
+if('serviceWorker' in navigator&&location.protocol!='file:')navigator.serviceWorker.register('sw.js').catch(e=>console.warn('SW',e));
+</script></body></html>
