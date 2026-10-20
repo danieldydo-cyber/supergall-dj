@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Super Web Bot G · Super G App v2.1</title><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#ff00ff"><link rel="icon" href="icon.svg"><link rel="apple-touch-icon" href="icon-192.png">
+<title>Super Web Bot G · Super G App v2.2</title><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#ff00ff"><link rel="icon" href="icon.svg"><link rel="apple-touch-icon" href="icon-192.png">
 <style>
 :root{--n:#0ff;--m:#f0f;--g:#39ff14;--bg:#07040d}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#2a0636,#07040d 60%);color:#ddd;font-family:'Courier New',monospace}
@@ -22,7 +22,7 @@ label{display:block;font-size:.85em;margin-top:4px}input[type=range]{width:100%;
 canvas{width:100%;height:60px;background:#000;border:1px solid #0ff4}
 #auto.on{animation:p 1s infinite}@keyframes p{50%{box-shadow:0 0 25px var(--m)}}
 </style></head><body>
-<h1>🐉 Super <span>G</span> App <small style="font-size:.4em">v2.1 · Super Web Bot G</small> 🐉</h1><div class="sub">Techno · Smoczy Neon · Web Audio · <span id="actBot">Bot: domyślny</span> <button id="install" style="display:none">📲 Zainstaluj</button> <button id="proBtn">👑 PRO</button> <button id="supBtn">💚 Wesprzyj</button> <button id="pilotBtn">📱 PILOT</button></div>
+<h1>🐉 Super <span>G</span> App <small style="font-size:.4em">v2.2 · Super Web Bot G</small> 🐉</h1><div class="sub">Techno · Smoczy Neon · Web Audio · <span id="actBot">Bot: domyślny</span> <button id="install" style="display:none">📲 Zainstaluj</button> <button id="proBtn">👑 PRO</button> <button id="supBtn">💚 Wesprzyj</button> <button id="pilotBtn">📱 PILOT</button></div>
 <div id="pay" style="display:none;position:fixed;inset:0;background:#000c;z-index:99;overflow:auto"><div class="panel" style="max-width:520px;margin:40px auto;text-align:center">
 <h2 style="font-size:1.6em" id="payTitle">👑 SUPER G APP PRO 🐉</h2><div id="payMsg" style="color:#39ff14"></div>
 <p>Odblokuj wszystko: <b>Deck B</b>, <b>wszystkie 8 wzorców</b>, <b>Kreator Botów</b>, <b>nagrywanie WAV/WebM</b>, <b>MIDI (Roland MC-707)</b>, pełny AUTO DJ.</p>
@@ -47,7 +47,7 @@ button,select{touch-action:manipulation}
  #grid{grid-template-columns:52px repeat(16,minmax(16px,1fr));gap:2px}.cell{height:34px}.pats button{width:calc(50% - 6px)}#pads{grid-template-columns:repeat(4,1fr)}.pad{height:80px}
  .card{width:calc(50% - 12px)}#gCmd{width:100%}#dxfFrame{height:72vh!important}}
 .payBox{border:1px dashed #0ff;padding:10px;border-radius:8px;margin:6px 0}.card{display:inline-block;width:200px;margin:5px;padding:8px;border:1px solid #f0f6;border-radius:8px;vertical-align:top;text-align:left;background:#0b0614}.badge{font-size:.75em;padding:1px 6px;border-radius:8px;background:#39ff14;color:#000}.badge.off{background:#555;color:#ddd}#gLog{height:260px;overflow:auto;font-size:.85em;color:#39ff14;background:#000;border:1px solid #0ff4;padding:6px;text-align:left}#gCmd{width:70%}.locked{opacity:.4;position:relative}.lockt::after{content:" 🔒"}#proBtn.on{background:#ffd700;color:#000;border-color:#ffd700}</style>
-<div class="row tabs-sticky"><button class="tab on" data-tab="main">🎛 PANEL DJ</button><button class="tab" data-tab="builder">🤖 KREATOR BOTÓW</button><button class="tab" data-tab="viz">🌌 WIZUALIZER</button><button class="tab" data-tab="botg">🐲 BOT G</button><button class="tab" data-tab="siec">🕸 SIEĆ BOTÓW</button><button class="tab" data-tab="dxf">🎹 DXF / MC-707</button><button class="tab" id="payTab">💳 PŁATNOŚCI</button></div>
+<div class="row tabs-sticky"><button class="tab on" data-tab="main">🎛 PANEL DJ</button><button class="tab" data-tab="builder">🤖 KREATOR BOTÓW</button><button class="tab" data-tab="viz">🌌 WIZUALIZER</button><button class="tab" data-tab="botg">🐲 BOT G</button><button class="tab" data-tab="siec">🕸 SIEĆ BOTÓW</button><button class="tab" data-tab="dev">🔌 URZĄDZENIA</button><button class="tab" data-tab="lab">✂ SAMPLE LAB</button><button class="tab" data-tab="dxf">🎹 DXF / MC-707</button><button class="tab" id="payTab">💳 PŁATNOŚCI</button></div>
 <div id="tab-builder" style="display:none"><div class="row"><div class="panel" style="max-width:520px;flex:1"><h2>EDYTOR BOTA</h2>
 <label>Nazwa</label><input id="bName" value="Mój Smok">
 <label>Styl</label><select id="bStyle"><option>Techno</option><option>Acid</option><option>House</option><option>Trance</option><option>Dub</option><option>Breaks</option><option>Hard</option><option>Electro</option><option>Minimal</option><option>Psytrance</option><option>DnB</option><option>Hardstyle</option><option>Lofi</option><option>Afro</option><option>Industrial</option><option>Melodic</option><option>Mix</option></select>
@@ -80,6 +80,30 @@ button,select{touch-action:manipulation}
 <button data-g="graj techno 140">graj techno 140</button><button data-g="graj house 124">graj house 124</button><button data-g="nowy bot">🎲 nowy bot</button><button data-g="build">⬆ build</button><button data-g="drop">💥 drop</button><button data-g="breakdown">⬇ breakdown</button><button data-g="autopilot wł">✈ autopilot</button><button data-g="dxf radio">📻 dxf radio</button><button data-g="stop">⏹ stop</button></div>
 <div id="pLog" style="font-size:.8em;color:#39ff14;height:60px;overflow:auto"></div></div>
 <style>.pil-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0}.pil-row button{flex:1 1 auto;min-height:56px;font-size:1.05em}#pPads .pad{height:90px;font-size:1em}</style>
+<div id="tab-dev" style="display:none"><div class="row"><div class="panel" style="flex:1;max-width:1100px">
+<h2>🔌 URZĄDZENIA · MC-707 · MPC One · Circuit Rhythm</h2>
+<div class="kv"><button id="devMidi">🎹 Włącz MIDI</button><label>Źródło zegara (jeden master) <select id="clkSrc"><option value="app">APLIKACJA = master → wysyła zegar do urządzeń</option><option value="mc707">Roland MC-707 = master</option><option value="mpc">Akai MPC One = master</option><option value="circ">Circuit Rhythm = master</option><option value="off">zegar wyłączony</option></select></label></div>
+<div id="devCards"></div>
+<h2 style="margin-top:10px">🟪 Novation Circuit Rhythm – 8 ścieżek</h2>
+<div class="kv"><label>Kanały ścieżek 1–8 <input id="crCh" value="1,2,3,4,5,6,7,8" style="width:150px"></label><label>Nuta wyzwalania <input id="crNote" type="number" value="60" min="0" max="127" style="width:60px"></label>
+<label>Makra CC (8) <input id="crMacro" value="" placeholder="np. 80,81,82,83,84,85,86,87" style="width:200px"></label>
+<label><input type="checkbox" id="crIn" checked> Ścieżki z Circuit → pady aplikacji (1–8)</label><label><input type="checkbox" id="crSeq"> Sekwencer aplikacji → ścieżki 1–4 Circuit</label></div>
+<div id="crTracks" style="display:grid;grid-template-columns:repeat(8,1fr);gap:6px"></div>
+<div style="font-size:.8em;color:#888">Kanały/nuty ustawiasz zgodnie z konfiguracją MIDI Circuit Rhythm (domyślnie ścieżki na kanałach 1–8). Makra: wpisz numery CC albo użyj MIDI LEARN (kliknij MIDI LEARN → kontrolkę → pokręć makro). Bez SysEx – tylko standardowe nuty, CC, zegar i transport.</div>
+<h2 style="margin-top:10px">〰 AUTOMATYKA (ścieżki CC / gałek)</h2>
+<div class="kv"><button id="auRec">⏺ NAGRYWAJ</button><button id="auPlay">▶ ODTWARZAJ</button><button id="auClr">🗑 WYCZYŚĆ WSZYSTKO</button><label>Pętla <select id="auLen"><option>1</option><option>2</option><option selected>4</option><option>8</option><option>16</option></select> takty</label><label><input type="checkbox" id="auDev" checked> nagrywaj też CC z urządzeń</label></div>
+<div id="auLanes" style="font-size:.85em"></div>
+<div style="font-size:.8em;color:#888">⚠ Web MIDI działa w Chrome (komputer / Android + USB OTG), nie w aplikacji APK (WebView).</div></div></div></div>
+<div id="tab-lab" style="display:none"><div class="row"><div class="panel" style="flex:1;max-width:1100px">
+<h2>✂ SAMPLE LAB – przygotowanie sampli</h2>
+<div class="kv"><button id="labLoad">📂 Wczytaj WAV/MP3</button><input type="file" id="labFile" accept="audio/*,.wav,.mp3" style="display:none"><b id="labInfo">brak pliku</b></div>
+<canvas id="labWave" width="1000" height="160" style="height:auto"></canvas>
+<div class="kv"><label>Początek <input type="range" id="labS" min="0" max="1" step="0.001" value="0" style="width:220px"></label><label>Koniec <input type="range" id="labE" min="0" max="1" step="0.001" value="1" style="width:220px"></label>
+<button id="labTrim">✂ PRZYTNIJ</button><button id="labNorm">📈 NORMALIZUJ</button><button id="labPlay">▶ ODSŁUCHAJ</button><button id="labUndo">↶ COFNIJ</button></div>
+<div class="kv"><label>Pocięcie na <select id="labN"><option>1</option><option>2</option><option>4</option><option selected>8</option><option>16</option></select> części</label><button id="labChop">🔪 POTNIJ</button><span id="labSlices"></span></div>
+<div class="kv"><label><input type="checkbox" id="labMono" checked> mono (zalecane dla Circuit Rhythm)</label>
+<button id="labExC">⬇ EKSPORT CIRCUIT RHYTHM (WAV 48 kHz 16-bit)</button><button id="labExM">⬇ EKSPORT MPC (WAV 44,1 kHz 16-bit stereo)</button><label>Na pad <select id="labPad"></select></label><button id="labToPad">→ SAMPLE PAD</button></div>
+<div style="font-size:.8em;color:#888">Circuit Rhythm: wgraj wyeksportowane pliki przez <a href="https://components.novationmusic.com" target="_blank" rel="noopener" style="color:#0ff">Novation Components</a> (Chrome). MPC One: skopiuj pliki na kartę SD/USB lub przez MPC Software. Gdy są części – eksportowane są wszystkie jako osobne pliki NAZWA_01.wav …</div></div></div></div>
 <div id="tab-main">
 <div class="row"><div class="panel" style="text-align:center">
 <button id="start">▶ URUCHOM AUDIO</button>
@@ -98,7 +122,7 @@ button,select{touch-action:manipulation}
 <div class="row"><div class="panel" style="flex:1;max-width:900px"><h2>🎛 AKAI MPC ONE · MIDI SYNC</h2>
 <div id="mpcSt" style="color:#39ff14">MPC: niepołączone – kliknij „Włącz MIDI”</div>
 <div class="kv"><label>Wyjście MIDI <select id="mpcOut"><option value="">— brak —</option></select></label>
-<label>Zegar <select id="mpcClock"><option value="master">MASTER (aplikacja wysyła zegar 24ppq)</option><option value="slave">SLAVE (podąża za zegarem MPC)</option><option value="off">wyłączony</option></select></label>
+<label style="display:none">Zegar <select id="mpcClock"><option value="master">MASTER (aplikacja wysyła zegar 24ppq)</option><option value="slave">SLAVE (podąża za zegarem MPC)</option><option value="off">wyłączony</option></select></label>
 <label>Pady MPC od nuty <input id="mpcBase" type="number" value="37" min="0" max="112" style="width:60px"></label><label>Q-Link od CC <input id="mpcCC" type="number" value="16" min="0" max="112" style="width:60px"></label>
 <button id="mpcMap">⤵ Zastosuj mapę MPC</button></div>
 <div><button id="trStart">▶ START</button><button id="trCont">⏯ CONTINUE</button><button id="trStop">⏹ STOP</button>
@@ -251,7 +275,7 @@ function codeFor(email){const h=hmac(SGM_SECRET,email.trim().toLowerCase());cons
 function checkCode(email,code){return !!email&&codeFor(email)===String(code).trim().toUpperCase().replace(/\s/g,'')}
 let PRO=false;try{const p=JSON.parse(localStorage.getItem('sgmPro')||'null');PRO=!!p&&checkCode(p.email,p.code)}catch(e){}
 function paywall(msg){$('#payMsg').textContent=msg||'';$('#pay').style.display='block'}
-function lockedEl(el){if(PRO||!el)return false;const d=el.dataset||{};if(d.deck=='B')return true;if(d.pat!==undefined&&+d.pat>=3)return true;if(d.tab=='builder'||d.tab=='botg')return true;
+function lockedEl(el){if(PRO||!el)return false;const d=el.dataset||{};if(d.deck=='B')return true;if(d.pat!==undefined&&+d.pat>=3)return true;if(d.tab=='builder'||d.tab=='botg'||d.tab=='lab')return true;
  if(d.pad!==undefined||d.pl!==undefined||d.px!==undefined)return true;return ['smart','padLoad','vizFs','bGen','playB','swB','rec','stopRec','midiBtn','learnBtn','clrMap'].includes(el.id)||(d.run!==undefined)}
 document.addEventListener('click',e=>{const el=e.target.closest('button,[data-ctl],.tab');if(el&&!el.closest('#pay')&&lockedEl(el)){e.preventDefault();e.stopImmediatePropagation();paywall('🔒 Ta funkcja jest dostępna w wersji PRO')}},true);
 function applyLocks(){document.querySelectorAll('button').forEach(b=>b.classList.toggle('lockt',lockedEl(b)));['volB','fltB','delB','revB','disB'].forEach(id=>{const el=document.getElementById(id);if(el)el.disabled=!PRO});
@@ -297,9 +321,9 @@ function runBot(id){actId=id;const b=activeBot();saveBots();if(b.midi){map=Objec
 $('#bList').onclick=e=>{const t=e.target.dataset;if(t.run)runBot(t.run);else if(t.edit)fillEditor(bots.find(b=>b.id==t.edit));
  else if(t.dup){const b=bots.find(x=>x.id==t.dup);bots.push(norm(Object.assign({},b,{id:null,name:b.name+' (kopia)'})));saveBots();renderBots()}
  else if(t.del){if(bots.length<2)return alert('Musi zostać przynajmniej jeden bot');if(!confirm('Usunąć bota?'))return;bots=bots.filter(b=>b.id!=t.del);if(actId==t.del)actId=bots[0].id;saveBots();renderBots()}};
-$('#bExport').onclick=()=>saveBlob(new Blob([JSON.stringify({app:'Super G App',version:2.1,bots},null,2)],{type:'application/json'}),'supergapp-boty.json');
+$('#bExport').onclick=()=>saveBlob(new Blob([JSON.stringify({app:'Super G App',version:2.2,bots},null,2)],{type:'application/json'}),'supergapp-boty.json');
 $('#bImp').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const j=JSON.parse(await f.text());const arr=Array.isArray(j)?j:(j.bots||[j]);let n=0;arr.forEach(x=>{const b=norm(x);const i=bots.findIndex(y=>y.id==b.id);if(i>=0)bots[i]=b;else bots.push(b);n++});saveBots();renderBots();log(`⬆ Zaimportowano ${n} botów`)}catch(err){alert('Błędny JSON: '+err.message)}e.target.value=''};
-function showTab(t){document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.tab==t));$('#tab-main').style.display=t=='main'?'':'none';$('#tab-builder').style.display=t=='builder'?'':'none';$('#tab-viz').style.display=t=='viz'?'':'none';$('#tab-botg').style.display=t=='botg'?'':'none';$('#tab-siec').style.display=t=='siec'?'':'none';$('#tab-dxf').style.display=t=='dxf'?'':'none';if(t=='dxf')dxfLoad()}
+function showTab(t){document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.tab==t));$('#tab-main').style.display=t=='main'?'':'none';$('#tab-builder').style.display=t=='builder'?'':'none';$('#tab-viz').style.display=t=='viz'?'':'none';$('#tab-botg').style.display=t=='botg'?'':'none';$('#tab-siec').style.display=t=='siec'?'':'none';$('#tab-dxf').style.display=t=='dxf'?'':'none';$('#tab-dev').style.display=t=='dev'?'':'none';$('#tab-lab').style.display=t=='lab'?'':'none';if(t=='dev')devRender();if(t=='dxf')dxfLoad()}
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
 renderBots();fillEditor(activeBot());
 // PWA
@@ -374,7 +398,7 @@ function gSchedRun(){const n=Date.now();gSched=gSched.filter(s=>{if(s.t<=n){glog
 setInterval(gSchedRun,5000);
 function gCmd(raw){const c=raw.trim().toLowerCase();if(!c)return;glog('> '+raw,'#0ff');if(!PRO&&!/^(pomoc|help|\?)$/.test(c))return paywall('🔒 BOT G jest w wersji PRO');
  const w=c.split(/\s+/),num=(c.match(/\d+/g)||[]).map(Number),st=w.map(x=>STY[x]).find(Boolean);
- if(/^(pomoc|help|\?)/.test(c))return glog('Komendy: graj <styl> [bpm] · nowy bot <styl> · stop · drop · breakdown · build · bpm <n> · autopilot wł/wył · zaplanuj <styl> [bpm] za <min> · plan · boty · sync. Style: techno, acid, house, trance, dub, breaks, hard, electro, minimal, psy, dnb, hardstyle, lofi, afro, industrial, melodic, mix · DXF: dxf, dxf start, dxf radio, dxf stop, dxf next, dxf fs, dxf powiedz <tekst>, dxf strona <classic|kali|pro-dj|kali-live|super> · pady: pad <1-8> · tonacja <C..H> [moll|dur]');
+ if(/^(pomoc|help|\?)/.test(c))return glog('Komendy: graj <styl> [bpm] · nowy bot <styl> · stop · drop · breakdown · build · bpm <n> · autopilot wł/wył · zaplanuj <styl> [bpm] za <min> · plan · boty · sync. Style: techno, acid, house, trance, dub, breaks, hard, electro, minimal, psy, dnb, hardstyle, lofi, afro, industrial, melodic, mix · urządzenia · zegar app|mpc|707|circuit|off · automatyka rec|play|stop|clear · circuit track <1-8> · sample normalize|chop <n> · eksport circuit|mpc · DXF: dxf, dxf start, dxf radio, dxf stop, dxf next, dxf fs, dxf powiedz <tekst>, dxf strona <classic|kali|pro-dj|kali-live|super> · pady: pad <1-8> · tonacja <C..H> [moll|dur]');
  if(w[0]=='graj'||w[0]=='play')return gPlay(st||'Techno',num[0]&&num[0]>=80?num[0]:0);
  if(c.startsWith('nowy bot')||w[0]=='generuj'){const b=genBot(st);return glog('🎲 Nowy bot: '+b.name+' ('+b.style+', '+b.bpmMin+'-'+b.bpmMax+' BPM)')}
  if(w[0]=='stop')return gStop();
@@ -398,7 +422,7 @@ function renderNet(){$('#nCards').innerHTML=net.map((b,i)=>`<div class="card"><b
 <button data-ns="${i}">🔄</button><button data-nt="${i}">⏯</button></div>`).join('');$('#nInfo').textContent=`${net.length} botów · ${net.filter(b=>b.status=='sync').length} w sync · ${bots.length} presetów DJ`}
 $('#nCards').onclick=e=>{const d=e.target.dataset;if(d.ns){net[d.ns].status='sync';net[d.ns].last=Date.now()}else if(d.nt){net[d.nt].status=net[d.nt].status=='sync'?'pauza':'sync'}else return;saveNet();renderNet()};
 $('#nSync').onclick=()=>{const t=Date.now();net.forEach(b=>{if(b.status=='sync')b.last=t});saveNet();renderNet();log('🔄 Sieć botów zsynchronizowana');glog('🔄 Sync sieci: '+net.filter(b=>b.status=='sync').length+' botów')};
-$('#nExport').onclick=()=>saveBlob(new Blob([JSON.stringify({app:'Super G App',version:2.1,type:'sync',exported:new Date().toISOString(),network:net,bots,activeBot:actId,midiMap:map},null,2)],{type:'application/json'}),'supergapp-sync.json');
+$('#nExport').onclick=()=>saveBlob(new Blob([JSON.stringify({app:'Super G App',version:2.2,type:'sync',exported:new Date().toISOString(),network:net,bots,activeBot:actId,midiMap:map},null,2)],{type:'application/json'}),'supergapp-sync.json');
 $('#nImp').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const j=JSON.parse(await f.text());let n=0,p=0;(j.network||[]).forEach(x=>{if(!x||!x.name)return;const o={name:String(x.name).slice(0,40),status:x.status=='sync'?'sync':'pauza',last:+x.last||null,note:String(x.note||'')};const i=net.findIndex(y=>y.name==o.name);if(i>=0)net[i]=o;else net.push(o);n++});
  (j.bots||[]).forEach(x=>{const b=norm(x);const i=bots.findIndex(y=>y.id==b.id);if(i>=0)bots[i]=b;else bots.push(b);p++});saveNet();saveBots();renderNet();renderBots();log(`⬆ Import sync: ${n} botów sieci, ${p} presetów`)}catch(err){alert('Błędny JSON: '+err.message)}e.target.value=''};
 renderNet();
@@ -513,4 +537,88 @@ $('#pStart').onclick=()=>mpcTransport('start');$('#pStop').onclick=()=>gCmd('sto
 $('#pBm').onclick=()=>{setBpm(bpm-1);$('#pBpm').textContent=bpm};$('#pBp').onclick=()=>{setBpm(bpm+1);$('#pBpm').textContent=bpm};$('#pTap').onclick=()=>{$('#tap').click();$('#pBpm').textContent=bpm};
 $('#pXf').oninput=e=>setCtl('xf',e.target.value);
 document.querySelectorAll('#pilot [data-g]').forEach(b=>b.onclick=()=>{gCmd(b.dataset.g);$('#pLog').innerHTML=$('#gLog').innerHTML});
+
+// ===== v2.2 DEVICES / CLOCK / CIRCUIT / AUTOMATION / SAMPLE LAB =====
+const DEV={mc707:{n:'Roland MC-707',re:/MC-?707/i},mpc:{n:'Akai MPC One',re:/MPC/i},circ:{n:'Novation Circuit Rhythm',re:/Circuit\s*Rhythm/i}};
+const devSt={};for(const k in DEV)devSt[k]={ins:[],outs:[],last:0,clockOut:true};
+function devOf(port){for(const k in DEV)if(port&&DEV[k].re.test(port.name||''))return k;return null}
+function devScan(){if(!midiAcc)return;const ins=[...midiAcc.inputs.values()],outs=[...midiAcc.outputs.values()];for(const k in DEV){devSt[k].ins=ins.filter(p=>DEV[k].re.test(p.name));devSt[k].outs=outs.filter(p=>DEV[k].re.test(p.name))}devRender()}
+function devRender(){const src=$('#clkSrc').value;$('#devCards').innerHTML=Object.keys(DEV).map(k=>{const d=devSt[k],on=d.ins.length||d.outs.length,act=d.last&&Date.now()-d.last<3000;
+ return `<div class="card" style="width:300px"><b style="color:#0ff">${DEV[k].n}</b> <span class="badge ${on?'':'off'}">${on?'● połączone':'○ brak'}</span>${act?' <span class="badge" style="background:#f0f">MIDI</span>':''}<br>
+ <small>IN: ${d.ins.map(p=>esc(p.name)).join(', ')||'—'}<br>OUT: ${d.outs.map(p=>esc(p.name)).join(', ')||'—'}<br>Zegar: ${src==k?'<b style="color:#39ff14">MASTER</b>':src=='app'?(d.clockOut?'slave (odbiera z aplikacji)':'nie wysyłamy'):'—'}</small><br>
+ <label style="display:inline"><input type="checkbox" data-co="${k}" ${d.clockOut?'checked':''}> wysyłaj zegar/transport</label></div>`}).join('')}
+$('#devCards').onchange=e=>{const k=e.target.dataset.co;if(k){devSt[k].clockOut=e.target.checked;devRender()}};
+setInterval(()=>{if($('#tab-dev').style.display!='none')devRender()},1000);
+function clockOuts(){const o=[];for(const k in DEV)if(devSt[k].clockOut&&$('#clkSrc').value!=k)o.push(...devSt[k].outs);if(mpcOutP&&!o.includes(mpcOutP)&&!devOf(mpcOutP))o.push(mpcOutP);return o}
+function setClk(v){$('#clkSrc').value=v;$('#mpcClock').value=v=='app'?'master':v=='off'?'off':'slave';clkTicks=[];devRender();log('⏱ Źródło zegara: '+(v=='app'?'APLIKACJA (master)':v=='off'?'wyłączony':DEV[v].n))}
+$('#clkSrc').onchange=e=>setClk(e.target.value);
+mpcSend=function(d,t){clockOuts().forEach(o=>{try{o.send(d,t)}catch(e){}})};
+const _hook=midiHook;midiHook=function(){_hook();devScan()};
+$('#devMidi').onclick=()=>$('#midiBtn').click();
+// Circuit Rhythm tracks
+function crChs(){return $('#crCh').value.split(/[,\s]+/).map(Number).filter(n=>n>=1&&n<=16).slice(0,8)}
+function crSend(tr,vel){const ch=crChs()[tr];if(!ch)return;const n=+$('#crNote').value||60,T=performance.now();devSt.circ.outs.forEach(o=>{try{o.send([0x90|(ch-1),n,vel||110],T);o.send([0x80|(ch-1),n,0],T+80)}catch(e){}})}
+$('#crTracks').innerHTML=[...Array(8)].map((_,i)=>`<div class="pad" data-cr="${i}" data-ctl="cr${i}"><span>TR ${i+1}<br><small id="crL${i}">—</small></span></div>`).join('');
+$('#crTracks').onclick=e=>{const p=e.target.closest('[data-cr]');if(!p)return;const i=+p.dataset.cr;crSend(i);p.classList.add('hit');setTimeout(()=>p.classList.remove('hit'),120);if(!devSt.circ.outs.length)log('🟪 Circuit Rhythm nie podłączony (wyjście)')};
+function crMacroIdx(cc){const l=$('#crMacro').value.split(/[,\s]+/).map(Number).filter(n=>n>=0);return l.indexOf(cc)}
+// Automation
+let auRec=false,auPlay=false,auPlaying=false,auEv=[],auCur={bar:0,st:0};
+function auPos(){const L=+$('#auLen').value;return {b:bar%L,st:step}}
+function auAdd(id,v){if(!auRec)return;const L=+$('#auLen').value,ps=auCur;auEv=auEv.filter(e=>!(e.id==id&&e.b==ps.bar%L&&e.st==ps.st));auEv.push({id,v:+v,b:ps.bar%L,st:ps.st});auRender()}
+document.addEventListener('input',e=>{const el=e.target;if(auPlaying||!el.dataset||!el.dataset.ctl||el.type!='range')return;auAdd(el.dataset.ctl,el.value)},true);
+function auRender(){const ids=[...new Set(auEv.map(e=>e.id))];$('#auLanes').innerHTML=ids.length?ids.map(id=>{const ev=auEv.filter(e=>e.id==id);return `<div>〰 <b>${esc(id)}</b> · ${ev.length} pkt <button data-auc="${esc(id)}">✖</button></div>`}).join(''):'<i>brak nagranych ścieżek</i>'}
+$('#auLanes').onclick=e=>{const id=e.target.dataset.auc;if(id){auEv=auEv.filter(x=>x.id!=id);auRender()}};
+function auSet(r,p){auRec=r;auPlay=p;$('#auRec').classList.toggle('on',r);$('#auPlay').classList.toggle('on',p)}
+$('#auRec').onclick=()=>{auSet(!auRec,auPlay||!auRec);log('〰 Automatyka: '+(auRec?'NAGRYWANIE':'nagrywanie stop'))};$('#auPlay').onclick=()=>{auSet(false,!auPlay);log('〰 Automatyka: '+(auPlay?'ODTWARZANIE':'stop'))};
+$('#auClr').onclick=()=>{auEv=[];auRender();log('〰 Automatyka wyczyszczona')};auRender();
+function auStep(st,t){auCur={bar,st};if(!auPlay||auRec&&false)return;const L=+$('#auLen').value,b=bar%L,ev=auEv.filter(e=>e.b==b&&e.st==st);if(!ev.length)return;
+ setTimeout(()=>{auPlaying=true;ev.forEach(e=>{if(e.id.startsWith('ext:')){const[_,k,ch,cc]=e.id.split(':');(devSt[k]?devSt[k].outs:[]).forEach(o=>{try{o.send([0xB0|(+ch),+cc,Math.round(e.v)])}catch(x){}})}else setCtl(e.id,e.v)});auPlaying=false},Math.max(0,(t-ctx.currentTime)*1000))}
+// new step + MIDI in (shared clock)
+mpcStep=function(st,t){if(!ctx)return;const T=midiPerf(t);
+ if($('#clkSrc').value=='app'){const sx=60/bpm/4*1000,outs=clockOuts();for(let i=0;i<6;i++)outs.forEach(o=>{try{o.send([0xF8],T+i*sx/6)}catch(e){}})}
+ if(mpcOutP&&$('#seqOut').checked&&seqOn){const gm=$('#seqOutMap').value=='gm',nb=+$('#mpcBase').value||37,notes=gm?[36,38,42,39]:[nb,nb+1,nb+2,nb+3];seq.forEach((r,ri)=>{if(r[st]){try{mpcOutP.send([0x99,notes[ri],110],T);mpcOutP.send([0x89,notes[ri],0],T+60)}catch(e){}}})}
+ if($('#crSeq').checked&&seqOn&&devSt.circ.outs.length){const ch=crChs(),n=+$('#crNote').value||60;seq.forEach((r,ri)=>{if(r[st]&&ch[ri])devSt.circ.outs.forEach(o=>{try{o.send([0x90|(ch[ri]-1),n,110],T);o.send([0x80|(ch[ri]-1),n,0],T+60)}catch(e){}})})}
+ auStep(st,t)};
+midiIn=function(ev){const d=ev.data,st=d[0],k=devOf(ev.target||ev.currentTarget);if(k)devSt[k].last=Date.now();const src=$('#clkSrc').value;
+ if(st>=0xF8){if(src!='app'&&src!='off'&&k==src){if(st==0xF8)slaveClock();else if(st==0xFA){clkTicks=[];mpcTransport('start',1)}else if(st==0xFB)mpcTransport('cont',1);else if(st==0xFC)mpcTransport('stop',1)}return}
+ const cmd=st&0xF0,ch=st&15;
+ if(k=='circ'&&cmd==0x90&&d[2]>0&&$('#crIn').checked){const tr=crChs().indexOf(ch+1);if(tr>=0){const l=document.getElementById('crL'+tr);if(l)l.textContent='♪ '+d[1];if(PRO)(pads[tr]?padTrig(tr):dTrig(tr%8))}}
+ if(cmd==0xB0){if(k=='circ'){const mi=crMacroIdx(d[1]);if(mi>=0)log(`🟪 Makro ${mi+1} (CC${d[1]}) = ${d[2]}`)}if(auRec&&$('#auDev').checked&&k&&!map['c'+d[1]])auAdd(`ext:${k}:${ch}:${d[1]}`,d[2])}
+ onMidi(ev)};
+// Sample Lab
+let labBuf=null,labPrev=null,labSlices=[],labName='sample';
+$('#labPad').innerHTML=[...Array(8)].map((_,i)=>`<option value="${i}">${i+1}</option>`).join('');
+function labDraw(){const c=$('#labWave'),g=c.getContext('2d'),W=c.width,H=c.height;g.fillStyle='#000';g.fillRect(0,0,W,H);if(!labBuf)return;const d=labBuf.getChannelData(0),step=Math.max(1,Math.floor(d.length/W));g.strokeStyle='#0ff';g.beginPath();
+ for(let x=0;x<W;x++){let mn=1,mx=-1;for(let i=x*step;i<(x+1)*step&&i<d.length;i++){const v=d[i];if(v<mn)mn=v;if(v>mx)mx=v}g.moveTo(x,(1-mx)*H/2);g.lineTo(x,(1-mn)*H/2)}g.stroke();
+ const s=+$('#labS').value*W,e=+$('#labE').value*W;g.fillStyle='rgba(255,0,255,.25)';g.fillRect(0,0,s,H);g.fillRect(e,0,W-e,H);g.strokeStyle='#39ff14';labSlices.forEach(p=>{const x=p/labBuf.length*W;g.beginPath();g.moveTo(x,0);g.lineTo(x,H);g.stroke()});
+ $('#labInfo').textContent=`${labName} · ${(labBuf.duration).toFixed(2)} s · ${labBuf.numberOfChannels} kan. · ${labBuf.sampleRate} Hz${labSlices.length?' · '+(labSlices.length+1)+' części':''}`}
+function labNew(ch,len,sr){return new AudioBuffer({numberOfChannels:ch,length:Math.max(1,len),sampleRate:sr})}
+function labSlice(a,b){const nb=labNew(labBuf.numberOfChannels,b-a,labBuf.sampleRate);for(let c=0;c<labBuf.numberOfChannels;c++)nb.copyToChannel(labBuf.getChannelData(c).subarray(a,b),c);return nb}
+$('#labLoad').onclick=()=>$('#labFile').click();
+$('#labFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;if(!ctx)init();try{labBuf=await ctx.decodeAudioData(await f.arrayBuffer());labName=f.name.replace(/\.[^.]+$/,'').replace(/[^A-Za-z0-9_-]/g,'_').slice(0,24)||'sample';labSlices=[];$('#labS').value=0;$('#labE').value=1;labDraw();log('✂ Sample Lab: '+f.name)}catch(err){alert('Nie można zdekodować: '+err.message)}e.target.value=''};
+$('#labS').oninput=$('#labE').oninput=labDraw;
+$('#labTrim').onclick=()=>{if(!labBuf)return;const a=Math.floor(+$('#labS').value*labBuf.length),b=Math.floor(+$('#labE').value*labBuf.length);if(b-a<64)return alert('Za krótki zakres');labPrev=labBuf;labBuf=labSlice(a,b);labSlices=[];$('#labS').value=0;$('#labE').value=1;labDraw()};
+function labNormalize(){if(!labBuf)return;let pk=0;for(let c=0;c<labBuf.numberOfChannels;c++){const d=labBuf.getChannelData(c);for(let i=0;i<d.length;i++)pk=Math.max(pk,Math.abs(d[i]))}if(!pk)return;labPrev=labSlice(0,labBuf.length);const g=0.989/pk;for(let c=0;c<labBuf.numberOfChannels;c++){const d=labBuf.getChannelData(c);for(let i=0;i<d.length;i++)d[i]*=g}labDraw();log('📈 Normalizacja: x'+g.toFixed(2)+' (szczyt −0,1 dBFS)')}
+$('#labNorm').onclick=labNormalize;$('#labUndo').onclick=()=>{if(labPrev){labBuf=labPrev;labPrev=null;labSlices=[];labDraw()}};
+$('#labPlay').onclick=()=>{if(!labBuf)return;if(!ctx)init();const s=ctx.createBufferSource();s.buffer=labBuf;s.connect(master);const a=+$('#labS').value*labBuf.duration,b=+$('#labE').value*labBuf.duration;s.start(0,a,Math.max(.01,b-a))};
+function labChop(n){if(!labBuf)return;labSlices=[];for(let i=1;i<n;i++)labSlices.push(Math.floor(labBuf.length*i/n));labDraw();$('#labSlices').textContent=n+' części'}
+$('#labChop').onclick=()=>labChop(+$('#labN').value);
+async function labRender(buf,sr,mono){const ch=mono?1:Math.min(2,Math.max(1,buf.numberOfChannels)),len=Math.ceil(buf.duration*sr),oc=new OfflineAudioContext(ch,len,sr),s=oc.createBufferSource();
+ let b=buf;if(ch==2&&buf.numberOfChannels==1){b=labNew(2,buf.length,buf.sampleRate);b.copyToChannel(buf.getChannelData(0),0);b.copyToChannel(buf.getChannelData(0),1)}s.buffer=b;s.connect(oc.destination);s.start();return oc.startRendering()}
+async function labExport(kind){if(!labBuf)return alert('Najpierw wczytaj sample');const sr=kind=='circ'?48000:44100,mono=kind=='circ'?$('#labMono').checked:false;
+ const cuts=[0,...labSlices,labBuf.length],parts=[];for(let i=0;i<cuts.length-1;i++)parts.push(labSlice(cuts[i],cuts[i+1]));
+ for(let i=0;i<parts.length;i++){const r=await labRender(parts[i],sr,mono);const nm=`${labName}${parts.length>1?'_'+String(i+1).padStart(2,'0'):''}_${kind=='circ'?'CR48k'+(mono?'m':'s'):'MPC44k'}.wav`;saveBlob(wav(r),nm);await new Promise(r=>setTimeout(r,250))}
+ log(`⬇ Eksport ${kind=='circ'?'Circuit Rhythm':'MPC'}: ${parts.length} plik(ów), ${sr} Hz 16-bit ${mono?'mono':'stereo'}`)}
+$('#labExC').onclick=()=>labExport('circ');$('#labExM').onclick=()=>labExport('mpc');
+$('#labToPad').onclick=async()=>{if(!labBuf)return;const i=+$('#labPad').value,r=await labRender(labBuf,44100,false),ab=await wav(r).arrayBuffer();await padDecode(i,labName+'.wav',ab);await idbDo('readwrite',st=>st.put({name:labName+'.wav',data:ab},i));log('🥁 Sample Lab → pad '+(i+1))};
+// BOT G v2.2 commands
+const _g22=gCmd;gCmd=function(raw){const c=raw.trim().toLowerCase(),w=c.split(/\s+/),pre=()=>{glog('> '+raw,'#0ff');return PRO||(paywall('🔒 Funkcja PRO'),false)};
+ if(/^(urządzenia|urzadzenia|devices)$/.test(c)){glog('> '+raw,'#0ff');showTab('dev');return glog('🔌 '+Object.keys(DEV).map(k=>DEV[k].n+': '+((devSt[k].ins.length||devSt[k].outs.length)?'połączone':'brak')).join(' · ')+' · zegar: '+$('#clkSrc').value)}
+ if(w[0]=='zegar'){if(!pre())return;const m={app:'app',aplikacja:'app',mpc:'mpc','707':'mc707','mc-707':'mc707',mc707:'mc707',circuit:'circ',rhythm:'circ',off:'off','wył':'off'}[w[1]];if(!m)return glog('zegar app|mpc|707|circuit|off','#f80');setClk(m);return glog('⏱ Zegar → '+$('#clkSrc').selectedOptions[0].text)}
+ if(w[0]=='automatyka'){if(!pre())return;const a=w[1];if(a=='rec')$('#auRec').click();else if(a=='play')auSet(false,true);else if(a=='stop')auSet(false,false);else if(a=='clear'||a=='wyczyść')$('#auClr').click();else return glog('automatyka rec|play|stop|clear','#f80');return glog('〰 Automatyka: '+a+' · '+auEv.length+' pkt')}
+ if(w[0]=='circuit'){if(!pre())return;if(w[1]=='track'||w[1]=='ścieżka'){const n=+w[2];if(n>=1&&n<=8){crSend(n-1);return glog('🟪 Circuit Rhythm: ścieżka '+n+(devSt.circ.outs.length?'':' (urządzenie niepodłączone)'))}}showTab('dev');return glog('🟪 Circuit: '+(devSt.circ.ins.length?'połączony':'niepodłączony')+' · kanały '+crChs().join(','))}
+ if(w[0]=='sample'){if(!pre())return;showTab('lab');if(!labBuf)return glog('✂ Najpierw wczytaj sample w Sample Lab','#f80');if(w[1]=='normalize'||w[1]=='normalizuj'){labNormalize();return glog('📈 Znormalizowano')}if(w[1]=='chop'||w[1]=='potnij'){const n=+w[2]||8;labChop(n);return glog('🔪 Pocięto na '+n)}return glog('sample normalize | sample chop <n>','#f80')}
+ if(w[0]=='eksport'||w[0]=='export'){if(!pre())return;if(/circuit/.test(c)){labExport('circ');return glog('⬇ Eksport Circuit Rhythm')}if(/mpc/.test(c)){labExport('mpc');return glog('⬇ Eksport MPC')}return glog('eksport circuit | eksport mpc','#f80')}
+ return _g22(raw)};
+$('#gGo').onclick=()=>{gCmd($('#gCmd').value);$('#gCmd').value=''};document.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{gCmd(b.dataset.g);const pl=$('#pLog');if(pl)pl.innerHTML=$('#gLog').innerHTML});
 </script></body></html>
