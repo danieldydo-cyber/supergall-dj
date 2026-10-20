@@ -1,0 +1,1 @@
+{"name": "Super X DJ", "short_name": "X DJ", "start_url": "super.html", "scope": "./", "display": "standalone", "background_color": "#05010f", "theme_color": "#7b2cff", "lang": "pl", "icons": [{"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png"}, {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}]}

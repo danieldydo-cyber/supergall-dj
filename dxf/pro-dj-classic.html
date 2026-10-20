@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <script src="js/d7-apk-config.js?v=43"></script><script src="js/d7-apk-shim.js?v=43"></script><script src="js/dbot-native.js?v=45"></script><script src="js/dbot-state.js?v=46"></script><script src="js/dbot-localai.js?v=46"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#06070b" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <title>Super X DJ · Daniel Dydo</title>
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <style>
+    :root {
+      --bg: #070709; --panel: #101018; --line: rgba(0,229,255,.18);
+      --cyan: #00e5ff; --lime: #b8ff3c; --pink: #ff2d95; --text: #e8f0ff; --muted: #7a8499;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg); color: var(--text);
+      font-family: "Segoe UI", system-ui, sans-serif; touch-action: manipulation; }
+#viz-wrap {
+      position: fixed; inset: 0; z-index: 0; background: #050508;
+      overflow: hidden;
+    }
+    #viz {
+      position: absolute; left: 50%; top: 50%;
+      width: 1920px; height: 1080px;
+      transform: translate(-50%, -50%) scale(var(--cover, 1));
+      transform-origin: center center;
+      display: block; background: #050508;
+    }
+
+    #shark {
+      position: fixed; left: 50%; top: 42%; transform: translate(-50%,-50%) scale(1);
+      width: min(180px, 22vw); z-index: 2; opacity: 0; pointer-events: none;
+      filter: drop-shadow(0 0 24px rgba(184,255,60,.5));
+      transition: opacity .12s, transform .12s;
+    }
+    #shark.kick { opacity: .72; transform: translate(-50%,-50%) scale(1.22); }
+    #ui {
+      position: fixed; inset: 0; z-index: 3; display: grid;
+      grid-template-rows: auto 1fr auto;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(7,7,9,.72) 0%, rgba(7,7,9,.18) 28%, rgba(7,7,9,.18) 72%, rgba(7,7,9,.8) 100%);
+    }
+    #ui > * { pointer-events: auto; }
+    header.top {
+      display: flex; align-items: center; gap: .75rem; padding: .55rem .85rem;
+      background: rgba(10,10,16,.72); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .brand h1 { font-size: .95rem; letter-spacing: .08em; font-weight: 800; }
+    .brand h1 span { color: var(--cyan); font-weight: 600; }
+    .brand .sig { font-size: .65rem; color: var(--muted); }
+    .master {
+      margin-left: auto; display: flex; align-items: center; gap: .6rem;
+      font-size: .72rem; letter-spacing: .06em;
+    }
+    .master .bpm { font-size: 1.35rem; font-weight: 800; color: var(--lime); min-width: 4.5rem; text-align: center; }
+    .master label { display: flex; align-items: center; gap: .3rem; cursor: pointer; color: var(--muted); }
+    .master label input { accent-color: var(--lime); }
+    .master label.on { color: var(--lime); }
+    .top a, .top button {
+      appearance: none; border: 1px solid var(--line); background: rgba(0,229,255,.08);
+      color: var(--cyan); border-radius: 999px; padding: .4rem .75rem;
+      font-size: .68rem; font-weight: 700; letter-spacing: .04em; cursor: pointer; text-decoration: none;
+    }
+    .top button.wa { border-color: rgba(37,211,102,.4); color: #25d366; background: rgba(37,211,102,.1); }
+    .top button.live { border-color: rgba(184,255,60,.4); color: var(--lime); }
+    main.decks {
+      display: grid; grid-template-columns: 1fr 1fr; gap: .75rem;
+      padding: .75rem; align-content: end; max-width: 1100px; margin: 0 auto; width: 100%;
+    }
+    @media (max-width: 720px) { main.decks { grid-template-columns: 1fr; } }
+    .deck {
+      background: rgba(16,16,24,.82); border: 1px solid var(--line); border-radius: 16px;
+      padding: .75rem; position: relative; overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.35);
+    }
+    .deck.a { border-color: rgba(0,229,255,.35); }
+    .deck.b { border-color: rgba(255,45,149,.35); }
+    .deck-head { display: flex; align-items: center; gap: .5rem; margin-bottom: .5rem; }
+    .badge {
+      font-size: .65rem; font-weight: 800; letter-spacing: .08em; padding: .2rem .45rem;
+      border-radius: 6px; background: rgba(0,229,255,.15); color: var(--cyan);
+    }
+    .deck.b .badge { background: rgba(255,45,149,.15); color: var(--pink); }
+    .track { flex: 1; font-size: .78rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .deck-bpm { font-size: .85rem; font-weight: 800; color: var(--lime); min-width: 3.2rem; text-align: right; }
+    .ring-wrap { position: relative; width: 110px; height: 110px; margin: .35rem auto .55rem; }
+    .ring {
+      width: 110px; height: 110px; border-radius: 50%;
+      background: radial-gradient(circle at 40% 35%, #1a1a28 0%, #0a0a10 70%);
+      border: 3px solid rgba(0,229,255,.35);
+      box-shadow: inset 0 0 24px rgba(0,0,0,.6), 0 0 0 0 rgba(0,229,255,.0);
+      transition: box-shadow .1s, border-color .1s, transform .1s;
+    }
+    .deck.b .ring { border-color: rgba(255,45,149,.4); }
+    .ring.pulse {
+      box-shadow: inset 0 0 24px rgba(0,0,0,.6), 0 0 28px rgba(184,255,60,.55);
+      border-color: var(--lime); transform: scale(1.06);
+    }
+    .ring-label {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      font-size: .7rem; font-weight: 800; letter-spacing: .1em; color: var(--muted); pointer-events: none;
+    }
+    .transport { display: flex; gap: .35rem; justify-content: center; flex-wrap: wrap; }
+    .transport button {
+      appearance: none; border: 0; border-radius: 999px; padding: .45rem .8rem;
+      font-size: .7rem; font-weight: 800; cursor: pointer;
+      background: rgba(255,255,255,.08); color: var(--text);
+    }
+    .transport button.play { background: linear-gradient(135deg, var(--cyan), #0088aa); color: #041018; }
+    .transport button.active { background: var(--lime); color: #050508; }
+    footer.bar {
+      display: flex; align-items: center; gap: .45rem; justify-content: center; flex-wrap: wrap;
+      padding: .55rem .75rem 1rem;
+      background: rgba(10,10,16,.78); backdrop-filter: blur(10px);
+      border-top: 1px solid var(--line);
+    }
+    footer.bar button, footer.bar a {
+      appearance: none; border: 1px solid var(--line); background: rgba(0,229,255,.08);
+      color: var(--cyan); border-radius: 999px; padding: .5rem .9rem;
+      font-size: .72rem; font-weight: 800; cursor: pointer; text-decoration: none;
+    }
+    footer.bar #preset-hud {
+      font-size: .65rem; color: var(--muted); max-width: 36vw;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    /* D Bot panel */
+    #bot {
+      position: fixed; right: 12px; bottom: 72px; z-index: 8; width: min(300px, 92vw);
+      background: rgba(12,12,18,.92); border: 1px solid var(--line); border-radius: 14px;
+      padding: .65rem; display: none; box-shadow: 0 16px 48px rgba(0,0,0,.5);
+    }
+    #bot.open { display: block; }
+    #bot h3 { font-size: .75rem; letter-spacing: .08em; color: var(--lime); margin-bottom: .4rem; }
+    #bot-log {
+      height: 110px; overflow-y: auto; font-size: .7rem; color: var(--muted);
+      margin-bottom: .45rem; line-height: 1.35;
+    }
+    #bot-log .me { color: var(--cyan); }
+    #bot-log .bot { color: var(--lime); }
+    .bot-quick { display: flex; flex-wrap: wrap; gap: .3rem; margin-bottom: .4rem; }
+    .bot-quick button {
+      appearance: none; border: 0; border-radius: 999px; padding: .35rem .55rem;
+      font-size: .62rem; font-weight: 800; cursor: pointer;
+      background: rgba(184,255,60,.12); color: var(--lime);
+    }
+    #bot-form { display: flex; gap: .3rem; }
+    #bot-form input {
+      flex: 1; border-radius: 999px; border: 1px solid var(--line); background: #0a0a10;
+      color: var(--text); padding: .4rem .65rem; font-size: .72rem;
+    }
+    #bot-form button {
+      appearance: none; border: 0; border-radius: 999px; padding: .4rem .7rem;
+      background: var(--cyan); color: #041018; font-weight: 800; cursor: pointer;
+    }
+    #yt-host {
+      position: fixed; width: 1px; height: 1px; opacity: 0.01; pointer-events: none;
+      bottom: 0; left: 0; z-index: 1; overflow: hidden;
+    }
+    #yt-host.show {
+      width: min(200px, 34vw); height: min(112px, 20vw); opacity: .8;
+      border-radius: 10px; left: 12px; bottom: 12px; pointer-events: auto;
+      box-shadow: 0 8px 28px rgba(0,0,0,.55); border: 1px solid rgba(0,229,255,.3); z-index: 7;
+    }
+    #gate {
+      position: fixed; inset: 0; z-index: 20; display: flex; align-items: center; justify-content: center;
+      background: radial-gradient(ellipse at center, #0e1420 0%, #050508 70%);
+      cursor: pointer; touch-action: manipulation; user-select: none; -webkit-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    #gate.gone { opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .45s; }
+    .gate-card { text-align: center; padding: 2rem; max-width: 28rem; }
+    .gate-card img { width: 88px; height: 88px; margin-bottom: .75rem; filter: drop-shadow(0 0 20px rgba(184,255,60,.4)); }
+    .gate-card h2 {
+      font-size: clamp(1.6rem, 6vw, 2.6rem); letter-spacing: .1em; font-weight: 800;
+      color: var(--cyan); text-shadow: 0 0 28px rgba(0,229,255,.4); margin-bottom: .4rem;
+    }
+    .gate-card p { color: var(--muted); font-size: .9rem; margin-bottom: 1.2rem; }
+    .gate-go {
+      appearance: none; border: none; border-radius: 999px; padding: 1.15rem 2.6rem;
+      font-size: 1.2rem; font-weight: 800; letter-spacing: .08em; cursor: pointer;
+      background: linear-gradient(135deg, var(--lime), #39ff14); color: #050508;
+      box-shadow: 0 0 40px rgba(184,255,60,.5); animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { transform: scale(1); } 50% { transform: scale(1.04); }
+    }
+    .gate-hint { margin-top: 1rem; font-size: .72rem; color: #556; }
+    body.viz-only #ui main, body.viz-only header, body.viz-only footer { opacity: 0; pointer-events: none; }
+    body.viz-only #bot { display: none !important; }
+  </style>
+  <link rel="stylesheet" href="css/d7-chat.css?v=43" />
+  <link rel="stylesheet" href="css/d7-liquid.css?v=44" />
+  <link rel="stylesheet" href="css/dbot-center.css?v=45" />
+  <link rel="stylesheet" href="css/dbot-cosmos.css?v=46" />
+  <link rel="stylesheet" href="css/dbot-studio.css?v=48" />
+  <link rel="stylesheet" href="css/dbot-ufo.css?v=48" />
+</head>
+<body>
+  <div id="viz-wrap"><canvas id="viz" width="1920" height="1080"></canvas></div>
+  <img id="shark" src="icons/bot-d-shark.png" alt="" aria-hidden="true" draggable="false" />
+  <div id="yt-host"><div id="yt-player"></div></div>
+
+  <div id="ui">
+    <header class="top">
+      <div class="brand">
+        <h1>PRO DJ <span>Virtual</span></h1>
+        <div class="sig">Daniel Dydo · Kraków · D Bot</div>
+      </div>
+      <div class="master">
+        <div>
+          <div style="font-size:.6rem;color:var(--muted);letter-spacing:.08em">MASTER BPM</div>
+          <div class="bpm" id="master-bpm">128.0</div>
+        </div>
+        <label id="auto-label" class="on" title="AUTO sync BPM">
+          <input type="checkbox" id="auto-sync" checked /> AUTO
+        </label>
+        <button type="button" id="btn-live" class="live" title="LIVE GEN wander">LIVE GEN</button>
+        <button type="button" id="btn-wa" class="wa" title="WhatsApp Daniel">WA</button>
+        <a href="/" title="Pro Fly home">HOME</a>
+        <a href="/kali-live" title="Kali Live radio">RADIO</a>
+      </div>
+    </header>
+
+    <main class="decks">
+      <section class="deck a" id="deck-a">
+        <div class="deck-head">
+          <span class="badge">DECK A · MASTER</span>
+          <span class="track" id="track-a">DaX · Brother Max</span>
+          <span class="deck-bpm" id="bpm-a">128.0</span>
+        </div>
+        <div class="ring-wrap"><div class="ring" id="ring-a"></div><div class="ring-label">A</div></div>
+        <div class="transport">
+          <button type="button" class="play" data-deck="a" data-act="play">▶ PLAY</button>
+          <button type="button" data-deck="a" data-act="cue">CUE</button>
+          <button type="button" data-deck="a" data-act="load-dax">DA-X</button>
+          <button type="button" data-deck="a" data-act="load-kali">KALI</button>
+        </div>
+      </section>
+      <section class="deck b" id="deck-b">
+        <div class="deck-head">
+          <span class="badge">DECK B · PREVIEW</span>
+          <span class="track" id="track-b">Kali LIVE 24/7</span>
+          <span class="deck-bpm" id="bpm-b">120.0</span>
+        </div>
+        <div class="ring-wrap"><div class="ring" id="ring-b"></div><div class="ring-label">B</div></div>
+        <div class="transport">
+          <button type="button" class="play" data-deck="b" data-act="play">▶ PLAY</button>
+          <button type="button" data-deck="b" data-act="cue">CUE</button>
+          <button type="button" data-deck="b" data-act="load-dax">DA-X</button>
+          <button type="button" data-deck="b" data-act="load-kali">KALI</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bar">
+      <button type="button" id="btn-rnd">RND</button>
+      <button type="button" id="btn-next">NEXT</button>
+      <button type="button" id="btn-fs">VIZ FULL</button>
+      <button type="button" id="btn-bot">BOT D</button>
+      <span id="preset-hud">MilkDrop · —</span>
+    </footer>
+  </div>
+
+  <aside id="bot" aria-label="D Bot companion">
+    <h3>BOT D · COMPANION</h3>
+    <div id="bot-log"></div>
+    <div class="bot-quick">
+      <button type="button" data-cmd="play-kali">PLAY KALI</button>
+      <button type="button" data-cmd="play-dax">PLAY DA-X</button>
+      <button type="button" data-cmd="auto">AUTO</button>
+      <button type="button" data-cmd="viz">VIZ FULL</button>
+      <button type="button" data-cmd="live">LIVE GEN</button>
+    </div>
+    <form id="bot-form" autocomplete="off">
+      <input id="bot-input" maxlength="200" placeholder="kali · dax · viz · auto · next" />
+      <button type="submit">➤</button>
+    </form>
+  </aside>
+
+  <div id="gate" role="button" tabindex="0" aria-label="AUTO START Pro DJ">
+    <div class="gate-card">
+      <img src="icons/bot-d-shark.png" alt="" draggable="false" />
+      <h2>PRO DJ</h2>
+      <p>Virtual decks · MilkDrop 1080p · D Bot · beat sync</p>
+      <button type="button" class="gate-go" id="gate-go">▶ AUTO START</button>
+      <p class="gate-hint">Jeden tap = audio · DaX/Kali · viz 1080p FS · D Bot</p>
+    </div>
+  </div>
+
+  <script src="libs/butterchurn.min.js?v=37"></script>
+  <script src="libs/butterchurnPresets.min.js?v=37"></script>
+  <script src="libs/butterchurnPresetsExtra.min.js?v=37"></script>
+  <script>
+  (function () {
+    const DAX = { id: 'D6DNubWWsoI', title: 'DaX · Brother Max 70min', bpm: 128 };
+    const KALI = { id: 'jMRlCH3B6mY', title: 'KALI LIVE RADIO 24/7', bpm: 120 };
+    const RENDER_W = 1920, RENDER_H = 1080;
+    const WANDER_MS = 9000;
+    const WA = 'https://wa.me/48730377357?text=' + encodeURIComponent('Cześć! Brother Max · PRO DJ LIVE: ' + location.origin + '/pro-dj');
+
+    const gate = document.getElementById('gate');
+    const canvas = document.getElementById('viz');
+    const shark = document.getElementById('shark');
+    const ytHost = document.getElementById('yt-host');
+    const presetHud = document.getElementById('preset-hud');
+    const masterBpmEl = document.getElementById('master-bpm');
+    const autoSync = document.getElementById('auto-sync');
+    const autoLabel = document.getElementById('auto-label');
+    const bot = document.getElementById('bot');
+    const botLog = document.getElementById('bot-log');
+    const ringA = document.getElementById('ring-a');
+    const ringB = document.getElementById('ring-b');
+
+    let player = null;
+    let visualizer = null;
+    let audioCtx = null;
+    let started = false;
+    let animId = 0;
+    let keys = [], presets = {}, idx = 0, wanderTimer = 0;
+    let bpm = 128;
+    let kickGain = null, kickOsc = null, kickTimer = 0;
+    let activeDeck = 'a';
+    let deckTrack = { a: DAX, b: KALI };
+    let playing = { a: false, b: false };
+    let liveGen = true;
+
+    function botSay(who, text) {
+      var d = document.createElement('div');
+      d.className = who;
+      d.textContent = (who === 'me' ? 'Ty: ' : 'D Bot: ') + text;
+      botLog.appendChild(d);
+      botLog.scrollTop = botLog.scrollHeight;
+    }
+
+    function setMasterBpm(v) {
+      bpm = Math.max(60, Math.min(200, Number(v) || 128));
+      masterBpmEl.textContent = bpm.toFixed(1);
+      document.getElementById('bpm-a').textContent = bpm.toFixed(1);
+      if (autoSync.checked) {
+        document.getElementById('bpm-b').textContent = bpm.toFixed(1);
+      }
+      restartKick();
+    }
+
+    function mergePresets() {
+      presets = {};
+      try { if (butterchurnPresets && butterchurnPresets.getPresets) Object.assign(presets, butterchurnPresets.getPresets()); } catch(_){}
+      try { if (butterchurnPresetsExtra && butterchurnPresetsExtra.getPresets) Object.assign(presets, butterchurnPresetsExtra.getPresets()); } catch(_){}
+      keys = Object.keys(presets);
+      for (var i = keys.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var t = keys[i]; keys[i] = keys[j]; keys[j] = t;
+      }
+    }
+
+    function applyCoverScale() {
+      var sx = window.innerWidth / 1920;
+      var sy = window.innerHeight / 1080;
+      var s = Math.max(sx, sy); // cover
+      document.documentElement.style.setProperty('--cover', String(s));
+    }
+
+    function resize() {
+      canvas.width = RENDER_W; canvas.height = RENDER_H;
+      applyCoverScale();
+      if (visualizer && visualizer.setRendererSize) {
+        try { visualizer.setRendererSize(RENDER_W, RENDER_H); } catch(_){}
+      }
+    }
+
+    function loadPreset(i, blend) {
+      if (!visualizer || !keys.length) return;
+      idx = ((i % keys.length) + keys.length) % keys.length;
+      var name = keys[idx];
+      try {
+        visualizer.loadPreset(presets[name], blend == null ? 2.2 : blend);
+        presetHud.textContent = 'MilkDrop · ' + name;
+      } catch(_){}
+    }
+    function randPreset() {
+      if (!keys.length) return;
+      var n = Math.floor(Math.random() * keys.length);
+      if (n === idx && keys.length > 1) n = (n + 1) % keys.length;
+      loadPreset(n, 1.5);
+    }
+    function startWander() {
+      if (wanderTimer) clearInterval(wanderTimer);
+      if (!liveGen) return;
+      wanderTimer = setInterval(randPreset, WANDER_MS);
+    }
+
+    function fireKick() {
+      if (!audioCtx || !kickGain || !kickOsc) return;
+      var t = audioCtx.currentTime;
+      try {
+        kickOsc.frequency.cancelScheduledValues(t);
+        kickOsc.frequency.setValueAtTime(160, t);
+        kickOsc.frequency.exponentialRampToValueAtTime(42, t + 0.14);
+        kickGain.gain.cancelScheduledValues(t);
+        kickGain.gain.setValueAtTime(0.00001, t);
+        kickGain.gain.linearRampToValueAtTime(0.05, t + 0.01);
+        kickGain.gain.exponentialRampToValueAtTime(0.00001, t + 0.2);
+      } catch(_){}
+      shark.classList.add('kick');
+      clearTimeout(shark._t);
+      shark._t = setTimeout(function(){ shark.classList.remove('kick'); }, 110);
+      // Beat rings on decks
+      var ring = activeDeck === 'a' ? ringA : ringB;
+      ring.classList.add('pulse');
+      if (playing.a) { ringA.classList.add('pulse'); }
+      if (playing.b) { ringB.classList.add('pulse'); }
+      clearTimeout(ringA._t); clearTimeout(ringB._t);
+      ringA._t = setTimeout(function(){ ringA.classList.remove('pulse'); }, 100);
+      ringB._t = setTimeout(function(){ ringB.classList.remove('pulse'); }, 100);
+    }
+
+    function restartKick() {
+      if (kickTimer) clearInterval(kickTimer);
+      if (!audioCtx) return;
+      kickTimer = setInterval(fireKick, 60000 / bpm);
+      fireKick();
+    }
+
+    function startBeat() {
+      var drone = audioCtx.createOscillator();
+      var dg = audioCtx.createGain();
+      drone.type = 'sawtooth'; drone.frequency.value = 55; dg.gain.value = 0.0028;
+      drone.connect(dg); visualizer.connectAudio(dg); dg.connect(audioCtx.destination); drone.start();
+      var mid = audioCtx.createOscillator();
+      var mg = audioCtx.createGain();
+      mid.type = 'triangle'; mid.frequency.value = 220; mg.gain.value = 0.0014;
+      mid.connect(mg); visualizer.connectAudio(mg); mg.connect(audioCtx.destination); mid.start();
+      kickOsc = audioCtx.createOscillator();
+      kickGain = audioCtx.createGain();
+      kickOsc.type = 'sine'; kickOsc.frequency.value = 55; kickGain.gain.value = 0.00001;
+      kickOsc.connect(kickGain); visualizer.connectAudio(kickGain); kickGain.connect(audioCtx.destination);
+      kickOsc.start();
+      restartKick();
+    }
+
+    function startViz() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      if (typeof butterchurn === 'undefined') { presetHud.textContent = 'BRAK MILKDROP'; return; }
+      mergePresets();
+      resize();
+      if (!visualizer) {
+        visualizer = butterchurn.createVisualizer(audioCtx, canvas, {
+          width: RENDER_W, height: RENDER_H, pixelRatio: 1, textureRatio: 1
+        });
+        try { visualizer.setRendererSize(RENDER_W, RENDER_H); } catch(_){}
+        startBeat();
+        if (keys.length) { idx = Math.floor(Math.random() * keys.length); loadPreset(idx, 0); }
+        startWander();
+      }
+      if (!animId) {
+        (function frame(){ if (visualizer) visualizer.render(); animId = requestAnimationFrame(frame); })();
+      }
+    }
+
+    function loadYtApi() {
+      return new Promise(function (resolve, reject) {
+        if (window.YT && window.YT.Player) return resolve(window.YT);
+        var done = false;
+        function ok() { if (done) return; done = true; resolve(window.YT); }
+        function fail(err) { if (done) return; done = true; reject(err || new Error('YT')); }
+        window.onYouTubeIframeAPIReady = ok;
+        var s = document.createElement('script');
+        s.src = 'https://www.youtube.com/iframe_api';
+        s.async = true;
+        s.onerror = function () { fail(new Error('YT')); };
+        document.head.appendChild(s);
+        setTimeout(function () {
+          if (window.YT && window.YT.Player) ok();
+          else fail(new Error('YT timeout'));
+        }, 8000);
+      });
+    }
+
+    function playVideo(track, deck) {
+      deckTrack[deck] = track;
+      document.getElementById('track-' + deck).textContent = track.title;
+      document.getElementById('bpm-' + deck).textContent = track.bpm.toFixed(1);
+      if (deck === 'a' || (autoSync.checked && deck === activeDeck)) setMasterBpm(track.bpm);
+      activeDeck = deck;
+      playing[deck] = true;
+      if (!player) return;
+      try {
+        player.loadVideoById(track.id);
+        player.unMute();
+        player.setVolume(100);
+        player.playVideo();
+      } catch(_){}
+      botSay('bot', '▶ ' + track.title + ' · ' + track.bpm + ' BPM na ' + deck.toUpperCase());
+    }
+
+    async function goFullscreen() {
+      try {
+        var el = document.documentElement;
+        if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+          if (el.requestFullscreen) await el.requestFullscreen();
+          else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+        }
+      } catch(_){}
+      document.body.classList.add('viz-only');
+      setTimeout(function(){ document.body.classList.remove('viz-only'); }, 80);
+    }
+
+    async function startAll() {
+      if (started) return;
+      started = true;
+      startViz();
+      bot.classList.add('open');
+      botSay('bot', 'Cześć — D Bot online. DaX opening → Kali. AUTO sync + LIVE GEN.');
+      gate.classList.add('gone');
+      goFullscreen();
+      setMasterBpm(DAX.bpm);
+      try {
+        await loadYtApi();
+        await new Promise(function (resolve, reject) {
+          var settled = false;
+          function done(err) {
+            if (settled) return;
+            settled = true;
+            if (err) reject(err); else resolve();
+          }
+          player = new YT.Player('yt-player', {
+            width: '200', height: '112', videoId: DAX.id,
+            playerVars: { autoplay: 1, controls: 1, modestbranding: 1, rel: 0, playsinline: 1, origin: location.origin },
+            events: {
+              onReady: function (e) {
+                try {
+                  e.target.mute(); e.target.playVideo();
+                  setTimeout(function(){ try { e.target.unMute(); e.target.setVolume(100); e.target.playVideo(); } catch(_){} }, 350);
+                } catch(_){}
+                done();
+              },
+              onStateChange: function (e) {
+                if (e.data === 0) {
+                  // After DaX ends → Kali loop
+                  playVideo(KALI, 'a');
+                }
+              },
+              onError: function () { ytHost.classList.add('show'); done(new Error('yt')); }
+            }
+          });
+          setTimeout(function () { done(new Error('yt player timeout')); }, 8000);
+        });
+        ytHost.classList.add('show');
+        playVideo(DAX, 'a');
+        playing.b = false;
+      } catch (err) {
+        ytHost.classList.add('show');
+        botSay('bot', 'YT trudny — MilkDrop + beat działa. Tapnij mini player.');
+        console.warn(err);
+      }
+    }
+
+    // Gate — pointerdown first for mobile one-tap
+    function onGate(e) {
+      if (e) { e.preventDefault(); e.stopPropagation(); }
+      startAll();
+    }
+    gate.addEventListener('pointerdown', onGate, { once: true });
+    gate.addEventListener('click', onGate);
+    document.getElementById('gate-go').addEventListener('pointerdown', onGate, { once: true });
+    document.getElementById('gate-go').addEventListener('click', onGate);
+
+    // Deck buttons
+    document.querySelectorAll('.transport button').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var deck = btn.getAttribute('data-deck');
+        var act = btn.getAttribute('data-act');
+        if (act === 'play') {
+          playVideo(deckTrack[deck], deck);
+        } else if (act === 'cue') {
+          if (player) try { player.seekTo(0); player.playVideo(); } catch(_){}
+        } else if (act === 'load-dax') {
+          playVideo(DAX, deck);
+        } else if (act === 'load-kali') {
+          playVideo(KALI, deck);
+        }
+      });
+    });
+
+    document.getElementById('btn-rnd').addEventListener('click', function(){ randPreset(); startWander(); });
+    document.getElementById('btn-next').addEventListener('click', function(){ loadPreset(idx + 1, 2); });
+    document.getElementById('btn-fs').addEventListener('click', goFullscreen);
+    document.getElementById('btn-live').addEventListener('click', function () {
+      liveGen = !liveGen;
+      this.style.color = liveGen ? '' : '#556';
+      if (liveGen) { startWander(); botSay('bot', 'LIVE GEN ON · wander co 9s'); }
+      else { clearInterval(wanderTimer); botSay('bot', 'LIVE GEN OFF'); }
+    });
+    document.getElementById('btn-wa').addEventListener('click', function () {
+      window.open(WA, '_blank', 'noopener');
+    });
+    document.getElementById('btn-bot').addEventListener('click', function () {
+      bot.classList.toggle('open');
+    });
+    autoSync.addEventListener('change', function () {
+      autoLabel.classList.toggle('on', autoSync.checked);
+      if (autoSync.checked) setMasterBpm(bpm);
+      botSay('bot', autoSync.checked ? 'AUTO sync WŁĄCZONY' : 'AUTO sync off');
+    });
+
+    function handleCmd(cmd) {
+      var c = String(cmd || '').trim().toLowerCase();
+      if (!c) return;
+      botSay('me', c);
+      if (c === 'kali' || c === 'play kali' || c === 'play-kali') playVideo(KALI, 'a');
+      else if (c === 'dax' || c === 'da-x' || c === 'play dax' || c === 'play-dax') playVideo(DAX, 'a');
+      else if (c === 'auto') { autoSync.checked = true; autoLabel.classList.add('on'); setMasterBpm(bpm); botSay('bot', 'AUTO ON'); }
+      else if (c === 'viz' || c === 'viz full' || c === 'fs') goFullscreen();
+      else if (c === 'live' || c === 'live gen') { liveGen = true; startWander(); botSay('bot', 'LIVE GEN'); }
+      else if (c === 'next') loadPreset(idx + 1, 2);
+      else if (c === 'rnd' || c === 'random') randPreset();
+      else botSay('bot', 'Komendy: kali · dax · auto · viz · live · next · rnd');
+    }
+
+    document.querySelectorAll('.bot-quick button').forEach(function (b) {
+      b.addEventListener('click', function () { handleCmd(b.getAttribute('data-cmd')); });
+    });
+    document.getElementById('bot-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var inp = document.getElementById('bot-input');
+      handleCmd(inp.value);
+      inp.value = '';
+    });
+
+    window.addEventListener('resize', resize);
+    window.addEventListener('keydown', function (e) {
+      if (!started) return;
+      if (e.key === 'f' || e.key === 'F') goFullscreen();
+      if (e.key === 'r' || e.key === 'R') randPreset();
+      if (e.key === 'Escape') document.body.classList.remove('viz-only');
+    });
+
+    // ?auto=1 → big gate already is the tap target
+    if (new URLSearchParams(location.search).get('auto') === '1') {
+      document.getElementById('gate-go').textContent = 'DOTKNIJ · AUTO';
+    }
+    resize();
+  })();
+  </script>
+  <!-- D Bot · Liquid DJ PRO AI (APK v44, chat from v43 + super bot): floating chat „D Bot” (shared history, text + voice) -->
+  <script src="js/google-knowledge.js?v=43"></script>
+  <script src="js/bot-d.js?v=1020"></script>
+  <script src="js/d7-chat.js?v=43"></script>
+  <script src="js/d7-superbot.js?v=52"></script><script src="js/dbot-brains.js?v=47"></script>
+  <script src="js/dbot-live.js?v=45"></script>
+  <script src="js/dbot-agents.js?v=45"></script>
+  <script src="js/dbot-builder.js?v=45"></script>
+  <script src="js/dbot-center.js?v=45"></script>
+  <script src="js/dbot-auto.js?v=46"></script>
+  <script src="js/dbot-doctor.js?v=46"></script>
+  <script src="js/dbot-studio.js?v=48"></script>
+  <script src="js/dbot-ufo.js?v=48"></script>
+  <script src="js/dbot-conductor.js?v=51"></script>
+  <script src="js/dbot-team.js?v=48"></script>
+  <script src="js/dbot-genre.js?v=51"></script>
+  <script src="js/dbot-fly.js?v=48"></script>
+  <script src="js/dbot-v51.js?v=55"></script>
+  <script src="js/dbot-v52.js?v=55"></script>
+  <script src="js/dbot-v53.js?v=55"></script>
+  <script src="js/dbot-alien.js?v=55"></script>
+  <script src="js/dbot-v54.js?v=55"></script>
+  <script src="js/x-lan.js?v=59"></script>
+  <script src="js/dbot-talk.js?v=46"></script>
+</body>
+</html>

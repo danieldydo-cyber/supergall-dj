@@ -1,0 +1,128 @@
+{
+  "bot": "Bot Pamięć",
+  "updated_at": "2026-10-09T23:34:50+02:00",
+  "user": {
+    "name": "Daniel Dydo",
+    "city": "Kraków",
+    "country": "Poland",
+    "timezone": "Europe/Warsaw"
+  },
+  "projects": [
+    {
+      "id": "d-dj-pro-fly",
+      "name": "D DJ Pro Fly",
+      "aka": [
+        "Bot D",
+        "MC-707 companion",
+        "DDJ Pro Fly"
+      ],
+      "notes": "MC-707 companion web app + Bot D Android. Free stack. LIVE viz. Auto-heal."
+    },
+    {
+      "id": "bot-pamiec",
+      "name": "Bot Pamięć",
+      "notes": "Osobny bot pamięci 1GB: Drive + Gmail drafts + lokalne lustro + opcjonalny public sample.",
+      "created": "2026-09-24"
+    }
+  ],
+  "rules": [
+    "Nie restartować serve.py / cloudflared podczas ulepszania (hot-patch only).",
+    "Darmowy stack (free stack).",
+    "Bez Postiz / Facebook.",
+    "Gmail / X tylko gdy użytkownik prosi o wysyłkę / post.",
+    "Sync Drive + Grok.",
+    "LIVE viz — bez web STREAMY.",
+    "Auto-heal.",
+    "Bot pamięci: hard cap 7 GB (próg ostrzegawczy ~6.3 GB); odmawiaj / przycinaj najstarsze logi.",
+    "Bot Pamięć jest osobnym programem — nie zastępuje DJ."
+  ],
+  "live": {
+    "note": "Ephemeral trycloudflare URL — może się zmienić po restarcie tunelu (nie restartować bez prośby).",
+    "url_hint": "ephemeral trycloudflare — check local status"
+  },
+  "summaries": [
+    {
+      "date": "2026-10-09",
+      "topic": "chat",
+      "text": "[bot] Wizualizacja działa w trybie lekkim (WebGL niedostępny na tym urządzeniu) — wszystko inne działa."
+    },
+    {
+      "date": "2026-10-09",
+      "topic": "chat",
+      "text": "[user] Włącz wszystko auto"
+    },
+    {
+      "date": "2026-10-09",
+      "topic": "chat",
+      "text": "[bot] 💬 Chętnie pogadam o wszystkim! Żeby odpowiadać na dowolne tematy, włącz 🧠 darmowy mózg AI (działa na telefonie, bez kluczy i opłat — jednorazowe pobranie ≈ 630 MB przez Wi-Fi) albo dodaj klucz G"
+    },
+    {
+      "date": "2026-10-09",
+      "topic": "chat",
+      "text": "[user] Dodaj klucz grok"
+    },
+    {
+      "date": "2026-10-09",
+      "topic": "chat",
+      "text": "[bot] Stop — radio i decki zatrzymane. ⏹ STOP — FULL AUTO, Auto mix, Party i MIDI clock zatrzymane. Studio (piosenka, sekwencer MPC, looper, MIDI clock) też stop. Wizualizacja dalej żyje na pulsie."
+    },
+    {
+      "date": "2026-10-09",
+      "topic": "chat",
+      "text": "[user] Star full audio"
+    },
+    {
+      "date": "2026-10-09",
+      "topic": "chat",
+      "text": "[user] Start auto"
+    },
+    {
+      "date": "2026-10-09",
+      "topic": "chat",
+      "text": "[bot] Auto wander ON — zmiana presetu co 4 takty w rytm."
+    },
+    {
+      "date": "2026-10-09",
+      "topic": "chat",
+      "text": "[user] Puść kali radio"
+    },
+    {
+      "date": "2026-10-09",
+      "topic": "chat",
+      "text": "[bot] KALI LIVE RADIO 📻 ON — wizualizacja w rytm. Jeśli cisza: stuknij ▶ w mini-playerze."
+    }
+  ],
+  "creations": [
+    "D DJ Pro Fly web (mc707-companion)",
+    "Bot D Android",
+    "Kali Radio HTML",
+    "Bot Pamięć (2026-09-24)"
+  ],
+  "open_ideas": [
+    {
+      "id": "idea-001",
+      "title": "Ciągły sync Bot Pamięć → Drive + draft Gmail",
+      "status": "open"
+    },
+    {
+      "id": "idea-002",
+      "title": "Publiczny memory-public.json bez sekretów",
+      "status": "open"
+    },
+    {
+      "id": "idea-003",
+      "title": "MC-707 companion: więcej LIVE viz / auto-heal",
+      "status": "open"
+    },
+    {
+      "id": "idea-004",
+      "title": "Bot D Android + web most Grok/Drive",
+      "status": "open"
+    },
+    {
+      "id": "idea-005",
+      "title": "Przycinanie JSONL przy 900MB",
+      "status": "open"
+    }
+  ]
+}

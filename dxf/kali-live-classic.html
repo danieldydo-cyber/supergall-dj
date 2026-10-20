@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <script src="js/d7-apk-config.js?v=43"></script><script src="js/d7-apk-shim.js?v=43"></script><script src="js/dbot-native.js?v=45"></script><script src="js/dbot-state.js?v=46"></script><script src="js/dbot-localai.js?v=46"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#06070b" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <title>Super X DJ · Daniel Dydo</title>
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #050508; color: #e8f5e0; font-family: system-ui, sans-serif; touch-action: manipulation; }
+#viz-wrap {
+      position: fixed; inset: 0; z-index: 0; background: #050508;
+      overflow: hidden;
+    }
+    #viz {
+      position: absolute; left: 50%; top: 50%;
+      width: 1920px; height: 1080px;
+      transform: translate(-50%, -50%) scale(var(--cover, 1));
+      transform-origin: center center;
+      display: block; background: #050508;
+    }
+
+    #yt-host {
+      position: fixed; width: 1px; height: 1px; opacity: 0.01; pointer-events: none;
+      bottom: 0; right: 0; z-index: 1; overflow: hidden;
+    }
+    #yt-host.show {
+      width: min(240px, 38vw); height: min(135px, 22vw); opacity: 0.82;
+      border-radius: 10px; right: 12px; bottom: 12px; pointer-events: auto;
+      box-shadow: 0 8px 28px rgba(0,0,0,.55); border: 1px solid rgba(184,255,60,.25);
+    }
+    #gate {
+      position: fixed; inset: 0; z-index: 10; display: flex; align-items: center; justify-content: center;
+      background: radial-gradient(ellipse at center, #0d1210 0%, #050508 70%);
+      cursor: pointer; -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation; user-select: none; -webkit-user-select: none;
+    }
+    #gate .gate-inner h1 { font-size: clamp(2.2rem, 10vw, 4.5rem); }
+    #gate .play {
+      font-size: clamp(1.25rem, 5.5vw, 2.2rem); padding: 1.35rem 2.8rem;
+      min-width: min(88vw, 22rem); min-height: 3.6rem;
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+    #gate.auto-full .gate-inner h1 { font-size: clamp(2.6rem, 12vw, 5rem); }
+    #gate.auto-full .play {
+      font-size: clamp(1.5rem, 6.5vw, 2.5rem); padding: 1.5rem 3.2rem;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 36px rgba(184,255,60,.45); transform: scale(1); }
+      50% { box-shadow: 0 0 64px rgba(184,255,60,.75); transform: scale(1.04); }
+    }
+    #gate.gone { opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .4s ease; }
+    .gate-inner { text-align: center; padding: 2rem; max-width: 32rem; }
+    .gate-inner h1 {
+      font-size: clamp(1.8rem, 7vw, 3.2rem); letter-spacing: .1em; font-weight: 800;
+      color: #b8ff3c; text-shadow: 0 0 28px rgba(184,255,60,.45); margin-bottom: .5rem;
+    }
+    .gate-inner p { color: #8a9a82; font-size: .95rem; margin-bottom: 1.25rem; line-height: 1.4; }
+    .play {
+      appearance: none; border: none; border-radius: 999px; padding: 1.1rem 2.4rem;
+      font-size: 1.15rem; font-weight: 800; letter-spacing: .08em; cursor: pointer;
+      background: linear-gradient(135deg, #b8ff3c, #39ff14); color: #050508;
+      box-shadow: 0 0 36px rgba(184,255,60,.45);
+    }
+    .hint { margin-top: 1rem; font-size: .75rem; color: #667; }
+    #status {
+      position: fixed; left: 12px; top: 12px; z-index: 5; font-size: .7rem; letter-spacing: .06em;
+      color: #b8ff3c; text-transform: uppercase; opacity: .85; pointer-events: none;
+      text-shadow: 0 1px 8px #000; max-width: 70vw; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    #hud {
+      position: fixed; left: 50%; bottom: 14px; transform: translateX(-50%);
+      z-index: 6; display: none; gap: .45rem; align-items: center;
+      background: rgba(5,5,8,.55); backdrop-filter: blur(8px);
+      padding: .4rem .55rem; border-radius: 999px; border: 1px solid rgba(184,255,60,.2);
+    }
+    #hud.on { display: flex; }
+    #hud button {
+      appearance: none; border: 0; border-radius: 999px; padding: .55rem .9rem;
+      font-size: .72rem; font-weight: 800; letter-spacing: .04em; cursor: pointer;
+      background: rgba(184,255,60,.15); color: #b8ff3c;
+    }
+    #hud button:active { background: #b8ff3c; color: #050508; }
+    #bpm-read {
+      font-size: .72rem; font-weight: 800; letter-spacing: .06em; color: #39ff14;
+      min-width: 4.2rem; text-align: center; padding: 0 .35rem;
+    }
+    #preset-name {
+      position: fixed; left: 12px; top: 34px; z-index: 5; font-size: .65rem;
+      color: #8a9a82; opacity: .8; pointer-events: none; max-width: 60vw;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    a.back {
+      position: fixed; left: 12px; bottom: 12px; z-index: 5; font-size: .75rem; color: #8a9a82;
+      text-decoration: none; opacity: .45;
+    }
+    a.back:hover { opacity: 1; color: #b8ff3c; }
+    body.live a.back { opacity: .25; }
+    #shark {
+      position: fixed; right: 18px; top: 18px; z-index: 4; width: 72px; height: 72px;
+      opacity: 0; pointer-events: none; transition: opacity .15s, transform .15s;
+      filter: drop-shadow(0 0 12px rgba(184,255,60,.55));
+    }
+    #shark.kick { opacity: .85; transform: scale(1.18); }
+  </style>
+  <link rel="stylesheet" href="css/d7-chat.css?v=43" />
+  <link rel="stylesheet" href="css/d7-liquid.css?v=44" />
+  <link rel="stylesheet" href="css/dbot-center.css?v=45" />
+  <link rel="stylesheet" href="css/dbot-cosmos.css?v=46" />
+  <link rel="stylesheet" href="css/dbot-studio.css?v=48" />
+  <link rel="stylesheet" href="css/dbot-ufo.css?v=48" />
+</head>
+<body>
+  <div id="viz-wrap"><canvas id="viz" width="1920" height="1080"></canvas></div>
+  <img id="shark" src="icons/bot-d-shark.png" alt="" aria-hidden="true" draggable="false" />
+  <div id="yt-host"><div id="yt-player"></div></div>
+  <div id="status">KALI LIVE · MILKDROP 1080p</div>
+  <div id="preset-name"></div>
+  <div id="hud" aria-label="MilkDrop controls">
+    <button type="button" id="btn-prev" title="Poprzedni">◀</button>
+    <button type="button" id="btn-rand" title="Losowy">RND</button>
+    <button type="button" id="btn-next" title="Następny">NEXT</button>
+    <button type="button" id="btn-fs" title="Fullscreen">FULL</button>
+    <span id="bpm-read" title="BPM">128</span>
+  </div>
+  <a class="back" href="/">← Pro Fly</a>
+  <div id="gate" role="button" tabindex="0" aria-label="Start Kali Live MilkDrop">
+    <div class="gate-inner">
+      <h1>KALI LIVE</h1>
+      <p>Radio 24/7 · MilkDrop 1080p · beat sync · random generator</p>
+      <button type="button" class="play" id="play-btn">▶ PLAY · VIZ</button>
+      <p class="hint">Jeden tap = Kali YT + MilkDrop fullscreen 1080p</p>
+    </div>
+  </div>
+  <script src="libs/butterchurn.min.js?v=37"></script>
+  <script src="libs/butterchurnPresets.min.js?v=37"></script>
+  <script src="libs/butterchurnPresetsExtra.min.js?v=37"></script>
+  <script>
+  (function () {
+    const VIDEO_ID = 'jMRlCH3B6mY';
+    const RENDER_W = 1920;
+    const RENDER_H = 1080;
+    const WANDER_MS = 8500;
+    const DEFAULT_BPM = 128;
+    const qs = new URLSearchParams(location.search);
+    const AUTO = qs.get('auto') === '1';
+
+    const gate = document.getElementById('gate');
+    const status = document.getElementById('status');
+    const presetEl = document.getElementById('preset-name');
+    const canvas = document.getElementById('viz');
+    const ytHost = document.getElementById('yt-host');
+    const hud = document.getElementById('hud');
+    const bpmRead = document.getElementById('bpm-read');
+    const shark = document.getElementById('shark');
+    const playBtn = document.getElementById('play-btn');
+
+    let player = null;
+    let visualizer = null;
+    let audioCtx = null;
+    let started = false;
+    let animId = 0;
+    let keys = [];
+    let presets = {};
+    let idx = 0;
+    let wanderTimer = 0;
+    let bpm = DEFAULT_BPM;
+    let kickGain = null;
+    let kickOsc = null;
+    let kickTimer = 0;
+    let lastKick = 0;
+
+    if (AUTO) {
+      gate.classList.add('auto-full');
+      playBtn.textContent = 'DOTKNIJ · AUTO';
+      status.textContent = 'DOTKNIJ EKRANU · AUTO 1080p';
+    }
+
+    function setStatus(t) { if (status) status.textContent = t; }
+    function setPresetName(n) { if (presetEl) presetEl.textContent = n || ''; }
+    function setBpm(v) {
+      bpm = Math.max(60, Math.min(200, Number(v) || DEFAULT_BPM));
+      if (bpmRead) bpmRead.textContent = Math.round(bpm) + ' BPM';
+      restartKickClock();
+    }
+
+    function mergePresets() {
+      presets = {};
+      try {
+        if (typeof butterchurnPresets !== 'undefined' && butterchurnPresets.getPresets) {
+          Object.assign(presets, butterchurnPresets.getPresets());
+        }
+      } catch (_) {}
+      try {
+        if (typeof butterchurnPresetsExtra !== 'undefined' && butterchurnPresetsExtra.getPresets) {
+          Object.assign(presets, butterchurnPresetsExtra.getPresets());
+        }
+      } catch (_) {}
+      keys = Object.keys(presets);
+      for (var i = keys.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = keys[i]; keys[i] = keys[j]; keys[j] = tmp;
+      }
+    }
+
+    function applyCoverScale() {
+      var sx = window.innerWidth / 1920;
+      var sy = window.innerHeight / 1080;
+      var s = Math.max(sx, sy); // cover
+      document.documentElement.style.setProperty('--cover', String(s));
+    }
+
+    function resizeCanvas() {
+      canvas.width = RENDER_W;
+      canvas.height = RENDER_H;
+      applyCoverScale();
+      if (visualizer && typeof visualizer.setRendererSize === 'function') {
+        try { visualizer.setRendererSize(RENDER_W, RENDER_H); } catch (_) {}
+      }
+    }
+
+    function loadPreset(i, blend) {
+      if (!visualizer || !keys.length) return;
+      idx = ((i % keys.length) + keys.length) % keys.length;
+      var name = keys[idx];
+      try {
+        visualizer.loadPreset(presets[name], blend == null ? 2.4 : blend);
+        setPresetName('MilkDrop · ' + name);
+      } catch (e) {
+        console.warn('preset', e);
+      }
+    }
+
+    function nextPreset() { loadPreset(idx + 1, 2.2); }
+    function prevPreset() { loadPreset(idx - 1, 2.2); }
+    function randPreset() {
+      if (!keys.length) return;
+      var n = Math.floor(Math.random() * keys.length);
+      if (n === idx && keys.length > 1) n = (n + 1) % keys.length;
+      loadPreset(n, 1.6);
+    }
+
+    function startWander() {
+      if (wanderTimer) clearInterval(wanderTimer);
+      wanderTimer = setInterval(function () { randPreset(); }, WANDER_MS);
+    }
+
+    function fireKick() {
+      if (!audioCtx || !kickGain || !kickOsc) return;
+      var t = audioCtx.currentTime;
+      try {
+        kickOsc.frequency.cancelScheduledValues(t);
+        kickOsc.frequency.setValueAtTime(150, t);
+        kickOsc.frequency.exponentialRampToValueAtTime(45, t + 0.12);
+        kickGain.gain.cancelScheduledValues(t);
+        kickGain.gain.setValueAtTime(0.00001, t);
+        kickGain.gain.linearRampToValueAtTime(0.045, t + 0.008);
+        kickGain.gain.exponentialRampToValueAtTime(0.00001, t + 0.18);
+      } catch (_) {}
+      if (shark) {
+        shark.classList.add('kick');
+        clearTimeout(shark._t);
+        shark._t = setTimeout(function () { shark.classList.remove('kick'); }, 120);
+      }
+      lastKick = performance.now();
+    }
+
+    function restartKickClock() {
+      if (kickTimer) clearInterval(kickTimer);
+      if (!audioCtx) return;
+      var interval = 60000 / bpm;
+      kickTimer = setInterval(fireKick, interval);
+      fireKick();
+    }
+
+    function startBeatEngine() {
+      if (!audioCtx) return;
+      // Continuous quiet drone so MilkDrop has spectrum energy between kicks
+      var drone = audioCtx.createOscillator();
+      var droneGain = audioCtx.createGain();
+      drone.type = 'sawtooth';
+      drone.frequency.value = 55;
+      droneGain.gain.value = 0.0025;
+      drone.connect(droneGain);
+      visualizer.connectAudio(droneGain);
+      droneGain.connect(audioCtx.destination);
+      drone.start();
+
+      var mid = audioCtx.createOscillator();
+      var midGain = audioCtx.createGain();
+      mid.type = 'triangle';
+      mid.frequency.value = 220;
+      midGain.gain.value = 0.0012;
+      mid.connect(midGain);
+      visualizer.connectAudio(midGain);
+      midGain.connect(audioCtx.destination);
+      mid.start();
+
+      // Kick pulse gated to BPM — drives MilkDrop hard on each beat
+      kickOsc = audioCtx.createOscillator();
+      kickGain = audioCtx.createGain();
+      kickOsc.type = 'sine';
+      kickOsc.frequency.value = 55;
+      kickGain.gain.value = 0.00001;
+      kickOsc.connect(kickGain);
+      visualizer.connectAudio(kickGain);
+      kickGain.connect(audioCtx.destination);
+      kickOsc.start();
+      restartKickClock();
+    }
+
+    function loadYtApi() {
+      return new Promise(function (resolve, reject) {
+        if (window.YT && window.YT.Player) return resolve(window.YT);
+        var done = false;
+        function ok() { if (done) return; done = true; resolve(window.YT); }
+        function fail(err) { if (done) return; done = true; reject(err || new Error('YT API')); }
+        window.onYouTubeIframeAPIReady = ok;
+        var s = document.createElement('script');
+        s.src = 'https://www.youtube.com/iframe_api';
+        s.async = true;
+        s.onerror = function () { fail(new Error('YT API')); };
+        document.head.appendChild(s);
+        setTimeout(function () {
+          if (window.YT && window.YT.Player) ok();
+          else fail(new Error('YT API timeout'));
+        }, 8000);
+      });
+    }
+
+    function startViz() {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        if (typeof butterchurn === 'undefined') {
+          setStatus('BRAK MILKDROP LIB');
+          return;
+        }
+        mergePresets();
+        resizeCanvas();
+        if (!visualizer) {
+          visualizer = butterchurn.createVisualizer(audioCtx, canvas, {
+            width: RENDER_W,
+            height: RENDER_H,
+            pixelRatio: 1,
+            textureRatio: 1
+          });
+          try { visualizer.setRendererSize(RENDER_W, RENDER_H); } catch (_) {}
+          startBeatEngine();
+          if (keys.length) {
+            idx = Math.floor(Math.random() * keys.length);
+            loadPreset(idx, 0);
+          }
+          startWander();
+        }
+        if (!animId) {
+          function frame() {
+            if (visualizer) visualizer.render();
+            animId = requestAnimationFrame(frame);
+          }
+          animId = requestAnimationFrame(frame);
+        }
+        setStatus('MILKDROP 1080p · ' + keys.length + ' PRESETS · ' + Math.round(bpm) + ' BPM');
+      } catch (e) {
+        console.warn('viz', e);
+        setStatus('VIZ ERROR');
+      }
+    }
+
+    async function goFullscreen() {
+      try {
+        var el = document.documentElement;
+        if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+          if (el.requestFullscreen) await el.requestFullscreen();
+          else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+        }
+      } catch (_) {}
+    }
+
+    // Heuristic: if YT player reports currentTime advancing, nudge BPM slightly toward 120–128 dance band
+    function syncBpmFromYt() {
+      if (!player || typeof player.getCurrentTime !== 'function') return;
+      try {
+        var st = player.getPlayerState && player.getPlayerState();
+        if (st === 1) {
+          // Keep kick locked; Status BPM stays danceable. Live radio ≈ 120–128.
+          if (Math.abs(bpm - 128) > 0.5) setBpm(128);
+        }
+      } catch (_) {}
+    }
+
+    async function start() {
+      if (started) return;
+      started = true;
+      setStatus('ŁADUJĘ RADIO + MILKDROP 1080p…');
+      resizeCanvas();
+      startViz();
+      // Dismiss gate immediately so one-tap never hangs on YT
+      gate.classList.add('gone');
+      document.body.classList.add('live');
+      hud.classList.add('on');
+      goFullscreen();
+      try {
+        await loadYtApi();
+        await new Promise(function (resolve, reject) {
+          var settled = false;
+          function done(err) {
+            if (settled) return;
+            settled = true;
+            if (err) reject(err); else resolve();
+          }
+          player = new YT.Player('yt-player', {
+            width: '240',
+            height: '135',
+            videoId: VIDEO_ID,
+            playerVars: {
+              autoplay: 1,
+              controls: 1,
+              modestbranding: 1,
+              rel: 0,
+              playsinline: 1,
+              origin: location.origin
+            },
+            events: {
+              onReady: function (e) {
+                try {
+                  e.target.mute();
+                  e.target.setVolume(100);
+                  e.target.playVideo();
+                  setTimeout(function () {
+                    try { e.target.unMute(); e.target.setVolume(100); e.target.playVideo(); } catch (_) {}
+                  }, 400);
+                } catch (_) {}
+                done();
+              },
+              onError: function () {
+                setStatus('YT BŁĄD — tapnij mini player');
+                ytHost.classList.add('show');
+                done(new Error('yt'));
+              },
+              onStateChange: function (e) {
+                if (e.data === 1) {
+                  setStatus('KALI LIVE · ON AIR · 1080p · ' + Math.round(bpm) + ' BPM');
+                  syncBpmFromYt();
+                }
+                if (e.data === 0) {
+                  try { player.loadVideoById(VIDEO_ID); player.playVideo(); } catch (_) {}
+                }
+              }
+            }
+          });
+          setTimeout(function () { done(new Error('yt player timeout')); }, 8000);
+        });
+        ytHost.classList.add('show');
+        setStatus('KALI LIVE · ON AIR · 1080p · ' + Math.round(bpm) + ' BPM');
+        setInterval(syncBpmFromYt, 4000);
+      } catch (err) {
+        ytHost.classList.add('show');
+        setStatus('MILKDROP ON · tapnij YT jeśli cicho');
+        console.warn(err);
+      }
+    }
+
+    function onGateTap(e) {
+      if (e) { e.preventDefault(); e.stopPropagation(); }
+      start();
+    }
+    gate.addEventListener('pointerdown', onGateTap, { once: true });
+    gate.addEventListener('click', onGateTap);
+    playBtn.addEventListener('pointerdown', onGateTap, { once: true });
+    playBtn.addEventListener('click', onGateTap);
+    gate.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); start(); }
+    });
+    document.getElementById('btn-next').addEventListener('click', nextPreset);
+    document.getElementById('btn-prev').addEventListener('click', prevPreset);
+    document.getElementById('btn-rand').addEventListener('click', function () {
+      randPreset();
+      startWander();
+    });
+    document.getElementById('btn-fs').addEventListener('click', goFullscreen);
+    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('keydown', function (e) {
+      if (!started) return;
+      if (e.key === 'ArrowRight') nextPreset();
+      if (e.key === 'ArrowLeft') prevPreset();
+      if (e.key === 'r' || e.key === 'R') randPreset();
+      if (e.key === 'f' || e.key === 'F') goFullscreen();
+    });
+    resizeCanvas();
+    setBpm(DEFAULT_BPM);
+  })();
+  </script>
+  <!-- D Bot · Liquid DJ PRO AI (APK v44, chat from v43 + super bot): floating chat „D Bot” (shared history, text + voice) -->
+  <script src="js/google-knowledge.js?v=43"></script>
+  <script src="js/bot-d.js?v=1020"></script>
+  <script src="js/d7-chat.js?v=43"></script>
+  <script src="js/d7-superbot.js?v=52"></script><script src="js/dbot-brains.js?v=47"></script>
+  <script src="js/dbot-live.js?v=45"></script>
+  <script src="js/dbot-agents.js?v=45"></script>
+  <script src="js/dbot-builder.js?v=45"></script>
+  <script src="js/dbot-center.js?v=45"></script>
+  <script src="js/dbot-auto.js?v=46"></script>
+  <script src="js/dbot-doctor.js?v=46"></script>
+  <script src="js/dbot-studio.js?v=48"></script>
+  <script src="js/dbot-ufo.js?v=48"></script>
+  <script src="js/dbot-conductor.js?v=51"></script>
+  <script src="js/dbot-team.js?v=48"></script>
+  <script src="js/dbot-genre.js?v=51"></script>
+  <script src="js/dbot-fly.js?v=48"></script>
+  <script src="js/dbot-v51.js?v=55"></script>
+  <script src="js/dbot-v52.js?v=55"></script>
+  <script src="js/dbot-v53.js?v=55"></script>
+  <script src="js/dbot-alien.js?v=55"></script>
+  <script src="js/dbot-v54.js?v=55"></script>
+  <script src="js/x-lan.js?v=59"></script>
+  <script src="js/dbot-talk.js?v=46"></script>
+</body>
+</html>

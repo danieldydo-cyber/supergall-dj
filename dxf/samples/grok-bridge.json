@@ -1,0 +1,1176 @@
+{
+  "version": 2,
+  "label": "Grok ↔ Mr D · uczy się LIVE 💚",
+  "accountEmail": "konto Google (Daniel)",
+  "outbox": [
+    {
+      "id": "chat-1791567192217",
+      "role": "user",
+      "text": "Możesz że mną zbudować aplikacje",
+      "at": "2026-10-09T19:33:12+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791567192726",
+      "role": "bot",
+      "text": "OK — „Możesz że mną zbudować aplikacje”. Jestem D Bot: rozmowa + DJ + pamięć. Zapisuję to w historii. Co dalej?",
+      "at": "2026-10-09T19:33:12+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791567206089",
+      "role": "user",
+      "text": "Ja się nazywasz",
+      "at": "2026-10-09T19:33:26+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791567206454",
+      "role": "bot",
+      "text": "Notuję: „Ja się nazywasz”. Chcesz coś zagrać („kali radio”, „deck a double d”) czy zapamiętać („zapamiętaj …”)?",
+      "at": "2026-10-09T19:33:26+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "outbox-1791571131703",
+      "role": "state",
+      "text": "X7_STATE {\"v\":\"43\",\"preset\":\"martin - elusive impressions mix2 - flacc mess proph nz+2\",\"autoWander\":true,\"liveGen\":true,\"bpm\":128,\"radioVol\":0,\"ytId\":\"jMRlCH3B6mY\",\"xfade\":0.73,\"masterVol\":1,\"decks\":{\"A\":{\"file\":\"samples/from-drive/Aba-GS-Mashup.mp3\",\"vol\":1},\"B\":{\"file\":\"samples/from-drive/Aba-GS-Mashup.mp3\",\"vol\":0.85}},\"opts\":{\"kaliOnStart\":true,\"autoWander\":true,\"beatSync\":true,\"liveGen\":true,\"darkSkip\":true,\"fx\":true,\"offlineCache\":true,\"voiceReplies\":false,\"cloudSync\":true,\"wakeLock\":true},\"at\":\"2026-10-09T18:38:31.189Z\"}",
+      "tags": [
+        "sync"
+      ],
+      "at": "2026-10-09T20:38:51+02:00",
+      "learn": false,
+      "heal": false,
+      "help": false
+    },
+    {
+      "id": "chat-1791574135623",
+      "role": "user",
+      "text": "Jaka jest pogoda w Krakowie",
+      "at": "2026-10-09T21:28:55+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574136145",
+      "role": "bot",
+      "text": "💬 Chętnie pogadam o wszystkim! Żeby odpowiadać na dowolne tematy, włącz 🧠 darmowy mózg AI (działa na telefonie, bez kluczy i opłat — jednorazowe pobranie ≈ 630 MB przez Wi-Fi) albo dodaj klucz Grok. Offline już teraz pomogę z deckami, MIDI/MC-707, kodem i D Builderem.",
+      "at": "2026-10-09T21:28:56+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574150621",
+      "role": "user",
+      "text": "kod agent",
+      "at": "2026-10-09T21:29:10+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574150989",
+      "role": "bot",
+      "text": "🧩 Šablona kódu · agent — AI agent loop (Node 18+, xAI Grok by default) — key from env, never hard-coded\n\n// XAI_API_KEY=... node agent.mjs \"plan a 1h techno set at 128 BPM\"\nconst KEY = process.env.XAI_API_KEY; if (!KEY) throw new Error('set XAI_API_KEY');\nconst tools = { time: () => new Date().toISOString(), bpmToMs: ({ bpm }) => (60000 / bpm).toFixed(1) + ' ms/beat' };\nconst sys = 'You are a DJ assistant agent. To use a tool answer ONLY with JSON {\"tool\":\"name\",\"args\":{}}; otherwise answer normally. Tools: ' + Object.keys(tools).join(', ');\nconst messages = [{ role: 'system', content: sys }, { role: 'user', content: process.argv[2] || 'hello' }];\nfor (let step = 0; step < 5; step++) {\n  const r = await fetch('https://api.x.ai/v1/chat/completions', { method: 'POST',\n    headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + KEY },\n    body: JSON.stringify({ model: 'grok-4.7', messages }) });\n  const out = (await r.json()).choices[0].message.content.trim();\n  let call = null; try { call = JSON.parse(out); } catch {}\n  if (!call || !tools[call.tool]) { console.log(out); break; }\n  messages.push({ role: 'assistant', content: out }, { role: 'user', content: 'TOOL RESULT: ' + tools[call.tool](call.args || {}) });\n}",
+      "at": "2026-10-09T21:29:10+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "outbox-1791574185821",
+      "role": "state",
+      "text": "X7_STATE {\"v\":\"43\",\"preset\":\"Rovastar + Loadus + Geiss - Tone-mapped FractalDrop 7c\",\"autoWander\":true,\"liveGen\":true,\"bpm\":128,\"radioVol\":82,\"ytId\":\"jMRlCH3B6mY\",\"xfade\":0.73,\"masterVol\":0.8,\"decks\":{\"A\":{\"file\":\"samples/from-drive/Aba-GS-Mashup.mp3\",\"vol\":1},\"B\":{\"file\":\"samples/from-drive/Aba-GS-Mashup.mp3\",\"vol\":0.85}},\"opts\":{\"kaliOnStart\":true,\"autoWander\":true,\"beatSync\":true,\"liveGen\":true,\"darkSkip\":true,\"fx\":true,\"offlineCache\":true,\"voiceReplies\":false,\"cloudSync\":true,\"wakeLock\":true},\"at\":\"2026-10-09T19:29:14.033Z\"}",
+      "tags": [
+        "sync"
+      ],
+      "at": "2026-10-09T21:29:45+02:00",
+      "learn": false,
+      "heal": false,
+      "help": false
+    },
+    {
+      "id": "chat-1791574477967",
+      "role": "user",
+      "text": "kod agent",
+      "at": "2026-10-09T21:34:37+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574478323",
+      "role": "bot",
+      "text": "🧩 Šablona kódu · agent — AI agent loop (Node 18+, xAI Grok by default) — key from env, never hard-coded\n\n// XAI_API_KEY=... node agent.mjs \"plan a 1h techno set at 128 BPM\"\nconst KEY = process.env.XAI_API_KEY; if (!KEY) throw new Error('set XAI_API_KEY');\nconst tools = { time: () => new Date().toISOString(), bpmToMs: ({ bpm }) => (60000 / bpm).toFixed(1) + ' ms/beat' };\nconst sys = 'You are a DJ assistant agent. To use a tool answer ONLY with JSON {\"tool\":\"name\",\"args\":{}}; otherwise answer normally. Tools: ' + Object.keys(tools).join(', ');\nconst messages = [{ role: 'system', content: sys }, { role: 'user', content: process.argv[2] || 'hello' }];\nfor (let step = 0; step < 5; step++) {\n  const r = await fetch('https://api.x.ai/v1/chat/completions', { method: 'POST',\n    headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + KEY },\n    body: JSON.stringify({ model: 'grok-4.7', messages }) });\n  const out = (await r.json()).choices[0].message.content.trim();\n  let call = null; try { call = JSON.parse(out); } catch {}\n  if (!call || !tools[call.tool]) { console.log(out); break; }\n  messages.push({ role: 'assistant', content: out }, { role: 'user', content: 'TOOL RESULT: ' + tools[call.tool](call.args || {}) });\n}",
+      "at": "2026-10-09T21:34:38+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574479911",
+      "role": "user",
+      "text": "kod agent",
+      "at": "2026-10-09T21:34:39+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574480281",
+      "role": "bot",
+      "text": "🧩 Šablona kódu · agent — AI agent loop (Node 18+, xAI Grok by default) — key from env, never hard-coded\n\n// XAI_API_KEY=... node agent.mjs \"plan a 1h techno set at 128 BPM\"\nconst KEY = process.env.XAI_API_KEY; if (!KEY) throw new Error('set XAI_API_KEY');\nconst tools = { time: () => new Date().toISOString(), bpmToMs: ({ bpm }) => (60000 / bpm).toFixed(1) + ' ms/beat' };\nconst sys = 'You are a DJ assistant agent. To use a tool answer ONLY with JSON {\"tool\":\"name\",\"args\":{}}; otherwise answer normally. Tools: ' + Object.keys(tools).join(', ');\nconst messages = [{ role: 'system', content: sys }, { role: 'user', content: process.argv[2] || 'hello' }];\nfor (let step = 0; step < 5; step++) {\n  const r = await fetch('https://api.x.ai/v1/chat/completions', { method: 'POST',\n    headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + KEY },\n    body: JSON.stringify({ model: 'grok-4.7', messages }) });\n  const out = (await r.json()).choices[0].message.content.trim();\n  let call = null; try { call = JSON.parse(out); } catch {}\n  if (!call || !tools[call.tool]) { console.log(out); break; }\n  messages.push({ role: 'assistant', content: out }, { role: 'user', content: 'TOOL RESULT: ' + tools[call.tool](call.args || {}) });\n}",
+      "at": "2026-10-09T21:34:40+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574480635",
+      "role": "user",
+      "text": "kod agent",
+      "at": "2026-10-09T21:34:40+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574480960",
+      "role": "bot",
+      "text": "🧩 Šablona kódu · agent — AI agent loop (Node 18+, xAI Grok by default) — key from env, never hard-coded\n\n// XAI_API_KEY=... node agent.mjs \"plan a 1h techno set at 128 BPM\"\nconst KEY = process.env.XAI_API_KEY; if (!KEY) throw new Error('set XAI_API_KEY');\nconst tools = { time: () => new Date().toISOString(), bpmToMs: ({ bpm }) => (60000 / bpm).toFixed(1) + ' ms/beat' };\nconst sys = 'You are a DJ assistant agent. To use a tool answer ONLY with JSON {\"tool\":\"name\",\"args\":{}}; otherwise answer normally. Tools: ' + Object.keys(tools).join(', ');\nconst messages = [{ role: 'system', content: sys }, { role: 'user', content: process.argv[2] || 'hello' }];\nfor (let step = 0; step < 5; step++) {\n  const r = await fetch('https://api.x.ai/v1/chat/completions', { method: 'POST',\n    headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + KEY },\n    body: JSON.stringify({ model: 'grok-4.7', messages }) });\n  const out = (await r.json()).choices[0].message.content.trim();\n  let call = null; try { call = JSON.parse(out); } catch {}\n  if (!call || !tools[call.tool]) { console.log(out); break; }\n  messages.push({ role: 'assistant', content: out }, { role: 'user', content: 'TOOL RESULT: ' + tools[call.tool](call.args || {}) });\n}",
+      "at": "2026-10-09T21:34:40+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574481329",
+      "role": "user",
+      "text": "kod agent",
+      "at": "2026-10-09T21:34:41+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574481722",
+      "role": "bot",
+      "text": "🧩 Šablona kódu · agent — AI agent loop (Node 18+, xAI Grok by default) — key from env, never hard-coded\n\n// XAI_API_KEY=... node agent.mjs \"plan a 1h techno set at 128 BPM\"\nconst KEY = process.env.XAI_API_KEY; if (!KEY) throw new Error('set XAI_API_KEY');\nconst tools = { time: () => new Date().toISOString(), bpmToMs: ({ bpm }) => (60000 / bpm).toFixed(1) + ' ms/beat' };\nconst sys = 'You are a DJ assistant agent. To use a tool answer ONLY with JSON {\"tool\":\"name\",\"args\":{}}; otherwise answer normally. Tools: ' + Object.keys(tools).join(', ');\nconst messages = [{ role: 'system', content: sys }, { role: 'user', content: process.argv[2] || 'hello' }];\nfor (let step = 0; step < 5; step++) {\n  const r = await fetch('https://api.x.ai/v1/chat/completions', { method: 'POST',\n    headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + KEY },\n    body: JSON.stringify({ model: 'grok-4.7', messages }) });\n  const out = (await r.json()).choices[0].message.content.trim();\n  let call = null; try { call = JSON.parse(out); } catch {}\n  if (!call || !tools[call.tool]) { console.log(out); break; }\n  messages.push({ role: 'assistant', content: out }, { role: 'user', content: 'TOOL RESULT: ' + tools[call.tool](call.args || {}) });\n}",
+      "at": "2026-10-09T21:34:41+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574482057",
+      "role": "user",
+      "text": "kod agent",
+      "at": "2026-10-09T21:34:42+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574482433",
+      "role": "bot",
+      "text": "🧩 Šablona kódu · agent — AI agent loop (Node 18+, xAI Grok by default) — key from env, never hard-coded\n\n// XAI_API_KEY=... node agent.mjs \"plan a 1h techno set at 128 BPM\"\nconst KEY = process.env.XAI_API_KEY; if (!KEY) throw new Error('set XAI_API_KEY');\nconst tools = { time: () => new Date().toISOString(), bpmToMs: ({ bpm }) => (60000 / bpm).toFixed(1) + ' ms/beat' };\nconst sys = 'You are a DJ assistant agent. To use a tool answer ONLY with JSON {\"tool\":\"name\",\"args\":{}}; otherwise answer normally. Tools: ' + Object.keys(tools).join(', ');\nconst messages = [{ role: 'system', content: sys }, { role: 'user', content: process.argv[2] || 'hello' }];\nfor (let step = 0; step < 5; step++) {\n  const r = await fetch('https://api.x.ai/v1/chat/completions', { method: 'POST',\n    headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + KEY },\n    body: JSON.stringify({ model: 'grok-4.7', messages }) });\n  const out = (await r.json()).choices[0].message.content.trim();\n  let call = null; try { call = JSON.parse(out); } catch {}\n  if (!call || !tools[call.tool]) { console.log(out); break; }\n  messages.push({ role: 'assistant', content: out }, { role: 'user', content: 'TOOL RESULT: ' + tools[call.tool](call.args || {}) });\n}",
+      "at": "2026-10-09T21:34:42+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574482850",
+      "role": "user",
+      "text": "kod agent",
+      "at": "2026-10-09T21:34:42+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574483241",
+      "role": "bot",
+      "text": "🧩 Šablona kódu · agent — AI agent loop (Node 18+, xAI Grok by default) — key from env, never hard-coded\n\n// XAI_API_KEY=... node agent.mjs \"plan a 1h techno set at 128 BPM\"\nconst KEY = process.env.XAI_API_KEY; if (!KEY) throw new Error('set XAI_API_KEY');\nconst tools = { time: () => new Date().toISOString(), bpmToMs: ({ bpm }) => (60000 / bpm).toFixed(1) + ' ms/beat' };\nconst sys = 'You are a DJ assistant agent. To use a tool answer ONLY with JSON {\"tool\":\"name\",\"args\":{}}; otherwise answer normally. Tools: ' + Object.keys(tools).join(', ');\nconst messages = [{ role: 'system', content: sys }, { role: 'user', content: process.argv[2] || 'hello' }];\nfor (let step = 0; step < 5; step++) {\n  const r = await fetch('https://api.x.ai/v1/chat/completions', { method: 'POST',\n    headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + KEY },\n    body: JSON.stringify({ model: 'grok-4.7', messages }) });\n  const out = (await r.json()).choices[0].message.content.trim();\n  let call = null; try { call = JSON.parse(out); } catch {}\n  if (!call || !tools[call.tool]) { console.log(out); break; }\n  messages.push({ role: 'assistant', content: out }, { role: 'user', content: 'TOOL RESULT: ' + tools[call.tool](call.args || {}) });\n}",
+      "at": "2026-10-09T21:34:43+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574483730",
+      "role": "user",
+      "text": "kod agent",
+      "at": "2026-10-09T21:34:43+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574484122",
+      "role": "bot",
+      "text": "🧩 Šablona kódu · agent — AI agent loop (Node 18+, xAI Grok by default) — key from env, never hard-coded\n\n// XAI_API_KEY=... node agent.mjs \"plan a 1h techno set at 128 BPM\"\nconst KEY = process.env.XAI_API_KEY; if (!KEY) throw new Error('set XAI_API_KEY');\nconst tools = { time: () => new Date().toISOString(), bpmToMs: ({ bpm }) => (60000 / bpm).toFixed(1) + ' ms/beat' };\nconst sys = 'You are a DJ assistant agent. To use a tool answer ONLY with JSON {\"tool\":\"name\",\"args\":{}}; otherwise answer normally. Tools: ' + Object.keys(tools).join(', ');\nconst messages = [{ role: 'system', content: sys }, { role: 'user', content: process.argv[2] || 'hello' }];\nfor (let step = 0; step < 5; step++) {\n  const r = await fetch('https://api.x.ai/v1/chat/completions', { method: 'POST',\n    headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + KEY },\n    body: JSON.stringify({ model: 'grok-4.7', messages }) });\n  const out = (await r.json()).choices[0].message.content.trim();\n  let call = null; try { call = JSON.parse(out); } catch {}\n  if (!call || !tools[call.tool]) { console.log(out); break; }\n  messages.push({ role: 'assistant', content: out }, { role: 'user', content: 'TOOL RESULT: ' + tools[call.tool](call.args || {}) });\n}",
+      "at": "2026-10-09T21:34:44+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574484530",
+      "role": "user",
+      "text": "kod agent",
+      "at": "2026-10-09T21:34:44+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574485043",
+      "role": "bot",
+      "text": "🧩 Šablona kódu · agent — AI agent loop (Node 18+, xAI Grok by default) — key from env, never hard-coded\n\n// XAI_API_KEY=... node agent.mjs \"plan a 1h techno set at 128 BPM\"\nconst KEY = process.env.XAI_API_KEY; if (!KEY) throw new Error('set XAI_API_KEY');\nconst tools = { time: () => new Date().toISOString(), bpmToMs: ({ bpm }) => (60000 / bpm).toFixed(1) + ' ms/beat' };\nconst sys = 'You are a DJ assistant agent. To use a tool answer ONLY with JSON {\"tool\":\"name\",\"args\":{}}; otherwise answer normally. Tools: ' + Object.keys(tools).join(', ');\nconst messages = [{ role: 'system', content: sys }, { role: 'user', content: process.argv[2] || 'hello' }];\nfor (let step = 0; step < 5; step++) {\n  const r = await fetch('https://api.x.ai/v1/chat/completions', { method: 'POST',\n    headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + KEY },\n    body: JSON.stringify({ model: 'grok-4.7', messages }) });\n  const out = (await r.json()).choices[0].message.content.trim();\n  let call = null; try { call = JSON.parse(out); } catch {}\n  if (!call || !tools[call.tool]) { console.log(out); break; }\n  messages.push({ role: 'assistant', content: out }, { role: 'user', content: 'TOOL RESULT: ' + tools[call.tool](call.args || {}) });\n}",
+      "at": "2026-10-09T21:34:45+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574485450",
+      "role": "user",
+      "text": "kod agent",
+      "at": "2026-10-09T21:34:45+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574485842",
+      "role": "bot",
+      "text": "🧩 Šablona kódu · agent — AI agent loop (Node 18+, xAI Grok by default) — key from env, never hard-coded\n\n// XAI_API_KEY=... node agent.mjs \"plan a 1h techno set at 128 BPM\"\nconst KEY = process.env.XAI_API_KEY; if (!KEY) throw new Error('set XAI_API_KEY');\nconst tools = { time: () => new Date().toISOString(), bpmToMs: ({ bpm }) => (60000 / bpm).toFixed(1) + ' ms/beat' };\nconst sys = 'You are a DJ assistant agent. To use a tool answer ONLY with JSON {\"tool\":\"name\",\"args\":{}}; otherwise answer normally. Tools: ' + Object.keys(tools).join(', ');\nconst messages = [{ role: 'system', content: sys }, { role: 'user', content: process.argv[2] || 'hello' }];\nfor (let step = 0; step < 5; step++) {\n  const r = await fetch('https://api.x.ai/v1/chat/completions', { method: 'POST',\n    headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + KEY },\n    body: JSON.stringify({ model: 'grok-4.7', messages }) });\n  const out = (await r.json()).choices[0].message.content.trim();\n  let call = null; try { call = JSON.parse(out); } catch {}\n  if (!call || !tools[call.tool]) { console.log(out); break; }\n  messages.push({ role: 'assistant', content: out }, { role: 'user', content: 'TOOL RESULT: ' + tools[call.tool](call.args || {}) });\n}",
+      "at": "2026-10-09T21:34:45+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574486175",
+      "role": "user",
+      "text": "kod agent",
+      "at": "2026-10-09T21:34:46+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574486609",
+      "role": "bot",
+      "text": "🧩 Šablona kódu · agent — AI agent loop (Node 18+, xAI Grok by default) — key from env, never hard-coded\n\n// XAI_API_KEY=... node agent.mjs \"plan a 1h techno set at 128 BPM\"\nconst KEY = process.env.XAI_API_KEY; if (!KEY) throw new Error('set XAI_API_KEY');\nconst tools = { time: () => new Date().toISOString(), bpmToMs: ({ bpm }) => (60000 / bpm).toFixed(1) + ' ms/beat' };\nconst sys = 'You are a DJ assistant agent. To use a tool answer ONLY with JSON {\"tool\":\"name\",\"args\":{}}; otherwise answer normally. Tools: ' + Object.keys(tools).join(', ');\nconst messages = [{ role: 'system', content: sys }, { role: 'user', content: process.argv[2] || 'hello' }];\nfor (let step = 0; step < 5; step++) {\n  const r = await fetch('https://api.x.ai/v1/chat/completions', { method: 'POST',\n    headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + KEY },\n    body: JSON.stringify({ model: 'grok-4.7', messages }) });\n  const out = (await r.json()).choices[0].message.content.trim();\n  let call = null; try { call = JSON.parse(out); } catch {}\n  if (!call || !tools[call.tool]) { console.log(out); break; }\n  messages.push({ role: 'assistant', content: out }, { role: 'user', content: 'TOOL RESULT: ' + tools[call.tool](call.args || {}) });\n}",
+      "at": "2026-10-09T21:34:46+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574486984",
+      "role": "user",
+      "text": "kod agent",
+      "at": "2026-10-09T21:34:46+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574487352",
+      "role": "bot",
+      "text": "🧩 Šablona kódu · agent — AI agent loop (Node 18+, xAI Grok by default) — key from env, never hard-coded\n\n// XAI_API_KEY=... node agent.mjs \"plan a 1h techno set at 128 BPM\"\nconst KEY = process.env.XAI_API_KEY; if (!KEY) throw new Error('set XAI_API_KEY');\nconst tools = { time: () => new Date().toISOString(), bpmToMs: ({ bpm }) => (60000 / bpm).toFixed(1) + ' ms/beat' };\nconst sys = 'You are a DJ assistant agent. To use a tool answer ONLY with JSON {\"tool\":\"name\",\"args\":{}}; otherwise answer normally. Tools: ' + Object.keys(tools).join(', ');\nconst messages = [{ role: 'system', content: sys }, { role: 'user', content: process.argv[2] || 'hello' }];\nfor (let step = 0; step < 5; step++) {\n  const r = await fetch('https://api.x.ai/v1/chat/completions', { method: 'POST',\n    headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + KEY },\n    body: JSON.stringify({ model: 'grok-4.7', messages }) });\n  const out = (await r.json()).choices[0].message.content.trim();\n  let call = null; try { call = JSON.parse(out); } catch {}\n  if (!call || !tools[call.tool]) { console.log(out); break; }\n  messages.push({ role: 'assistant', content: out }, { role: 'user', content: 'TOOL RESULT: ' + tools[call.tool](call.args || {}) });\n}",
+      "at": "2026-10-09T21:34:47+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574487850",
+      "role": "user",
+      "text": "kod agent",
+      "at": "2026-10-09T21:34:47+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574488411",
+      "role": "bot",
+      "text": "🧩 Šablona kódu · agent — AI agent loop (Node 18+, xAI Grok by default) — key from env, never hard-coded\n\n// XAI_API_KEY=... node agent.mjs \"plan a 1h techno set at 128 BPM\"\nconst KEY = process.env.XAI_API_KEY; if (!KEY) throw new Error('set XAI_API_KEY');\nconst tools = { time: () => new Date().toISOString(), bpmToMs: ({ bpm }) => (60000 / bpm).toFixed(1) + ' ms/beat' };\nconst sys = 'You are a DJ assistant agent. To use a tool answer ONLY with JSON {\"tool\":\"name\",\"args\":{}}; otherwise answer normally. Tools: ' + Object.keys(tools).join(', ');\nconst messages = [{ role: 'system', content: sys }, { role: 'user', content: process.argv[2] || 'hello' }];\nfor (let step = 0; step < 5; step++) {\n  const r = await fetch('https://api.x.ai/v1/chat/completions', { method: 'POST',\n    headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + KEY },\n    body: JSON.stringify({ model: 'grok-4.7', messages }) });\n  const out = (await r.json()).choices[0].message.content.trim();\n  let call = null; try { call = JSON.parse(out); } catch {}\n  if (!call || !tools[call.tool]) { console.log(out); break; }\n  messages.push({ role: 'assistant', content: out }, { role: 'user', content: 'TOOL RESULT: ' + tools[call.tool](call.args || {}) });\n}",
+      "at": "2026-10-09T21:34:48+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574488797",
+      "role": "user",
+      "text": "kod agent",
+      "at": "2026-10-09T21:34:48+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574490886",
+      "role": "bot",
+      "text": "🧩 Šablona kódu · agent — AI agent loop (Node 18+, xAI Grok by default) — key from env, never hard-coded\n\n// XAI_API_KEY=... node agent.mjs \"plan a 1h techno set at 128 BPM\"\nconst KEY = process.env.XAI_API_KEY; if (!KEY) throw new Error('set XAI_API_KEY');\nconst tools = { time: () => new Date().toISOString(), bpmToMs: ({ bpm }) => (60000 / bpm).toFixed(1) + ' ms/beat' };\nconst sys = 'You are a DJ assistant agent. To use a tool answer ONLY with JSON {\"tool\":\"name\",\"args\":{}}; otherwise answer normally. Tools: ' + Object.keys(tools).join(', ');\nconst messages = [{ role: 'system', content: sys }, { role: 'user', content: process.argv[2] || 'hello' }];\nfor (let step = 0; step < 5; step++) {\n  const r = await fetch('https://api.x.ai/v1/chat/completions', { method: 'POST',\n    headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + KEY },\n    body: JSON.stringify({ model: 'grok-4.7', messages }) });\n  const out = (await r.json()).choices[0].message.content.trim();\n  let call = null; try { call = JSON.parse(out); } catch {}\n  if (!call || !tools[call.tool]) { console.log(out); break; }\n  messages.push({ role: 'assistant', content: out }, { role: 'user', content: 'TOOL RESULT: ' + tools[call.tool](call.args || {}) });\n}",
+      "at": "2026-10-09T21:34:50+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574491374",
+      "role": "user",
+      "text": "kod agent",
+      "at": "2026-10-09T21:34:51+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574491803",
+      "role": "bot",
+      "text": "🧩 Šablona kódu · agent — AI agent loop (Node 18+, xAI Grok by default) — key from env, never hard-coded\n\n// XAI_API_KEY=... node agent.mjs \"plan a 1h techno set at 128 BPM\"\nconst KEY = process.env.XAI_API_KEY; if (!KEY) throw new Error('set XAI_API_KEY');\nconst tools = { time: () => new Date().toISOString(), bpmToMs: ({ bpm }) => (60000 / bpm).toFixed(1) + ' ms/beat' };\nconst sys = 'You are a DJ assistant agent. To use a tool answer ONLY with JSON {\"tool\":\"name\",\"args\":{}}; otherwise answer normally. Tools: ' + Object.keys(tools).join(', ');\nconst messages = [{ role: 'system', content: sys }, { role: 'user', content: process.argv[2] || 'hello' }];\nfor (let step = 0; step < 5; step++) {\n  const r = await fetch('https://api.x.ai/v1/chat/completions', { method: 'POST',\n    headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + KEY },\n    body: JSON.stringify({ model: 'grok-4.7', messages }) });\n  const out = (await r.json()).choices[0].message.content.trim();\n  let call = null; try { call = JSON.parse(out); } catch {}\n  if (!call || !tools[call.tool]) { console.log(out); break; }\n  messages.push({ role: 'assistant', content: out }, { role: 'user', content: 'TOOL RESULT: ' + tools[call.tool](call.args || {}) });\n}",
+      "at": "2026-10-09T21:34:51+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574492198",
+      "role": "user",
+      "text": "kod agent",
+      "at": "2026-10-09T21:34:52+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574492588",
+      "role": "bot",
+      "text": "🧩 Šablona kódu · agent — AI agent loop (Node 18+, xAI Grok by default) — key from env, never hard-coded\n\n// XAI_API_KEY=... node agent.mjs \"plan a 1h techno set at 128 BPM\"\nconst KEY = process.env.XAI_API_KEY; if (!KEY) throw new Error('set XAI_API_KEY');\nconst tools = { time: () => new Date().toISOString(), bpmToMs: ({ bpm }) => (60000 / bpm).toFixed(1) + ' ms/beat' };\nconst sys = 'You are a DJ assistant agent. To use a tool answer ONLY with JSON {\"tool\":\"name\",\"args\":{}}; otherwise answer normally. Tools: ' + Object.keys(tools).join(', ');\nconst messages = [{ role: 'system', content: sys }, { role: 'user', content: process.argv[2] || 'hello' }];\nfor (let step = 0; step < 5; step++) {\n  const r = await fetch('https://api.x.ai/v1/chat/completions', { method: 'POST',\n    headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + KEY },\n    body: JSON.stringify({ model: 'grok-4.7', messages }) });\n  const out = (await r.json()).choices[0].message.content.trim();\n  let call = null; try { call = JSON.parse(out); } catch {}\n  if (!call || !tools[call.tool]) { console.log(out); break; }\n  messages.push({ role: 'assistant', content: out }, { role: 'user', content: 'TOOL RESULT: ' + tools[call.tool](call.args || {}) });\n}",
+      "at": "2026-10-09T21:34:52+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574492961",
+      "role": "user",
+      "text": "kali radio",
+      "at": "2026-10-09T21:34:52+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574493347",
+      "role": "bot",
+      "text": "KALI LIVE RADIO 📻 ON — wizualizacja leci w rytm (puls 128 BPM, YouTube nie da się analizować FFT). Jeśli cisza: stuknij ▶ w mini-playerze.",
+      "at": "2026-10-09T21:34:53+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574509524",
+      "role": "user",
+      "text": "kod agent",
+      "at": "2026-10-09T21:35:09+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574509954",
+      "role": "bot",
+      "text": "🧩 Šablona kódu · agent — AI agent loop (Node 18+, xAI Grok by default) — key from env, never hard-coded\n\n// XAI_API_KEY=... node agent.mjs \"plan a 1h techno set at 128 BPM\"\nconst KEY = process.env.XAI_API_KEY; if (!KEY) throw new Error('set XAI_API_KEY');\nconst tools = { time: () => new Date().toISOString(), bpmToMs: ({ bpm }) => (60000 / bpm).toFixed(1) + ' ms/beat' };\nconst sys = 'You are a DJ assistant agent. To use a tool answer ONLY with JSON {\"tool\":\"name\",\"args\":{}}; otherwise answer normally. Tools: ' + Object.keys(tools).join(', ');\nconst messages = [{ role: 'system', content: sys }, { role: 'user', content: process.argv[2] || 'hello' }];\nfor (let step = 0; step < 5; step++) {\n  const r = await fetch('https://api.x.ai/v1/chat/completions', { method: 'POST',\n    headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + KEY },\n    body: JSON.stringify({ model: 'grok-4.7', messages }) });\n  const out = (await r.json()).choices[0].message.content.trim();\n  let call = null; try { call = JSON.parse(out); } catch {}\n  if (!call || !tools[call.tool]) { console.log(out); break; }\n  messages.push({ role: 'assistant', content: out }, { role: 'user', content: 'TOOL RESULT: ' + tools[call.tool](call.args || {}) });\n}",
+      "at": "2026-10-09T21:35:09+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574709792",
+      "role": "bot",
+      "text": "Wizualizacja działa w trybie lekkim (WebGL niedostępny na tym urządzeniu) — wszystko inne działa.",
+      "at": "2026-10-09T21:38:29+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574721119",
+      "role": "user",
+      "text": "Włącz wszystko auto",
+      "at": "2026-10-09T21:38:41+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574721474",
+      "role": "bot",
+      "text": "💬 Chętnie pogadam o wszystkim! Żeby odpowiadać na dowolne tematy, włącz 🧠 darmowy mózg AI (działa na telefonie, bez kluczy i opłat — jednorazowe pobranie ≈ 630 MB przez Wi-Fi) albo dodaj klucz Grok. Offline już teraz pomogę z deckami, MIDI/MC-707, kodem i D Builderem.",
+      "at": "2026-10-09T21:38:41+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574725535",
+      "role": "bot",
+      "text": "Wizualizacja działa w trybie lekkim (WebGL niedostępny na tym urządzeniu) — wszystko inne działa.",
+      "at": "2026-10-09T21:38:45+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574745960",
+      "role": "bot",
+      "text": "Wizualizacja działa w trybie lekkim (WebGL niedostępny na tym urządzeniu) — wszystko inne działa.",
+      "at": "2026-10-09T21:39:05+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574746387",
+      "role": "user",
+      "text": "Dodaj klucz grok",
+      "at": "2026-10-09T21:39:06+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574746751",
+      "role": "bot",
+      "text": "💬 Chętnie pogadam o wszystkim! Żeby odpowiadać na dowolne tematy, włącz 🧠 darmowy mózg AI (działa na telefonie, bez kluczy i opłat — jednorazowe pobranie ≈ 630 MB przez Wi-Fi) albo dodaj klucz Grok. Offline już teraz pomogę z deckami, MIDI/MC-707, kodem i D Builderem.",
+      "at": "2026-10-09T21:39:06+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574761758",
+      "role": "bot",
+      "text": "Wizualizacja działa w trybie lekkim (WebGL niedostępny na tym urządzeniu) — wszystko inne działa.",
+      "at": "2026-10-09T21:39:21+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574781693",
+      "role": "bot",
+      "text": "Wizualizacja działa w trybie lekkim (WebGL niedostępny na tym urządzeniu) — wszystko inne działa.",
+      "at": "2026-10-09T21:39:41+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791574802023",
+      "role": "bot",
+      "text": "Wizualizacja działa w trybie lekkim (WebGL niedostępny na tym urządzeniu) — wszystko inne działa.",
+      "at": "2026-10-09T21:40:02+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "outbox-1791575310595",
+      "role": "state",
+      "text": "X7_STATE {\"v\":\"43\",\"preset\":\"shifter - feathers (angel wings)_phat_remix relief 2\",\"autoWander\":true,\"liveGen\":true,\"bpm\":120,\"radioVol\":82,\"ytId\":\"jMRlCH3B6mY\",\"xfade\":0.81,\"masterVol\":0.8,\"decks\":{\"A\":{\"file\":\"samples/from-drive/Aba-GS-Mashup.mp3\",\"vol\":1},\"B\":{\"file\":\"samples/from-drive/Double-D.mp3\",\"vol\":0}},\"opts\":{\"kaliOnStart\":true,\"autoWander\":true,\"beatSync\":true,\"liveGen\":true,\"darkSkip\":true,\"fx\":true,\"offlineCache\":true,\"voiceReplies\":false,\"cloudSync\":true,\"wakeLock\":true},\"at\":\"2026-10-09T19:40:45.438Z\"}",
+      "tags": [
+        "sync"
+      ],
+      "at": "2026-10-09T21:48:30+02:00",
+      "learn": false,
+      "heal": false,
+      "help": false
+    },
+    {
+      "id": "chat-1791578149547",
+      "role": "bot",
+      "text": "Wizualizacja działa w trybie lekkim (WebGL niedostępny na tym urządzeniu) — wszystko inne działa.",
+      "at": "2026-10-09T22:35:49+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791578172190",
+      "role": "bot",
+      "text": "Wizualizacja działa w trybie lekkim (WebGL niedostępny na tym urządzeniu) — wszystko inne działa.",
+      "at": "2026-10-09T22:36:12+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791578201642",
+      "role": "bot",
+      "text": "Wizualizacja działa w trybie lekkim (WebGL niedostępny na tym urządzeniu) — wszystko inne działa.",
+      "at": "2026-10-09T22:36:41+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791578224500",
+      "role": "bot",
+      "text": "Wizualizacja działa w trybie lekkim (WebGL niedostępny na tym urządzeniu) — wszystko inne działa.",
+      "at": "2026-10-09T22:37:04+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791580678826",
+      "role": "bot",
+      "text": "Wizualizacja działa w trybie lekkim (WebGL niedostępny na tym urządzeniu) — wszystko inne działa.",
+      "at": "2026-10-09T23:17:58+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791580701296",
+      "role": "bot",
+      "text": "Wizualizacja działa w trybie lekkim (WebGL niedostępny na tym urządzeniu) — wszystko inne działa.",
+      "at": "2026-10-09T23:18:21+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791580717942",
+      "role": "bot",
+      "text": "Wizualizacja działa w trybie lekkim (WebGL niedostępny na tym urządzeniu) — wszystko inne działa.",
+      "at": "2026-10-09T23:18:37+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791580740168",
+      "role": "bot",
+      "text": "Wizualizacja działa w trybie lekkim (WebGL niedostępny na tym urządzeniu) — wszystko inne działa.",
+      "at": "2026-10-09T23:19:00+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791580989498",
+      "role": "user",
+      "text": "Stop",
+      "at": "2026-10-09T23:23:09+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791580989958",
+      "role": "bot",
+      "text": "Stop — radio i decki zatrzymane. ⏹ STOP — FULL AUTO, Auto mix, Party i MIDI clock zatrzymane. Studio (piosenka, sekwencer MPC, looper, MIDI clock) też stop. Wizualizacja dalej żyje na pulsie.",
+      "at": "2026-10-09T23:23:09+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791581006575",
+      "role": "user",
+      "text": "Star full audio",
+      "at": "2026-10-09T23:23:26+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791581006958",
+      "role": "bot",
+      "text": "💬 Chętnie pogadam o wszystkim! Żeby odpowiadać na dowolne tematy, włącz 🧠 darmowy mózg AI (działa na telefonie, bez kluczy i opłat — jednorazowe pobranie ≈ 630 MB przez Wi-Fi) albo dodaj klucz Grok. Offline już teraz pomogę z deckami, MIDI/MC-707, kodem i D Builderem.",
+      "at": "2026-10-09T23:23:26+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791581014057",
+      "role": "user",
+      "text": "Start auto",
+      "at": "2026-10-09T23:23:34+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791581014439",
+      "role": "bot",
+      "text": "Auto wander ON — zmiana presetu co 4 takty w rytm.",
+      "at": "2026-10-09T23:23:34+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791581025235",
+      "role": "user",
+      "text": "Puść kali radio",
+      "at": "2026-10-09T23:23:45+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791581025616",
+      "role": "bot",
+      "text": "KALI LIVE RADIO 📻 ON — wizualizacja w rytm. Jeśli cisza: stuknij ▶ w mini-playerze.",
+      "at": "2026-10-09T23:23:45+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791581755885",
+      "role": "bot",
+      "text": "Wizualizacja działa w trybie lekkim (WebGL niedostępny na tym urządzeniu) — wszystko inne działa.",
+      "at": "2026-10-09T23:35:55+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791581778298",
+      "role": "bot",
+      "text": "Wizualizacja działa w trybie lekkim (WebGL niedostępny na tym urządzeniu) — wszystko inne działa.",
+      "at": "2026-10-09T23:36:18+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "outbox-1791582801112",
+      "role": "state",
+      "text": "X7_STATE {\"v\":\"43\",\"preset\":\"stahlregen + geiss + shifter - babylon\",\"autoWander\":true,\"liveGen\":true,\"bpm\":132,\"radioVol\":50,\"ytId\":\"jMRlCH3B6mY\",\"xfade\":0.81,\"masterVol\":0.43,\"decks\":{\"A\":{\"file\":\"samples/from-drive/Aba-GS-Mashup.mp3\",\"vol\":1},\"B\":{\"file\":\"samples/from-drive/Double-D.mp3\",\"vol\":0.85}},\"opts\":{\"kaliOnStart\":true,\"autoWander\":true,\"beatSync\":true,\"liveGen\":true,\"darkSkip\":true,\"fx\":true,\"offlineCache\":true,\"voiceReplies\":false,\"cloudSync\":true,\"wakeLock\":true},\"at\":\"2026-10-09T21:26:29.441Z\"}",
+      "tags": [
+        "sync"
+      ],
+      "at": "2026-10-09T23:53:21+02:00",
+      "learn": false,
+      "heal": false,
+      "help": false
+    },
+    {
+      "id": "chat-1791582976863",
+      "role": "bot",
+      "text": "Wizualizacja działa w trybie lekkim (WebGL niedostępny na tym urządzeniu) — wszystko inne działa.",
+      "at": "2026-10-09T23:56:16+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791582999563",
+      "role": "bot",
+      "text": "Wizualizacja działa w trybie lekkim (WebGL niedostępny na tym urządzeniu) — wszystko inne działa.",
+      "at": "2026-10-09T23:56:39+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791583394004",
+      "role": "bot",
+      "text": "Wizualizacja działa w trybie lekkim (WebGL niedostępny na tym urządzeniu) — wszystko inne działa.",
+      "at": "2026-10-10T00:03:14+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791583417111",
+      "role": "bot",
+      "text": "Wizualizacja działa w trybie lekkim (WebGL niedostępny na tym urządzeniu) — wszystko inne działa.",
+      "at": "2026-10-10T00:03:37+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791873334567",
+      "role": "user",
+      "text": "Buduj aplikacje dj",
+      "at": "2026-10-13T08:35:34+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    },
+    {
+      "id": "chat-1791873334794",
+      "role": "bot",
+      "text": "OK — „Buduj aplikacje dj”. Jestem Daniel (Bot D): rozmowa + DJ + pamięć. Zapisuję to w historii. Co dalej?",
+      "at": "2026-10-13T08:35:34+02:00",
+      "via": "chat-log",
+      "tags": [
+        "learn",
+        "help"
+      ],
+      "learn": true,
+      "heal": false,
+      "help": true
+    }
+  ],
+  "inbox": [
+    {
+      "id": "welcome-1",
+      "role": "grok",
+      "text": "Most połączony. Grok Bot na koncie Daniel widzi Drive + playlistę. Napisz tu — wiadomość ląduje w outbox; parent/routine może odpowiedzieć w inbox.",
+      "at": "2026-09-24T03:51:40+02:00"
+    },
+    {
+      "id": "welcome-learn-1790221808",
+      "role": "grok-learn",
+      "text": "Grok linked · ucz się 💚 — most LIVE. Outbox → Bot Pamięć; inbox wraca do Mr D. Boga Bot hub (my-dax.com): programy pomagające ludziom.",
+      "at": "2026-09-24T05:50:08+02:00"
+    },
+    {
+      "id": "mesh-live-1790221891973",
+      "role": "grok",
+      "tags": [
+        "learn",
+        "help",
+        "mesh"
+      ],
+      "learn": true,
+      "help": true,
+      "heal": false,
+      "text": "Grok linked · uczy się LIVE 💚 · mesh: Mr D Fluid + Bot Pamięć (7GB) + LIVE GENERATOR + Gmail drafts-only · hub stub https://my-dax.com (Boga bota — helpers, not divinity). Parent: poll /api/grok-bridge outbox.",
+      "at": "2026-09-24T05:51:31+02:00"
+    },
+    {
+      "id": "learn-ack-1790221919229",
+      "role": "grok-learn",
+      "text": "Grok linked · ucz się 💚 — zapisano 1 do Bot Pamięć (łącznie 11). Boga Bot hub: pomagamy ludziom.",
+      "at": "2026-09-24T05:51:59+02:00",
+      "via": "grok-learn-ingest"
+    },
+    {
+      "id": "learn-ack-1790221986151",
+      "role": "grok-learn",
+      "text": "Grok linked · ucz się 💚 — zapisano 1 do Bot Pamięć (łącznie 12). Boga Bot hub: pomagamy ludziom.",
+      "at": "2026-09-24T05:53:06+02:00",
+      "via": "grok-learn-ingest"
+    }
+  ],
+  "updatedAt": "2026-10-13T08:35:34+02:00",
+  "learn": {
+    "linked": true,
+    "label": "Grok linked · ucz się",
+    "lastIngestAt": "2026-09-24T05:53:06+02:00",
+    "memorySummaries": 12
+  },
+  "hub": "https://my-dax.com",
+  "tagsSupported": [
+    "learn",
+    "heal",
+    "help"
+  ],
+  "learning": true,
+  "liveGenerator": true
+}

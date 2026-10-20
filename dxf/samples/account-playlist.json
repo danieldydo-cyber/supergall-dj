@@ -1,0 +1,81 @@
+{
+  "title": "Konto Daniel · Drive playlist",
+  "owner": "Daniel Dydo",
+  "accountEmail": "konto Google (Daniel)",
+  "note": "Połączony z kontem · Google Drive · Grok · synced",
+  "syncedAt": "2026-09-24T03:51:40+02:00",
+  "fromDrive": "samples/from-drive/",
+  "fromDriveNote": "4 tracki z Drive (D DJ Pro Fly / 04 Samples + katalog DJ)",
+  "tracks": [
+    {
+      "id": "test-120bpm",
+      "name": "Demo 120 BPM",
+      "file": "samples/test-120bpm.wav",
+      "bpm": 120,
+      "vibe": "default",
+      "source": "builtin"
+    },
+    {
+      "id": "kali-hiphop-120",
+      "name": "Kali · Hip-Hop 120",
+      "file": "samples/kali-hiphop-120.wav",
+      "bpm": 120,
+      "vibe": "hip-hop/kali",
+      "source": "builtin"
+    },
+    {
+      "id": "berlin-techno-128",
+      "name": "Berlin Techno 128",
+      "file": "samples/berlin-techno-128.wav",
+      "bpm": 128,
+      "vibe": "berlin-techno",
+      "source": "builtin"
+    },
+    {
+      "id": "trance-120",
+      "name": "Trance 120",
+      "file": "samples/trance-120.wav",
+      "bpm": 120,
+      "vibe": "trance",
+      "source": "builtin"
+    }
+  ],
+  "driveTracks": [
+    {
+      "id": "drive-double-d",
+      "name": "Double D",
+      "file": "samples/from-drive/Double-D.mp3",
+      "bpm": null,
+      "vibe": "drive",
+      "source": "google-drive",
+      "driveId": "1GB-dQJyrvjPFyTj4_W6b_EcoYaJOvKme"
+    },
+    {
+      "id": "drive-dd-fly",
+      "name": "DD DJ FLY Remix",
+      "file": "samples/from-drive/DD-DJ-FLY-Remix.mp3",
+      "bpm": null,
+      "vibe": "drive",
+      "source": "google-drive",
+      "driveId": "1rnwGhMTh1vcnH0fGAhrdg54Isdx_uaPq"
+    },
+    {
+      "id": "drive-dd-fly-2",
+      "name": "DD DJ FLY Remix 2",
+      "file": "samples/from-drive/DD-DJ-FLY-Remix-2.mp3",
+      "bpm": null,
+      "vibe": "drive",
+      "source": "google-drive",
+      "driveId": "1eR5Bvw4rfymYkOXJXmGiI-ZOTDuLxGCl"
+    },
+    {
+      "id": "drive-aba-gs",
+      "name": "Aba GS · Mashup",
+      "file": "samples/from-drive/Aba-GS-Mashup.mp3",
+      "bpm": null,
+      "vibe": "drive",
+      "source": "google-drive",
+      "driveId": "1JK7QB9OvQ603MWa6Ik6Mb7Ud9pax2x6o"
+    }
+  ]
+}

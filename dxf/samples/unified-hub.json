@@ -1,0 +1,187 @@
+{
+  "version": 32,
+  "unified": true,
+  "liveUrl": "https://ddddddd7777777.halved-period.workers.dev",
+  "liveUrls": {
+    "workers": "https://ddddddd7777777.halved-period.workers.dev",
+    "cloudflareTunnel": "https://ralph-weekend-prior-diary.trycloudflare.com",
+    "radio": "https://ddddddd7777777.halved-period.workers.dev/kali-live",
+    "kaliLive": "https://ddddddd7777777.halved-period.workers.dev/kali-live",
+    "proDj": "https://ddddddd7777777.halved-period.workers.dev/pro-dj"
+  },
+  "preferredLive": "workers",
+  "updatedAt": "2026-09-24T09:08:20Z",
+  "programs": [
+    {
+      "id": "site",
+      "name": "D DJ Pro Fly · LIVE",
+      "role": "site",
+      "url": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "altUrl": "https://ralph-weekend-prior-diary.trycloudflare.com",
+      "status": "linked"
+    },
+    {
+      "id": "d-bot",
+      "name": "D Bot",
+      "role": "bot",
+      "url": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "status": "linked"
+    },
+    {
+      "id": "milkdrop-live-d",
+      "name": "MilkDrop LIVE D",
+      "role": "viz",
+      "url": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "status": "linked"
+    },
+    {
+      "id": "kali-radio",
+      "name": "Kali Radio",
+      "role": "beats",
+      "url": "https://ddddddd7777777.lilac-drip.workers.dev/kali-live",
+      "status": "linked"
+    },
+    {
+      "id": "beats",
+      "name": "Builtin Beats",
+      "role": "beats",
+      "path": "samples/",
+      "files": [
+        "kali-hiphop-120.wav",
+        "berlin-techno-128.wav",
+        "trance-120.wav",
+        "test-120bpm.wav"
+      ],
+      "status": "linked"
+    },
+    {
+      "id": "bot-pamiec",
+      "name": "Bot Pamięć",
+      "role": "memory",
+      "path": "/workspace/bot-pamiec/",
+      "status": "linked"
+    },
+    {
+      "id": "grok-bot",
+      "name": "Grok Bot",
+      "role": "bot",
+      "bridge": "/api/grok-bridge",
+      "status": "linked"
+    },
+    {
+      "id": "gmail-bridge",
+      "name": "Gmail Bridge",
+      "role": "bot",
+      "mode": "drafts-only",
+      "to": "konto Google (Daniel)",
+      "status": "linked"
+    },
+    {
+      "id": "pkg-web",
+      "name": "DDJ Pro Fly · Web",
+      "role": "package",
+      "path": "downloads/DDJ-Pro-Fly-web.tar.gz",
+      "driveFolder": "1qGzgfHRsr9aq8c32bKgO5CLHItnbZYZJ",
+      "status": "linked"
+    },
+    {
+      "id": "pkg-ios",
+      "name": "DDJ Pro Fly · iOS",
+      "role": "package",
+      "path": "/workspace/DDJ-Pro-Fly-iOS.tar.gz",
+      "status": "linked"
+    },
+    {
+      "id": "pkg-samples",
+      "name": "Drive Samples",
+      "role": "package",
+      "path": "samples/from-drive/",
+      "folderId": "1BatC1KpyHzRqnelapOOvOCDQada067d-",
+      "status": "linked"
+    },
+    {
+      "id": "android-apk",
+      "name": "Bot-D-Android.apk",
+      "role": "package",
+      "path": "downloads/Bot-D-Android.apk",
+      "status": "linked"
+    },
+    {
+      "id": "milkdrop-live-d-v29",
+      "name": "milkdrop-live-d-v29.zip",
+      "role": "package",
+      "path": "downloads/milkdrop-live-d-v29.zip",
+      "status": "linked"
+    },
+    {
+      "id": "pro-fly",
+      "name": "DDJ Pro Fly",
+      "role": "package",
+      "path": "/workspace/mc707-companion/",
+      "status": "linked"
+    },
+    {
+      "id": "generators",
+      "name": "LIVE GENERATOR",
+      "role": "generator",
+      "url": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "status": "linked"
+    }
+  ],
+  "hubPills": [
+    "Drive",
+    "Gmail",
+    "Grok",
+    "D Bot",
+    "MilkDrop",
+    "Kali",
+    "Beats"
+  ],
+  "workersClaim": "",
+  "liveNode": "https://ddddddd7777777.lilac-drip.workers.dev",
+  "workersUrl": "https://ddddddd7777777.halved-period.workers.dev",
+  "claimUrl": "https://dash.cloudflare.com/claim-preview?claimToken=mUC7wI9GH7oRY5tH7XTuWbpQk3PtJ_DAY-UKe4M25sg",
+  "tunnelUrl": "https://ira-art-correlation-doctors.trycloudflare.com",
+  "openingTrack": {
+    "id": "D6DNubWWsoI",
+    "export": "BROTHER_MAX_OPENING",
+    "title": "DaXDJ RemiX Dj  70min set DD",
+    "badge": "★ OPENING",
+    "url": "https://youtu.be/D6DNubWWsoI"
+  },
+  "whatsapp": {
+    "label": "WhatsApp · Daniel",
+    "href": "https://wa.me/48730377357?text=Cze%C5%9B%C4%87%21%20Brother%20Max%20%C2%B7%20D%20DJ%20Pro%20Fly%20LIVE%3A%20https%3A//ddddddd7777777.halved-period.workers.dev",
+    "e164": "+48730377357",
+    "mode": "wa.me-link-only"
+  },
+  "saveTargets": {
+    "note": "Bot D / self-heal save targets: Drive D DJ Pro Fly + Bot Pamięć + Gmail drafts + local samples/",
+    "targets": [
+      {
+        "id": "drive-ddj-pro-fly",
+        "name": "Drive D DJ Pro Fly",
+        "folderId": "1qGzgfHRsr9aq8c32bKgO5CLHItnbZYZJ"
+      },
+      {
+        "id": "bot-pamiec",
+        "name": "Bot Pamięć",
+        "path": "/workspace/bot-pamiec/"
+      },
+      {
+        "id": "gmail-drafts",
+        "name": "Gmail drafts",
+        "mode": "drafts-only",
+        "to": "konto Google (Daniel)"
+      },
+      {
+        "id": "local-samples",
+        "name": "local samples",
+        "path": "samples/"
+      }
+    ]
+  },
+  "note": "v36 · kali-live 1080p beat-sync · pro-dj · html_handling=none",
+  "radioUrl": "https://ddddddd7777777.halved-period.workers.dev/kali-live",
+  "updatedAtLabel": "2026-09-24 11:08 CEST (Warsaw)"
+}

@@ -1,0 +1,93 @@
+/* D Bot · D77 Studio (v47) — D Song · MPC · Looper · BPM sync. Glass over the cosmic background. */
+.dbs{position:fixed;inset:0;z-index:2147483050;background:rgba(3,4,12,.42);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:flex;justify-content:center;color:#eef3ff;font:14px/1.35 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.dbs[hidden]{display:none!important}
+.dbs-panel{width:min(980px,100%);max-width:100vw;box-sizing:border-box;overflow-x:hidden;min-width:0;height:100%;display:flex;flex-direction:column;background:linear-gradient(180deg,rgba(14,16,34,.62),rgba(8,9,20,.7));border-left:1px solid rgba(120,140,255,.18);border-right:1px solid rgba(120,140,255,.18)}
+.dbs-head{display:flex;align-items:center;gap:10px;padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top));border-bottom:1px solid rgba(255,255,255,.08)}
+.dbs-head b{font-size:17px}.dbs-badge{font:700 10px/1 system-ui;letter-spacing:.12em;padding:5px 8px;border-radius:999px;background:linear-gradient(90deg,#2ef2ff,#ff4fd8,#b26bff);color:#05060c}
+.dbs-x{margin-left:auto;background:rgba(255,255,255,.08);border:0;color:#fff;width:38px;height:38px;border-radius:12px;font-size:18px}
+.dbs-bpm{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px}
+.dbs-bpm>button,.dbs button,.dbs select{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:#eef3ff;border-radius:11px;padding:8px 11px;font:600 13px system-ui;cursor:pointer}
+.dbs button.on,.dbs .dbs-go{background:linear-gradient(90deg,rgba(46,242,255,.35),rgba(178,107,255,.35));border-color:rgba(46,242,255,.6)}
+.dbs button:disabled{opacity:.4}
+.dbs-big{display:flex;flex-direction:column;align-items:center;min-width:92px}
+.dbs-big span{font:800 34px/1 ui-monospace,Menlo,monospace;color:#7dffcf;text-shadow:0 0 18px rgba(61,255,160,.45)}.dbs-big small{opacity:.7;font-size:10px;letter-spacing:.1em}
+.dbs-tg{display:inline-flex;align-items:center;gap:5px;font-size:13px}
+.dbs-src{display:flex;gap:6px;flex-wrap:wrap;padding:0 12px 8px}
+.dbs-chip{font-size:12px;padding:5px 9px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);opacity:.65}
+.dbs-chip.on{opacity:1;border-color:rgba(61,255,160,.5)}.dbs-chip.lead{box-shadow:0 0 0 2px rgba(255,214,79,.7)}.dbs-chip i{font-style:normal;opacity:.6;margin-left:4px;font-size:10px}
+.dbs-tabs{display:flex;gap:6px;padding:0 12px 8px;overflow-x:auto}.dbs-tabs button.on{background:rgba(46,242,255,.22);border-color:#2ef2ff}
+.dbs-body{flex:1;overflow:auto;padding:0 12px calc(90px + env(safe-area-inset-bottom))}
+.dbs-card{background:rgba(16,18,40,.5);border:1px solid rgba(140,160,255,.16);border-radius:16px;padding:12px;margin:0 0 10px;backdrop-filter:blur(4px)}
+.dbs-card h3{margin:0 0 8px;font-size:15px}.dbs-mut{opacity:.7;font-size:12px;margin:6px 0 0}
+.dbs-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:6px 0}
+.dbs textarea,.dbs input:not([type]),.dbs input[type=text]{width:100%;box-sizing:border-box;background:rgba(0,0,0,.35);color:#fff;border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:9px;font:14px system-ui}
+.dbs-meta{opacity:.8;margin:0}.dbs-chords{font:700 16px ui-monospace,Menlo,monospace;color:#ffd84f;margin:6px 0}
+.dbs-ly{white-space:pre-wrap;font:13px/1.4 system-ui;max-height:220px;overflow:auto;background:rgba(0,0,0,.25);border-radius:10px;padding:8px;margin:6px 0}
+.dbs-spin{padding:18px;text-align:center;animation:dbsP 1s infinite alternate}@keyframes dbsP{to{opacity:.4}}
+.dbs-pads{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin:8px 0;touch-action:none;user-select:none;-webkit-user-select:none}
+@media (min-width:700px){.dbs-pads{grid-template-columns:repeat(7,1fr)}}
+.dbs .dbs-pad{aspect-ratio:1/0.86;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;padding:7px;border-radius:14px;background:linear-gradient(160deg,rgba(40,44,80,.75),rgba(18,20,40,.8));border:1px solid rgba(255,255,255,.12);box-shadow:inset 0 -3px 0 rgba(0,0,0,.35);touch-action:none}
+.dbs .dbs-pad.full{border-color:rgba(46,242,255,.35)}.dbs .dbs-pad.sel{box-shadow:0 0 0 2px #ffd84f,inset 0 -3px 0 rgba(0,0,0,.35)}.dbs .dbs-pad.lv{border-color:rgba(255,79,216,.6)}
+.dbs .dbs-pad b{font:800 18px system-ui;color:#7df}.dbs .dbs-pad span{font:600 10px system-ui;opacity:.8;text-align:left;overflow:hidden;white-space:nowrap;max-width:100%}
+.dbs .dbs-pad.hit{animation:dbsHit .22s}@keyframes dbsHit{0%{background:#ff4fd8;transform:scale(.95)}100%{transform:none}}
+.dbs-sl{display:flex;flex-direction:column;margin:4px 0}.dbs-sl input{width:100%}
+.dbs-file{display:inline-flex;align-items:center;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:11px;padding:8px 11px;font:600 13px system-ui;cursor:pointer}
+.dbs #dbs-rec.rec,.dbs-track.rec{background:rgba(255,40,80,.35)!important;border-color:#ff4f6d}
+.dbs-track.full{border-color:rgba(61,255,160,.35)}.dbs-fx label{display:inline-flex;align-items:center;gap:4px;font-size:12px}.dbs-fx input[type=range]{width:80px}
+.dbs-li{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.06);flex-wrap:wrap}.dbs-li i{opacity:.65;font-style:normal;font-size:12px}
+.dbs-topbtn{background:linear-gradient(90deg,rgba(255,79,216,.25),rgba(46,242,255,.25))!important}
+html.dbs-open .d7c-fab,html.dbs-open .dbot-fab{opacity:.25}
+.dbs-bpm,.dbs-src,.dbs-tabs,.dbs-body,.dbs-head{box-sizing:border-box;max-width:100%}
+.dbs-x{flex:0 0 auto}
+
+/* v47 · „Multi-talent D” tagline (chat header + Center) */
+.d7c-title b { white-space: nowrap; display: flex; align-items: center; gap: 6px; min-width: 0; }
+.d7c-tag, .dbc-tag { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: .04em; padding: 2px 7px; border-radius: 999px; color: #0b0614; background: linear-gradient(90deg, #5ef0ff, #c86bff 55%, #ff6bb5); white-space: nowrap; flex: 0 0 auto; }
+.dbc-tag { margin-right: 6px; vertical-align: 1px; }
+.dbc-sub { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+@media (max-width: 520px) { .d7c-tag { font-size: 9.5px; padding: 2px 6px; } }
+.dbc-sub { opacity: .85; }
+
+/* v47 · discreet STOP: no big red button while auto runs (Opcje → Auto can bring it back) */
+html:not(.dbot-bigstop) #dbot-stop { display: none !important; }
+.dbot-mini-stop { min-width: 0 !important; width: 30px; height: 30px; padding: 0 !important; font-size: 13px !important; line-height: 1; opacity: .55; border-radius: 50% !important; flex: 0 0 auto; }
+.dbot-mini-stop:hover, .dbot-mini-stop:focus-visible { opacity: 1; color: #ff6b8a; }
+.dbot-mini-stop[hidden] { display: none !important; }
+.sx-badge { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+#op-auto .dbc-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 4px 0; }
+
+/* ===== v48: 📌 pinned tempo chip, Opcje BPM card, mini ⏹ next to the badge ===== */
+.dbot-pin-chip{margin-left:6px;padding:3px 8px;border-radius:999px;border:1px solid rgba(255,214,90,.55);background:rgba(255,214,90,.14);color:#ffd65a;font:800 12px/1 system-ui;cursor:pointer}
+.dbot-pin-chip[hidden]{display:none!important}
+#dbot-mini-stop{margin-left:6px;vertical-align:middle}
+#op-bpm .op-rng{display:inline-flex;gap:6px;align-items:center}
+#op-bpm input[type=number]{width:72px;padding:6px 8px;border-radius:10px;border:1px solid rgba(255,255,255,.18);background:rgba(0,0,0,.25);color:inherit;font:700 14px system-ui}
+#op-bpm .op-tweaks .dbc-row{font-size:12.5px;opacity:.9}
+#op-bpm .op-tweaks button{padding:4px 10px;border-radius:999px}
+.dbs-pin{color:#ffd65a}.dbs-range{font:700 11px system-ui;opacity:.7;margin:0 6px}
+
+/* v48 · 🏠 home = BIG D BOT chat; launcher bar to everything else */
+.dbot-home{display:flex;flex-wrap:wrap;gap:6px;padding:8px 10px;border-bottom:1px solid rgba(160,120,255,.25);background:linear-gradient(90deg,rgba(0,229,255,.08),rgba(184,77,255,.10))}
+.dbot-home button{flex:1 1 auto;min-width:88px;min-height:38px;padding:6px 10px;border-radius:999px;border:1px solid rgba(160,120,255,.45);background:rgba(10,8,24,.85);color:#e9e6ff;font:600 13px/1.1 system-ui,sans-serif;cursor:pointer}
+.dbot-home button:active{transform:scale(.97);background:rgba(184,77,255,.3)}
+#d7c:not([data-size="max"]) .dbot-home{display:none}
+
+/* v48 · Super D Bot · 7 DJ — genre chip + sheet (stations, modes, themes) */
+#dbot-genre-chip{margin-left:6px;min-height:30px;padding:2px 10px;border-radius:999px;border:1px solid var(--line2,rgba(255,255,255,.2));background:rgba(10,8,24,.8);color:var(--text,#eef);font:600 13px system-ui;cursor:pointer}
+#dbot-genre-sheet{position:fixed;z-index:2147483000;left:50%;top:50%;transform:translate(-50%,-50%);width:min(560px,94vw);max-height:86vh;overflow:auto;padding:14px 16px;border-radius:18px;background:rgba(8,9,18,.97);border:1px solid rgba(160,120,255,.45);box-shadow:0 20px 60px rgba(0,0,0,.6);color:var(--text,#eef);font:14px system-ui}
+#dbot-genre-sheet[hidden]{display:none}
+#dbot-genre-sheet .dg-head{display:flex;justify-content:space-between;align-items:center;font-size:16px}
+#dbot-genre-sheet h4{margin:12px 0 6px;font-size:13px;color:var(--muted,#99a)}
+#dbot-genre-sheet .dg-row,#dbot-genre-sheet .dg-grp{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+#dbot-genre-sheet .dg-grp{margin:4px 0}#dbot-genre-sheet .dg-grp>span{min-width:96px;font-size:12px;color:var(--muted,#99a)}
+#dbot-genre-sheet button{min-height:36px;padding:5px 10px;border-radius:12px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.05);color:inherit;font:600 13px system-ui;cursor:pointer;display:inline-flex;flex-direction:column;align-items:flex-start}
+#dbot-genre-sheet button small{font-weight:400;font-size:11px;opacity:.7}
+#dbot-genre-sheet button.on{border-color:var(--cyan,#00e5ff);background:rgba(0,229,255,.14)}
+#dbot-genre-sheet .dg-hint{font-size:11px;color:var(--muted,#99a);margin-top:10px}
+/* 🔴 Proton (warm, energetic) · 🔵 Neutron (cool, neutral) */
+html.theme-proton{--cyan:#ff5a36;--pink:#ffb02e;--lime:#ffd84d;--neon:#ffcf3a;--purple:#ff3d6e;--magenta:#ff3d6e;--bg:#0d0605;--panel:rgba(30,12,10,.9)}
+html.theme-proton #sx-viz{filter:hue-rotate(-35deg) saturate(1.35) contrast(1.05)}
+html.theme-proton .sx-badge{background:linear-gradient(90deg,#ff5a36,#ffb02e)!important;color:#140604!important}
+html.theme-neutron{--cyan:#7fd8ff;--pink:#9aa8ff;--lime:#b9f3ff;--neon:#c8f4ff;--purple:#6f86ff;--magenta:#8f9cff;--bg:#04070c;--panel:rgba(10,16,26,.9)}
+html.theme-neutron #sx-viz{filter:hue-rotate(160deg) saturate(.85) brightness(1.05)}
+html.theme-neutron .sx-badge{background:linear-gradient(90deg,#7fd8ff,#c8f4ff)!important;color:#03101a!important}

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; media-src https:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https: http://localhost:11434 http://127.0.0.1:11434; frame-src 'none'">
+<meta name="referrer" content="no-referrer"><title>Radio + wizualizacje · D — Super D Bot · 7 DJ</title>
+<link rel="stylesheet" href="../css/d-site.css?v=48"></head>
+<body><main>
+<header><svg viewBox="0 0 120 120" aria-hidden="true">
+      <ellipse cx="60" cy="86" rx="52" ry="14" fill="#7c4dff" opacity=".85"/><ellipse cx="60" cy="82" rx="38" ry="8" fill="#b8ff3c" opacity=".55"/>
+      <path d="M30 80 Q60 22 90 80Z" fill="rgba(0,229,255,.18)" stroke="#00e5ff" stroke-width="2"/>
+      <ellipse cx="60" cy="58" rx="16" ry="19" fill="#8dff6a"/><ellipse cx="53" cy="56" rx="5" ry="7" fill="#05060c"/><ellipse cx="67" cy="56" rx="5" ry="7" fill="#05060c"/>
+      <line x1="52" y1="40" x2="46" y2="28" stroke="#8dff6a" stroke-width="2.5"/><circle cx="46" cy="27" r="3" fill="#ff2d95"/>
+      <line x1="68" y1="40" x2="74" y2="28" stroke="#8dff6a" stroke-width="2.5"/><circle cx="74" cy="27" r="3" fill="#ff2d95"/>
+      <path d="M54 67 Q60 71 66 67" stroke="#05060c" stroke-width="2" fill="none"/>
+    </svg><h1>D<small>📻 Radio + wizualizacje · Stacje i wizualizacje w rytm</small></h1><button id="brainBtn" type="button" title="Mózg AI (opcjonalnie)" style="margin-left:auto;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--text);border-radius:999px;padding:6px 10px;font:600 13px system-ui">🔌 Mózg: offline</button></header>
+<nav class="dnav"><a href="index.html" data-p="index">🏠 1 D</a><a href="dj.html" data-p="dj">🎧 DJ</a><a href="studio.html" data-p="studio">🥁 Studio</a><a href="song.html" data-p="song">🎵 D Song</a><a href="builder.html" data-p="builder">🧩 Builder</a><a href="radio.html" data-p="radio" class="on">📻 Radio + wizualizacje</a><a href="agents.html" data-p="agents">🧠 Agenci · Mózgi · Doctor</a><a href="download.html" data-p="download">⬇ Pobierz</a></nav>
+<div class="page"><h2>📻 Radio + wizualizacje</h2><div id="st"></div><p><button id="rs">⏹ Stop</button> <span id="now"></span></p><canvas id="viz" width="640" height="200" style="width:100%;border-radius:12px;background:#05060c"></canvas></div><script>(function(){var S=[["Intergalactic FM (techno)","https://radio.intergalactic.fm/1",132],["Bassdrive (drum & bass)","https://ice.bassdrive.net/stream",174],["SomaFM Beat Blender (house)","https://ice2.somafm.com/beatblender-128-mp3",124],["SomaFM Groove Salad (chill)","https://ice2.somafm.com/groovesalad-128-mp3",90],["SomaFM Fluid (hip-hop)","https://ice2.somafm.com/fluid-128-mp3",90],["RMF FM","https://rs101-krk.rmfstream.pl/RMFFM48",120],["RMF MAXX (dance)","https://rs201-krk.rmfstream.pl/RMFMAXXX48",126],["Radio 357","https://stream.radio357.pl/",110],["Radio Nowy Świat","https://stream.rcs.revma.com/ypqt40u0x1zuv",110]],au=new Audio(),bpm=120,AC=null,an=null,fr=null;au.crossOrigin="anonymous";function cap(){try{if(!AC){AC=new(window.AudioContext||window.webkitAudioContext)();var s=AC.createMediaElementSource(au);an=AC.createAnalyser();an.fftSize=128;s.connect(an);an.connect(AC.destination);fr=new Uint8Array(an.frequencyBinCount)}AC.resume()}catch(e){}}window.__radioViz=function(){return{an:!!an,level:fr?Array.prototype.reduce.call(fr,function(a,b){return a+b},0)/fr.length:0}};S.forEach(function(s){var b=document.createElement("button");b.textContent="▶ "+s[0];b.onclick=function(){cap();au.src=s[1];au.play().catch(function(e){now.textContent="⚠ "+e.message});bpm=s[2];now.textContent="gra: "+s[0]};st.appendChild(b)});rs.onclick=function(){au.pause();au.removeAttribute("src");now.textContent=""};var g=viz.getContext("2d"),t0=performance.now();(function d(){var t=(performance.now()-t0)/1000,ph=(t*bpm/60)%1,on=!au.paused;g.fillStyle="rgba(5,6,12,.25)";g.fillRect(0,0,640,200);var live=false;if(an&&on){an.getByteFrequencyData(fr);for(var k=0;k<fr.length;k++)if(fr[k]){live=true;break}}for(var i=0;i<64;i++){var h=live?fr[i%fr.length]/255*190+4:(on?(1-ph)*0.7+0.3:0.15)*(60+50*Math.sin(t*2+i*0.5));g.fillStyle="hsl("+((i*6+t*50)%360)+",90%,60%)";g.fillRect(i*10,200-h,8,h)}requestAnimationFrame(d)})()})()</script>
+<section id="brain" hidden style="border:1px solid var(--line);border-radius:14px;padding:10px;margin:6px 0;background:var(--panel);font-size:14px">
+    <b>🔌 Mózg AI dla D (opcjonalnie — Twój własny)</b>
+    <div style="margin:6px 0"><button type="button" id="detOllama">🔎 Wykryj Ollama na tym komputerze</button> <span id="olStat"></span></div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center"><input id="orKey" type="password" placeholder="Klucz OpenRouter (sk-or-…)" style="flex:1;min-width:180px;padding:8px 12px"> <button type="button" id="orLoad">Darmowe modele</button></div>
+    <select id="orModel" style="margin:6px 0;max-width:100%"></select>
+    <details><summary>Własny endpoint (OpenAI-compatible)</summary><input id="cuBase" placeholder="https://…/v1" style="width:100%;margin:4px 0;padding:8px"><input id="cuKey" type="password" placeholder="klucz (opcjonalnie)" style="width:100%;margin:4px 0;padding:8px"><input id="cuModel" placeholder="model" style="width:100%;margin:4px 0;padding:8px"><button type="button" id="cuUse">Użyj</button></details>
+    <div style="margin-top:6px"><button type="button" id="useOff">Offline (bez AI)</button></div>
+    <p style="font-size:11px;color:var(--muted);margin:6px 0 0">Klucze zostają tylko w tej przeglądarce (localStorage). Wiadomości idą wprost do wybranego mózgu (po filtrze prywatności), nie przez nasz serwer.</p>
+  </section>
+<div id="log" role="log" aria-live="polite"></div>
+  <div class="chips" id="chips"></div>
+  <form id="f" autocomplete="off"><input id="q" maxlength="400" placeholder="Napisz do D…" aria-label="Wiadomość"><button class="send" type="submit" aria-label="Wyślij">➤</button></form>
+<div class="chips" id="chips"></div>
+<p class="note">D działa w Twojej przeglądarce; wspólna publiczna wiedza z serwera live. Rozmowa i mózg AI są wspólne dla wszystkich stron D (localStorage). Bez danych właściciela. Limit 8 wiadomości/min, 80/dzień.</p>
+</main>
+<script>window.__DBOT_PUBLIC = true; window.D_CHIPS = ['jak miksować z radiem?','tryb techno','co to drum and bass?'];</script>
+<script src="../js/dbot-team-public.js?v=48"></script>
+<script src="../js/d-site.js?v=48"></script>
+</body></html>

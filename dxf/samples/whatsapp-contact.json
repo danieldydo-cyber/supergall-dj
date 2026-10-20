@@ -1,0 +1,14 @@
+{
+  "version": 36,
+  "updatedAt": "2026-09-24T07:01:43+02:00",
+  "name": "Daniel Dydo",
+  "label": "WhatsApp · Daniel",
+  "e164": "+48730377357",
+  "phoneDisplay": "+48 730 377 357",
+  "waMe": "https://wa.me/48730377357",
+  "prefillPl": "Cześć! Brother Max · D DJ Pro Fly LIVE: https://ddddddd7777777.halved-period.workers.dev",
+  "href": "https://wa.me/48730377357?text=Cze%C5%9B%C4%87%21%20Brother%20Max%20%C2%B7%20D%20DJ%20Pro%20Fly%20LIVE%3A%20https%3A//ddddddd7777777.halved-period.workers.dev",
+  "role": "owner",
+  "note": "Client-side wa.me link only — no Twilio / WhatsApp Business API / paid plugins. Never auto-send.",
+  "liveUrl": "https://ddddddd7777777.halved-period.workers.dev"
+}

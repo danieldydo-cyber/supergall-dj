@@ -1,0 +1,83 @@
+{
+ "name": "D",
+ "team": "Super D Bot · 7 DJ",
+ "updated": "2026-10-09",
+ "bots": [
+  [
+   "📱",
+   "Android Builder",
+   "Kotlin · Java · C/C++ (NDK)"
+  ],
+  [
+   "🍎",
+   "iOS / Apple Builder",
+   "Swift · SwiftUI"
+  ],
+  [
+   "💻",
+   "Mac / Desktop Builder",
+   "Electron JS/TS · Python · C/C++"
+  ],
+  [
+   "🌐",
+   "Web Builder",
+   "HTML · CSS · JS · TS"
+  ],
+  [
+   "🎵",
+   "D Song",
+   "lyrics · chords · drums · WAV"
+  ],
+  [
+   "🎧",
+   "DJ / Mix",
+   "Auto Mix · sync · FX"
+  ],
+  [
+   "🔁",
+   "D Loop · Beats / MPC",
+   "loops · 26 MPC pads"
+  ],
+  [
+   "🎬",
+   "D Video + Loops",
+   "WebM clips from visuals · loop export"
+  ]
+ ],
+ "djTips": [
+  "Mix on phrase boundaries (16/32 beats).",
+  "Swap the bass on a bar in the middle of the transition — never two kicks with full bass.",
+  "Keep tempo inside your range; 174 BPM plays as 87 half-time in a 79–127 set.",
+  "Tracks more than ±8% apart: echo-out instead of beatmatching.",
+  "Drum & Bass window: 160–180 BPM; techno 120–150; house 115–130; hip-hop 80–100."
+ ],
+ "genres": {
+  "techno": [
+   120,
+   150
+  ],
+  "dnb": [
+   160,
+   180
+  ],
+  "house": [
+   115,
+   130
+  ],
+  "hiphop": [
+   80,
+   100
+  ],
+  "chill": [
+   70,
+   110
+  ]
+ },
+ "app": {
+  "android": "/downloads/D77-Studio-48.apk",
+  "macArm64": "/downloads/D77-Studio-48.0.0-mac-arm64.zip",
+  "macX64": "/downloads/D77-Studio-48.0.0-mac-x64.zip",
+  "web": "/"
+ },
+ "privacy": "Public knowledge only. No owner data, no keys, no chat logs."
+}

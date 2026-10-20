@@ -1,0 +1,1031 @@
+{
+  "updatedAt": "2026-10-13T08:21:38+02:00",
+  "updatedAtLabel": "2026-10-05 15:02:41 CEST",
+  "liveUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+  "tunnelUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+  "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+  "localUrl": "http://127.0.0.1:8080",
+  "serve": {
+    "port": 8080,
+    "ok": true,
+    "pid": 17300,
+    "status": "ok"
+  },
+  "tunnel": {
+    "url": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+    "http": 200,
+    "ok": true,
+    "title": "D7 DJ · PRO8 Fluid · Daniel Dydo · Kraków"
+  },
+  "workers": {
+    "url": "https://ddddddd7777777.lilac-drip.workers.dev",
+    "http": 0,
+    "ok": false,
+    "error": "dns_resolve_fail",
+    "checkedAt": "2026-10-09T06:56:02+02:00"
+  },
+  "localSmoke": {
+    "root": 200,
+    "accountStatus": 200
+  },
+  "local": {
+    "root": 200,
+    "api": 200
+  },
+  "heal": {
+    "at": "2026-10-06T22:55:02+02:00",
+    "status": "down_tunnel_429",
+    "note": "workers.dev host does not resolve (NXDOMAIN, no CLOUDFLARE_API_TOKEN to redeploy); trycloudflare quick tunnel 429 rate-limited (1 attempt this run); retry next run",
+    "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+    "localRoot": 200,
+    "localApi": 200
+  },
+  "userNotifyNeeded": false,
+  "note": "auto-heal 2026-10-13T08:21:38+02:00: local serve.py :8080 OK (/ and /api/account-status 200, not restarted); old tunnel https://recycling-spy-border-feelings.trycloudflare.com returned Cloudflare 530 (dead); a new quick tunnel was already running (log cloudflared-tunnel-proactive-20261013-082055.log), https://pointing-verbal-joyce-switched.trycloudflare.com verified 200 with title 'D7 DJ · PRO8 Fluid · Daniel Dydo · Kraków'; adopted as liveUrl/tunnelUrl. workers.dev still unreachable (no CLOUDFLARE_API_TOKEN).",
+  "healCheckedAt": "2026-10-07T03:26:30+02:00",
+  "lastHealAt": "2026-10-07T03:26:30+02:00",
+  "workersStatus": "unreachable (000) 2026-10-09 06:56 Europe/Warsaw",
+  "tunnelStatus": "ok",
+  "healNote": "2026-10-07T12:12 auto-heal: workers unreachable (no CLOUDFLARE_API_TOKEN); tunnel+local 200, liveUrl=tunnel",
+  "lastHeal": "2026-10-08T01:01:21+02:00",
+  "autoHealNote": "auto-heal 2026-10-09 06:56 Europe/Warsaw: healthy. serve.py pid 17300 :8080 200 on / and /api/account-status; tunnel https://pointing-verbal-joyce-switched.trycloudflare.com 200 title 'D7 DJ · X7S · Daniel Dydo · Kraków'; no restart. No 'Tunnel not found' in log. workers.dev still unreachable since Oct 1 (no CLOUDFLARE_API_TOKEN). Silent.",
+  "autoHealAt": "2026-10-05T15:54:24+02:00",
+  "lastHealAtWarsaw": "2026-10-05 15:54:24 CEST",
+  "lastHealStatus": "restored_new_quick_tunnel",
+  "lastAutoHealAt": "2026-10-13T08:21:38+02:00",
+  "lastAutoHeal": "2026-10-13T08:21:38+02:00",
+  "workersNote": "2026-10-06T16:09:35+02:00: workers.dev unreachable (000) from box; no CLOUDFLARE_API_TOKEN. LIVE served via tunnel (200).",
+  "lastAutoHealResult": "restored_new_quick_tunnel",
+  "liveUrlTunnel": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+  "liveUrlWorkers": "https://ddddddd7777777.lilac-drip.workers.dev",
+  "lilacDripStatus": "dns_fail",
+  "workersPrimaryUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+  "verifiedTunnelHttp": 200,
+  "liveNode": "tunnel",
+  "autoHealCheckedAt": "2026-10-13T08:32:26+02:00",
+  "autoHeal": {
+    "at": "2026-10-04T13:49:08+02:00",
+    "status": "ok_tunnel_workers_dns_fail",
+    "result": "healthy-via-tunnel",
+    "notify": false,
+    "tunnelUrl": "https://considers-provider-some-custom.trycloudflare.com",
+    "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev"
+  },
+  "healHistory": [
+    {
+      "at": "2026-10-13T08:21:38+02:00",
+      "status": "restored_new_quick_tunnel",
+      "liveUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "tunnelUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "note": "auto-heal 2026-10-13T08:21:38+02:00: local serve.py :8080 OK (/ and /api/account-status 200, not restarted); old tunnel https://recycling-spy-border-feelings.trycloudflare.com returned Cloudflare 530 (dead); a new quick tunnel was already running (log cloudflared-tunnel-proactive-20261013-082055.log), https://pointing-verbal-joyce-switched.trycloudflare.com verified 200 with title 'D7 DJ · PRO8 Fluid · Daniel Dydo · Kraków'; adopted as liveUrl/tunnelUrl. workers.dev still unreachable (no CLOUDFLARE_API_TOKEN)."
+    },
+    {
+      "at": "2026-10-13T08:00:21+02:00",
+      "status": "restored_new_quick_tunnel",
+      "liveUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "tunnelUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "note": "auto-heal 2026-10-13T08:00:21+02:00: local serve.py :8080 OK (/ and /api/account-status 200, not restarted); old tunnel https://pointing-verbal-joyce-switched.trycloudflare.com returned Cloudflare 530 (dead though process alive); replaced quick tunnel, new LIVE https://pointing-verbal-joyce-switched.trycloudflare.com verified 200 title 'D7 DJ · PRO8 Fluid · Daniel Dydo · Kraków' from box; workers.dev still unreachable (no CLOUDFLARE_API_TOKEN). Notifying Daniel (link changed).",
+      "userNotify": true,
+      "tunnelHttp": 200,
+      "title": "D7 DJ · PRO8 Fluid · Daniel Dydo · Kraków"
+    },
+    {
+      "at": "2026-10-09T06:56:02+02:00",
+      "status": "healthy_via_tunnel",
+      "liveUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "tunnelUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "note": "auto-heal 2026-10-09 06:56 Europe/Warsaw: healthy. serve.py pid 17300 :8080 200 on / and /api/account-status; tunnel https://pointing-verbal-joyce-switched.trycloudflare.com 200 title 'D7 DJ · X7S · Daniel Dydo · Kraków'; no restart. No 'Tunnel not found' in log. workers.dev still unreachable since Oct 1 (no CLOUDFLARE_API_TOKEN). Silent.",
+      "servePid": 17300,
+      "tunnelHttp": 200,
+      "title": "D7 DJ · X7S · Daniel Dydo · Kraków",
+      "userNotify": false
+    },
+    {
+      "at": "2026-10-09T06:44:23+02:00",
+      "status": "healthy_via_tunnel",
+      "liveUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "tunnelUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "note": "auto-heal 2026-10-09 06:44 Europe/Warsaw: healthy. serve.py pid 17300 :8080 200 on / and /api/account-status; tunnel https://pointing-verbal-joyce-switched.trycloudflare.com 200 title 'D7 DJ · X7S · Daniel Dydo · Kraków'; no restart. No 'Tunnel not found' in log. workers.dev still unreachable since Oct 1 (no CLOUDFLARE_API_TOKEN). Silent.",
+      "servePid": 17300,
+      "tunnelHttp": 200,
+      "title": "D7 DJ · X7S · Daniel Dydo · Kraków",
+      "userNotify": false
+    },
+    {
+      "at": "2026-10-09T06:33:42+02:00",
+      "status": "healthy_via_tunnel",
+      "liveUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "tunnelUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "note": "auto-heal 2026-10-09 06:33 Europe/Warsaw: healthy. serve.py pid 17300 :8080 200 on / and /api/account-status; tunnel https://pointing-verbal-joyce-switched.trycloudflare.com 200 title 'D7 DJ · X7S · Daniel Dydo · Kraków'; no restart. No 'Tunnel not found' in log. workers.dev still unreachable since Oct 1 (no CLOUDFLARE_API_TOKEN). Silent.",
+      "servePid": 17300,
+      "tunnelHttp": 200,
+      "title": "D7 DJ · X7S · Daniel Dydo · Kraków",
+      "userNotify": false
+    },
+    {
+      "at": "2026-10-09T06:22:22+02:00",
+      "status": "healthy_via_tunnel",
+      "liveUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "tunnelUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "note": "auto-heal 2026-10-09 06:22 Europe/Warsaw: healthy. serve.py pid 17300 :8080 200 on / and /api/account-status; tunnel https://pointing-verbal-joyce-switched.trycloudflare.com 200 title 'D7 DJ · X7S · Daniel Dydo · Kraków'; no restart. No 'Tunnel not found' in log. workers.dev still unreachable since Oct 1 (no CLOUDFLARE_API_TOKEN). Silent.",
+      "servePid": 17300,
+      "tunnelHttp": 200,
+      "title": "D7 DJ · X7S · Daniel Dydo · Kraków",
+      "userNotify": false
+    },
+    {
+      "at": "2026-10-09T06:03:48+02:00",
+      "status": "healthy_via_tunnel",
+      "liveUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "tunnelUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "note": "auto-heal 2026-10-09 06:03 Europe/Warsaw: healthy. serve.py pid 17300 :8080 200 on / and /api/account-status; tunnel https://pointing-verbal-joyce-switched.trycloudflare.com 200 title 'D7 DJ · X7S · Daniel Dydo · Kraków'; no restart. No 'Tunnel not found' in log. workers.dev still unreachable since Oct 1 (no CLOUDFLARE_API_TOKEN). Silent.",
+      "servePid": 17300,
+      "tunnelHttp": 200,
+      "title": "D7 DJ · X7S · Daniel Dydo · Kraków",
+      "userNotify": false
+    },
+    {
+      "at": "2026-10-09T05:48:02+02:00",
+      "status": "healthy_via_tunnel",
+      "liveUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "tunnelUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "note": "auto-heal 2026-10-09 05:48 Europe/Warsaw: healthy. serve.py pid 17300 :8080 200 on / and /api/account-status; tunnel https://pointing-verbal-joyce-switched.trycloudflare.com 200 title 'D7 DJ · X7S · Daniel Dydo · Kraków'; no restart. No 'Tunnel not found' in log. workers.dev still unreachable since Oct 1 (no CLOUDFLARE_API_TOKEN). Silent.",
+      "servePid": 17300,
+      "tunnelHttp": 200,
+      "title": "D7 DJ · X7S · Daniel Dydo · Kraków",
+      "userNotify": false
+    },
+    {
+      "at": "2026-10-09T05:37:55+02:00",
+      "status": "healthy_via_tunnel",
+      "liveUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "tunnelUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "note": "auto-heal 2026-10-09 05:37 Europe/Warsaw: healthy. serve.py pid 17300 :8080 200 on / and /api/account-status; tunnel https://pointing-verbal-joyce-switched.trycloudflare.com 200 title 'D7 DJ · X7S · Daniel Dydo · Kraków'; no restart. No 'Tunnel not found' in log. workers.dev still unreachable since Oct 1 (no CLOUDFLARE_API_TOKEN). Silent.",
+      "servePid": 17300,
+      "tunnelHttp": 200,
+      "title": "D7 DJ · X7S · Daniel Dydo · Kraków",
+      "userNotify": false
+    },
+    {
+      "at": "2026-10-09T05:19:39+02:00",
+      "status": "healthy_via_tunnel",
+      "liveUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "tunnelUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "note": "auto-heal 2026-10-09 05:19 Europe/Warsaw: healthy. serve.py pid 17300 :8080 200 on / and /api/account-status; tunnel https://pointing-verbal-joyce-switched.trycloudflare.com 200 title 'D7 DJ · X7S · Daniel Dydo · Kraków'; no restart. No 'Tunnel not found' in log. workers.dev still unreachable since Oct 1 (no CLOUDFLARE_API_TOKEN). Silent.",
+      "servePid": 17300,
+      "tunnelHttp": 200,
+      "title": "D7 DJ · X7S · Daniel Dydo · Kraków",
+      "userNotify": false
+    },
+    {
+      "at": "2026-10-09T04:43:07+02:00",
+      "status": "healthy_via_tunnel",
+      "liveUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "tunnelUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "note": "auto-heal 2026-10-09 04:43 Europe/Warsaw: healthy. serve.py pid 17300 :8080 200 on / and /api/account-status; tunnel https://pointing-verbal-joyce-switched.trycloudflare.com 200 title 'D7 DJ · X7S · Daniel Dydo · Kraków'; no restart. No 'Tunnel not found' in log. workers.dev still unreachable since Oct 1 (no CLOUDFLARE_API_TOKEN). Silent.",
+      "servePid": 17300,
+      "tunnelHttp": 200,
+      "title": "D7 DJ · X7S · Daniel Dydo · Kraków",
+      "userNotify": false
+    },
+    {
+      "at": "2026-10-09T04:25:42+02:00",
+      "status": "healthy_via_tunnel",
+      "liveUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "tunnelUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "note": "auto-heal 2026-10-09 04:25 Europe/Warsaw: healthy. serve.py pid 17300 :8080 200 on / and /api/account-status; tunnel https://pointing-verbal-joyce-switched.trycloudflare.com 200 title 'D7 DJ · X7S · Daniel Dydo · Kraków'; no restart. No 'Tunnel not found' in log. workers.dev still unreachable since Oct 1 (no CLOUDFLARE_API_TOKEN). Silent.",
+      "servePid": 17300,
+      "tunnelHttp": 200,
+      "title": "D7 DJ · X7S · Daniel Dydo · Kraków",
+      "userNotify": false
+    },
+    {
+      "at": "2026-10-09T04:24:27+02:00",
+      "status": "restored_new_quick_tunnel",
+      "liveUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "tunnelUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "note": "auto-heal 2026-10-09 04:23 Europe/Warsaw: serve.py was DEAD → restarted pid 17300 :8080 (/, /api/account-status 200). Public tunnel dead (WebFetch 500; no cloudflared). Replaced quick tunnel. New LIVE https://pointing-verbal-joyce-switched.trycloudflare.com verified 200 title 'D7 DJ · X7S · Daniel Dydo · Kraków'. workers.dev still unreachable since Oct 1 (no CLOUDFLARE_API_TOKEN). Notifying Daniel (link changed).",
+      "servePid": 17300,
+      "tunnelHttp": 200,
+      "title": "D7 DJ · X7S · Daniel Dydo · Kraków",
+      "userNotify": true
+    },
+    {
+      "at": "2026-10-09T03:12:01+02:00",
+      "status": "restored_new_quick_tunnel",
+      "liveUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "tunnelUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "note": "auto-heal 2026-10-09 03:12 Europe/Warsaw: public link was dead (WebFetch 500; cloudflared process alive but hostname no longer routed). Replaced quick tunnel. New LIVE https://pointing-verbal-joyce-switched.trycloudflare.com verified 200 title 'D7 DJ · X7S · Daniel Dydo · Kraków'. serve.py pid 6998 :8080 OK. workers.dev still unreachable (no CLOUDFLARE_API_TOKEN). Notifying Daniel (link changed)."
+    },
+    {
+      "at": "2026-10-02T21:28:05Z",
+      "status": "ok_tunnel",
+      "notified": false
+    },
+    {
+      "at": "2026-10-02T18:46:43Z",
+      "status": "healthy_via_tunnel",
+      "liveUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "tunnelUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "workersHttp": 0,
+      "tunnelHttp": 200,
+      "note": "auto-heal 2026-10-02 20:46:43 CEST: local serve:200 + /api/account-status:200; cloudflared pid 7538 alive; tunnel https://clubs-tours-carb-hospital.trycloudflare.com 200 title \"D DJ Pro Fly · PRO · Daniel Dydo · Kraków\"; workers https://ddddddd7777777.lilac-drip.workers.dev DNS/CONNECT fail; no CLOUDFLARE_API_TOKEN; left note only. userLiveOk via tunnel."
+    },
+    {
+      "at": "2026-10-02T19:43:32+02:00",
+      "liveUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "tunnelUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "workersHttp": 0,
+      "tunnelHttp": 200,
+      "localHttp": 200,
+      "localApiHttp": 200,
+      "note": "auto-heal 2026-10-02 19:43:32 CEST: serve.py:8080 OK (/, /api/account-status 200); cloudflared pid 7538 alive; tunnel https://clubs-tours-carb-hospital.trycloudflare.com 200 title 'D DJ Pro Fly · PRO · Daniel Dydo · Kraków'; workers https://ddddddd7777777.lilac-drip.workers.dev DNS/resolve fail http 000; no CLOUDFLARE_API_TOKEN — left note, did not spam. liveUrl kept on working tunnel; silent."
+    },
+    {
+      "at": "2026-10-02T16:03:42.000Z",
+      "atWarsaw": "2026-10-02 18:03:42 CEST",
+      "status": "healthy_via_tunnel",
+      "tunnelHttp": 200,
+      "workersHttp": 0,
+      "notified": false
+    },
+    {
+      "at": "2026-10-02T15:04:25.980187Z",
+      "atWarsaw": "2026-10-02 17:04:25 CEST",
+      "status": "healthy_via_tunnel",
+      "tunnelHttp": 200,
+      "workersHttp": 0,
+      "notified": false
+    },
+    {
+      "at": "2026-10-02T06:17:53+02:00",
+      "atLabel": "2026-10-02 06:17:53 CEST",
+      "localHttp": 200,
+      "localApiHttp": 200,
+      "workersHttp": 0,
+      "workersOk": false,
+      "tunnelHttp": 200,
+      "tunnelOk": true,
+      "liveUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "tunnelUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "title": "D DJ Pro Fly · PRO · Daniel Dydo · Kraków",
+      "userNotifyNeeded": false,
+      "note": "2026-10-02T06:17:53+02:00: workers LIVE DNS/resolve failed (http 000); no CLOUDFLARE_API_TOKEN; local:8080 and tunnel OK (https://clubs-tours-carb-hospital.trycloudflare.com); liveUrl kept on tunnel. Stay silent.",
+      "servePid": 2252,
+      "tunnelPid": 7538,
+      "workers": "non-200",
+      "tunnel": "200"
+    },
+    {
+      "at": "2026-10-02T06:01:06+02:00",
+      "atUtc": "2026-10-02T04:01:06Z",
+      "status": "healthy_tunnel",
+      "workersHttp": 0,
+      "tunnelHttp": 200,
+      "localHttp": 200,
+      "localApiHttp": 200,
+      "liveUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "tunnelUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "cloudflareApiToken": "unset",
+      "note": "2026-10-02T06:01:06+02:00: workers LIVE non-200 (box DNS resolve fail) and CLOUDFLARE_API_TOKEN unset; left as-is. Local :8080 200 + /api/account-status 200. Tunnel https://clubs-tours-carb-hospital.trycloudflare.com 200 with D DJ title. liveUrl remains tunnel. No user ping (tunnel healthy).",
+      "notifiedUser": false
+    },
+    {
+      "at": "2026-10-02T04:18:00+02:00",
+      "result": "ok_tunnel_workers_dns_fail",
+      "liveUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "tunnelUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "workers": "dns_fail",
+      "local": 200,
+      "tunnelHttp": 200,
+      "workersHttp": 0
+    },
+    {
+      "at": "2026-10-02T01:11:00+02:00",
+      "liveUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "tunnelUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "note": "auto-heal 2026-10-02 01:11:00 CEST: serve.py:8080 OK (/, /api/account-status 200); cloudflared pid 7538 alive; tunnel https://clubs-tours-carb-hospital.trycloudflare.com 200 title \"D DJ Pro Fly · PRO · Daniel Dydo · Kraków\"; workers LIVE DNS/CONNECT fail (http 000 / proxy 502); no CLOUDFLARE_API_TOKEN; user LIVE OK via tunnel; silent (no notify)."
+    },
+    {
+      "at": "2026-10-02T23:45:45+02:00",
+      "status": "ok_tunnel",
+      "note": "auto-heal 2026-10-02T23:45:45+02:00: workers LIVE DNS/resolve fail (ddddddd7777777.lilac-drip.workers.dev → could not resolve; proxy CONNECT 502). No CLOUDFLARE_API_TOKEN. Local serve :8080 OK (/, /api/account-status 200). Tunnel https://clubs-tours-carb-hospital.trycloudflare.com OK 200 title 'D DJ Pro Fly · PRO · Daniel Dydo · Kraków'. liveUrl remains tunnel. Silent (user LIVE via tunnel)."
+    },
+    {
+      "at": "2026-10-03T07:42:57.304075Z",
+      "result": "silent_ok",
+      "workers": 0,
+      "tunnel": 200,
+      "liveUrl": "https://considers-provider-some-custom.trycloudflare.com"
+    },
+    {
+      "at": "2026-10-03T09:55:02+02:00",
+      "tunnel": {
+        "url": "https://considers-provider-some-custom.trycloudflare.com",
+        "http": 200
+      },
+      "workers": {
+        "url": "https://ddddddd7777777.lilac-drip.workers.dev",
+        "http": 0
+      },
+      "local": {
+        "root": 200,
+        "api": 200
+      },
+      "liveUrl": "https://considers-provider-some-custom.trycloudflare.com",
+      "note": "2026-10-03 09:55:02 CEST: workers LIVE DNS/resolve failed (http 000); no CLOUDFLARE_API_TOKEN; local:8080 and tunnel OK (https://considers-provider-some-custom.trycloudflare.com HTTP 200 title D DJ Pro Fly · PRO · Daniel Dydo · Kraków); liveUrl kept on tunnel. Silent (user LIVE ok via tunnel)."
+    },
+    {
+      "at": "2026-10-03T11:00:12+02:00",
+      "result": "healthy_via_tunnel",
+      "workers": "dns_fail",
+      "tunnel": "ok_200"
+    },
+    {
+      "at": "2026-10-03T12:58:02+02:00",
+      "status": "healthy_via_tunnel",
+      "liveUrl": "https://considers-provider-some-custom.trycloudflare.com",
+      "notified": false
+    },
+    {
+      "at": "2026-10-03T17:32:52+02:00",
+      "result": "healthy_via_tunnel",
+      "workers": "dns_fail",
+      "tunnel": "ok_200",
+      "local": "ok_200",
+      "notified": false,
+      "userNotified": false,
+      "liveUrl": "https://considers-provider-some-custom.trycloudflare.com",
+      "tunnelUrl": "https://considers-provider-some-custom.trycloudflare.com",
+      "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "title": "D DJ Pro Fly · PRO · Daniel Dydo · Kraków",
+      "reason": "workers DNS fail; tunnel OK — silent"
+    },
+    {
+      "at": "2026-10-03T20:40:30+02:00",
+      "result": "healthy_via_tunnel",
+      "workers": "dns_fail",
+      "tunnel": "ok_200",
+      "local": "ok_200",
+      "notified": false,
+      "liveUrl": "https://considers-provider-some-custom.trycloudflare.com",
+      "tunnelUrl": "https://considers-provider-some-custom.trycloudflare.com",
+      "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "title": "D DJ Pro Fly · PRO · Daniel Dydo · Kraków"
+    },
+    {
+      "at": "2026-10-04T02:42:03+02:00",
+      "result": "healthy_via_tunnel",
+      "workers": "dns_fail",
+      "tunnelHttp": 200,
+      "localHttp": 200
+    },
+    {
+      "at": "2026-10-04T02:58:50+02:00",
+      "note": "[2026-10-04T02:58:50+02:00 Europe/Warsaw] workers LIVE DNS fail (https://ddddddd7777777.lilac-drip.workers.dev); no CLOUDFLARE_API_TOKEN. Fallback tunnel healthy: https://considers-provider-some-custom.trycloudflare.com (200, title D DJ Pro Fly). local :8080 and /api/account-status 200.",
+      "status": "ok_tunnel_workers_dns_fail"
+    },
+    {
+      "at": "2026-10-04T11:59:28+02:00",
+      "status": "healthy_via_tunnel",
+      "liveUrl": "https://considers-provider-some-custom.trycloudflare.com",
+      "tunnelUrl": "https://considers-provider-some-custom.trycloudflare.com",
+      "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "localRoot": 200,
+      "localApi": 200,
+      "tunnelHttp": 200,
+      "workersHttp": 0,
+      "cloudflareApiToken": false,
+      "note": "auto-heal 2026-10-04 11:59:28 CEST: serve.py:8080 OK (/, /api/account-status 200); cloudflared pid 5357 alive; tunnel https://considers-provider-some-custom.trycloudflare.com 200 title 'D DJ Pro Fly · PRO · Daniel Dydo · Kraków'; workers https://ddddddd7777777.lilac-drip.workers.dev DNS/resolve fail http 000; no CLOUDFLARE_API_TOKEN — left note, did not spam. liveUrl kept on working tunnel; silent.",
+      "userNotify": false
+    },
+    {
+      "at": "2026-10-05T15:54:24+02:00",
+      "status": "healthy_via_tunnel",
+      "workersHttp": 0,
+      "tunnelHttp": 200
+    },
+    {
+      "at": "2026-10-08T12:16:46+02:00",
+      "status": "healthy",
+      "note": "healthy: serve.py local / and /api/account-status 200; tunnel https://pointing-verbal-joyce-switched.trycloudflare.com 200 with app title; workers.dev unreachable (DNS fail, needs CLOUDFLARE_API_TOKEN to redeploy); no restarts"
+    }
+  ],
+  "workersHttp": 0,
+  "checkedAt": "2026-10-08T12:16:46+02:00",
+  "workersHealNote": "workers.dev unreachable since Oct 1; redeploy needs CLOUDFLARE_API_TOKEN (not on box)",
+  "healNotes": [
+    "[2026-10-04T16:01:09+02:00] workers LIVE unreachable: DNS fail for https://ddddddd7777777.lilac-drip.workers.dev (no CLOUDFLARE_API_TOKEN). Tunnel healthy: https://calendar-but-ages-omissions.trycloudflare.com (200, title contains D DJ). Local serve :8080 OK.",
+    {
+      "at": "2026-10-04T09:04:06+02:00",
+      "status": "ok_tunnel_workers_dns_fail",
+      "note": "[2026-10-04T09:04:06+02:00 Europe/Warsaw] workers LIVE DNS fail (https://ddddddd7777777.lilac-drip.workers.dev); no CLOUDFLARE_API_TOKEN. Fallback tunnel healthy: https://considers-provider-some-custom.trycloudflare.com (200, title D DJ Pro Fly). local :8080 and /api/account-status 200."
+    },
+    "2026-10-02T13:45:40+02:00: workers LIVE DNS/resolve failed (http 000); no CLOUDFLARE_API_TOKEN; local:8080 and tunnel OK (https://clubs-tours-carb-hospital.trycloudflare.com HTTP 200 title contains D DJ).",
+    "2026-10-02T09:28:02+02:00: workers LIVE DNS/resolve failed (http 000); no CLOUDFLARE_API_TOKEN; local:8080 and tunnel OK (https://clubs-tours-carb-hospital.trycloudflare.com HTTP 200 title D DJ Pro Fly · PRO · Daniel Dydo · Kraków); liveUrl kept on tunnel. Silent (user LIVE ok via tunnel).",
+    "2026-10-02T06:01:06+02:00: workers LIVE non-200 (box DNS resolve fail) and CLOUDFLARE_API_TOKEN unset; left as-is. Local :8080 200 + /api/account-status 200. Tunnel https://clubs-tours-carb-hospital.trycloudflare.com 200 with D DJ title. liveUrl remains tunnel. No user ping (tunnel healthy).",
+    "auto-heal 2026-10-01 18:54:24: local serve :8080 OK (/, /api/account-status 200); cloudflared restarted (binary was missing from PATH; now /home/box/.local/bin/cloudflared pid 7538); tunnel https://clubs-tours-carb-hospital.trycloudflare.com HTTP 200 title \"D DJ Pro Fly\"; workers https://ddddddd7777777.lilac-drip.workers.dev non-200 (DNS fail without proxy / CONNECT 502 via proxy); no CLOUDFLARE_API_TOKEN — left note only, liveUrl on working tunnel; silent (user LIVE OK via tunnel).",
+    "auto-heal 2026-10-01 10:55:12 CEST: local serve 200 + /api/account-status 200; tunnel https://appears-madonna-selected-menu.trycloudflare.com 200 with D DJ title; workers https://ddddddd7777777.lilac-drip.workers.dev non-200 (DNS resolve fail / CONNECT 502 via proxy); no CLOUDFLARE_API_TOKEN; liveUrl stays tunnel; silent (do not spam Daniel).",
+    {
+      "at": "2026-10-02T23:45:45+02:00",
+      "status": "ok_tunnel",
+      "note": "auto-heal 2026-10-02T23:45:45+02:00: workers LIVE DNS/resolve fail (ddddddd7777777.lilac-drip.workers.dev → could not resolve; proxy CONNECT 502). No CLOUDFLARE_API_TOKEN. Local serve :8080 OK (/, /api/account-status 200). Tunnel https://clubs-tours-carb-hospital.trycloudflare.com OK 200 title 'D DJ Pro Fly · PRO · Daniel Dydo · Kraków'. liveUrl remains tunnel. Silent (user LIVE via tunnel)."
+    },
+    "[2026-10-03T03:57:46Z] auto-heal: workers LIVE DNS fail (ddddddd7777777.lilac-drip.workers.dev resolve error, HTTP 000); CLOUDFLARE_API_TOKEN unset — cannot redeploy workers. Local serve 200, tunnel 200 with title 'D DJ Pro Fly · PRO · Daniel Dydo · Kraków'. Serving via tunnel https://considers-provider-some-custom.trycloudflare.com.",
+    "[2026-10-03T16:02:53.400844+02:00] workers LIVE non-200 (DNS resolve fail for ddddddd7777777.lilac-drip.workers.dev); no CLOUDFLARE_API_TOKEN. Tunnel healthy 200 with title D DJ Pro Fly. liveUrl kept on tunnel.",
+    "2026-10-03T19:42:11+02:00: workers LIVE DNS/resolve failed (http 000); no CLOUDFLARE_API_TOKEN; local:8080 OK (/ and /api/account-status 200); tunnel https://considers-provider-some-custom.trycloudflare.com HTTP 200 title contains 'D DJ'; liveUrl remains tunnel; silent heal.",
+    {
+      "at": "2026-10-04T02:58:50+02:00",
+      "note": "[2026-10-04T02:58:50+02:00 Europe/Warsaw] workers LIVE DNS fail (https://ddddddd7777777.lilac-drip.workers.dev); no CLOUDFLARE_API_TOKEN. Fallback tunnel healthy: https://considers-provider-some-custom.trycloudflare.com (200, title D DJ Pro Fly). local :8080 and /api/account-status 200.",
+      "status": "ok_tunnel_workers_dns_fail"
+    },
+    "[2026-10-04T11:34:14+02:00] workers LIVE https://ddddddd7777777.lilac-drip.workers.dev DNS resolve failed (curl exit 6 / http 000); no CLOUDFLARE_API_TOKEN so not redeployed. Fallback tunnel healthy 200 with D DJ title: https://considers-provider-some-custom.trycloudflare.com",
+    "auto-heal 2026-10-04 13:49:08 CEST: serve.py:8080 OK (/, /api/account-status 200); cloudflared pid 5357 alive; tunnel https://considers-provider-some-custom.trycloudflare.com 200 title 'D DJ Pro Fly · PRO · Daniel Dydo · Kraków'; workers https://ddddddd7777777.lilac-drip.workers.dev DNS/resolve fail http 000; no CLOUDFLARE_API_TOKEN — left note, did not spam. liveUrl kept on working tunnel; silent.",
+    "[2026-10-04 15:03:53 +0200] workers LIVE https://ddddddd7777777.lilac-drip.workers.dev non-200 (DNS resolve failed); no CLOUDFLARE_API_TOKEN; tunnel healthy at https://calendar-but-ages-omissions.trycloudflare.com (HTTP 200, title ok)."
+  ],
+  "workersLastCheck": "2026-10-04T19:47:30+02:00",
+  "lastHealResult": "ok_tunnel",
+  "lastAutoHealStatus": "restored_new_quick_tunnel",
+  "updated_at": "2026-10-04T13:49:08+02:00",
+  "autoHealStatus": "2026-10-13 08:48 (Europe/Warsaw) auto-heal: local serve.py 200 on / and /api/account-status; tunnel https://pointing-verbal-joyce-switched.trycloudflare.com 200 with app title; no restart needed; workers.dev still unreachable (needs CLOUDFLARE_API_TOKEN).",
+  "healLog": [
+    {
+      "at": "2026-10-09T04:24:27+02:00",
+      "status": "restored_new_quick_tunnel",
+      "liveUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "tunnelUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "note": "auto-heal 2026-10-09 04:23 Europe/Warsaw: serve.py was DEAD → restarted pid 17300 :8080 (/, /api/account-status 200). Public tunnel dead (WebFetch 500; no cloudflared). Replaced quick tunnel. New LIVE https://pointing-verbal-joyce-switched.trycloudflare.com verified 200 title 'D7 DJ · X7S · Daniel Dydo · Kraków'. workers.dev still unreachable since Oct 1 (no CLOUDFLARE_API_TOKEN). Notifying Daniel (link changed).",
+      "servePid": 17300,
+      "tunnelHttp": 200,
+      "title": "D7 DJ · X7S · Daniel Dydo · Kraków",
+      "userNotify": true
+    },
+    {
+      "at": "2026-10-03T04:40:59+02:00",
+      "liveUrl": "https://considers-provider-some-custom.trycloudflare.com",
+      "tunnelUrl": "https://considers-provider-some-custom.trycloudflare.com",
+      "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "localRoot": 200,
+      "localApi": 200,
+      "tunnelHttp": 200,
+      "workersHttp": 0,
+      "note": "auto-heal 2026-10-03 04:40:59 CEST: serve.py:8080 was dead → restarted (/, /api/account-status 200); cloudflared was dead → restarted pid 5357; new tunnel https://considers-provider-some-custom.trycloudflare.com (200, title contains D DJ). workers LIVE https://ddddddd7777777.lilac-drip.workers.dev DNS/resolve fail (http 000); no CLOUDFLARE_API_TOKEN; left workersUrl as-is. liveUrl switched to working tunnel."
+    },
+    {
+      "at": "2026-10-02T18:46:43Z",
+      "status": "healthy_via_tunnel",
+      "liveUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "tunnelUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "workersHttp": 0,
+      "tunnelHttp": 200,
+      "note": "auto-heal 2026-10-02 20:46:43 CEST: local serve:200 + /api/account-status:200; cloudflared pid 7538 alive; tunnel https://clubs-tours-carb-hospital.trycloudflare.com 200 title \"D DJ Pro Fly · PRO · Daniel Dydo · Kraków\"; workers https://ddddddd7777777.lilac-drip.workers.dev DNS/CONNECT fail; no CLOUDFLARE_API_TOKEN; left note only. userLiveOk via tunnel."
+    },
+    "auto-heal 2026-10-02 18:03:42 CEST: serve.py:8080 OK (/, /api/account-status 200); cloudflared pid 7538 alive; tunnel https://clubs-tours-carb-hospital.trycloudflare.com 200 title 'D DJ Pro Fly · PRO · Daniel Dydo · Kraków'; workers https://ddddddd7777777.lilac-drip.workers.dev DNS/resolve fail http 000; no CLOUDFLARE_API_TOKEN — left note, did not spam. liveUrl kept on working tunnel; silent.",
+    "auto-heal 2026-10-02 14:58:17 CEST: serve.py:8080 OK (/, /api/account-status 200); cloudflared pid 7538 alive; tunnel https://clubs-tours-carb-hospital.trycloudflare.com 200 title 'D DJ Pro Fly · PRO · Daniel Dydo · Kraków'; workers https://ddddddd7777777.lilac-drip.workers.dev DNS/resolve fail http 000; no CLOUDFLARE_API_TOKEN — left note, did not spam. liveUrl kept on working tunnel; silent.",
+    "2026-10-02T09:28:02+02:00: workers LIVE DNS/resolve failed (http 000); no CLOUDFLARE_API_TOKEN; local:8080 and tunnel OK (https://clubs-tours-carb-hospital.trycloudflare.com HTTP 200 title D DJ Pro Fly · PRO · Daniel Dydo · Kraków); liveUrl kept on tunnel. Silent (user LIVE ok via tunnel).",
+    "2026-10-02T08:16:46+02:00: workers LIVE DNS/resolve failed (http 000; proxy CONNECT 502); no CLOUDFLARE_API_TOKEN; local:8080 and tunnel OK (https://clubs-tours-carb-hospital.trycloudflare.com HTTP 200 title D DJ Pro Fly); liveUrl kept on tunnel. Silent (user LIVE ok via tunnel).",
+    {
+      "at": "2026-10-02T06:17:53+02:00",
+      "atLabel": "2026-10-02 06:17:53 CEST",
+      "localHttp": 200,
+      "localApiHttp": 200,
+      "workersHttp": 0,
+      "workersOk": false,
+      "tunnelHttp": 200,
+      "tunnelOk": true,
+      "liveUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "tunnelUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "title": "D DJ Pro Fly · PRO · Daniel Dydo · Kraków",
+      "userNotifyNeeded": false,
+      "note": "2026-10-02T06:17:53+02:00: workers LIVE DNS/resolve failed (http 000); no CLOUDFLARE_API_TOKEN; local:8080 and tunnel OK (https://clubs-tours-carb-hospital.trycloudflare.com); liveUrl kept on tunnel. Stay silent.",
+      "servePid": 2252,
+      "tunnelPid": 7538,
+      "workers": "non-200",
+      "tunnel": "200"
+    },
+    {
+      "at": "2026-10-02T06:01:06+02:00",
+      "atUtc": "2026-10-02T04:01:06Z",
+      "status": "healthy_tunnel",
+      "workersHttp": 0,
+      "tunnelHttp": 200,
+      "localHttp": 200,
+      "localApiHttp": 200,
+      "liveUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "tunnelUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "cloudflareApiToken": "unset",
+      "note": "2026-10-02T06:01:06+02:00: workers LIVE non-200 (box DNS resolve fail) and CLOUDFLARE_API_TOKEN unset; left as-is. Local :8080 200 + /api/account-status 200. Tunnel https://clubs-tours-carb-hospital.trycloudflare.com 200 with D DJ title. liveUrl remains tunnel. No user ping (tunnel healthy).",
+      "notifiedUser": false
+    },
+    {
+      "at": "2026-10-02T01:11:00+02:00",
+      "tunnelUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "liveUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "note": "auto-heal 2026-10-02 01:11:00 CEST: serve.py:8080 OK (/, /api/account-status 200); cloudflared pid 7538 alive; tunnel https://clubs-tours-carb-hospital.trycloudflare.com 200 title \"D DJ Pro Fly · PRO · Daniel Dydo · Kraków\"; workers LIVE DNS/CONNECT fail (http 000 / proxy 502); no CLOUDFLARE_API_TOKEN; user LIVE OK via tunnel; silent (no notify)."
+    },
+    {
+      "at": "2026-10-02T23:45:45+02:00",
+      "status": "ok_tunnel",
+      "note": "auto-heal 2026-10-02T23:45:45+02:00: workers LIVE DNS/resolve fail (ddddddd7777777.lilac-drip.workers.dev → could not resolve; proxy CONNECT 502). No CLOUDFLARE_API_TOKEN. Local serve :8080 OK (/, /api/account-status 200). Tunnel https://clubs-tours-carb-hospital.trycloudflare.com OK 200 title 'D DJ Pro Fly · PRO · Daniel Dydo · Kraków'. liveUrl remains tunnel. Silent (user LIVE via tunnel)."
+    },
+    {
+      "at": "2026-10-04T02:58:50+02:00",
+      "note": "[2026-10-04T02:58:50+02:00 Europe/Warsaw] workers LIVE DNS fail (https://ddddddd7777777.lilac-drip.workers.dev); no CLOUDFLARE_API_TOKEN. Fallback tunnel healthy: https://considers-provider-some-custom.trycloudflare.com (200, title D DJ Pro Fly). local :8080 and /api/account-status 200.",
+      "status": "ok_tunnel_workers_dns_fail"
+    }
+  ],
+  "notes": [
+    {
+      "at": "2026-10-13T08:00:21+02:00",
+      "status": "restored_new_quick_tunnel",
+      "liveUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "tunnelUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "note": "auto-heal 2026-10-13T08:00:21+02:00: local serve.py :8080 OK (/ and /api/account-status 200, not restarted); old tunnel https://pointing-verbal-joyce-switched.trycloudflare.com returned Cloudflare 530 (dead though process alive); replaced quick tunnel, new LIVE https://pointing-verbal-joyce-switched.trycloudflare.com verified 200 title 'D7 DJ · PRO8 Fluid · Daniel Dydo · Kraków' from box; workers.dev still unreachable (no CLOUDFLARE_API_TOKEN). Notifying Daniel (link changed).",
+      "userNotify": true,
+      "tunnelHttp": 200,
+      "title": "D7 DJ · PRO8 Fluid · Daniel Dydo · Kraków"
+    },
+    {
+      "at": "2026-10-13T07:42:30+02:00",
+      "status": "restored_new_quick_tunnel",
+      "liveUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "tunnelUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "note": "auto-heal 2026-10-13T07:42:30+02:00: local serve.py :8080 OK (/ and /api/account-status 200, not restarted); old tunnel https://eliminate-valuation-chapel-agreed.trycloudflare.com returned Cloudflare 530 (dead though process alive); replaced quick tunnel, new LIVE https://pointing-verbal-joyce-switched.trycloudflare.com verified 200 title 'D7 DJ · PRO8 Fluid · Daniel Dydo · Kraków' from box and externally; workers.dev still unreachable (no CLOUDFLARE_API_TOKEN). Notifying Daniel (link changed).",
+      "userNotify": true
+    },
+    {
+      "at": "2026-10-09T04:24:27+02:00",
+      "status": "restored_new_quick_tunnel",
+      "liveUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "tunnelUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "note": "auto-heal 2026-10-09 04:23 Europe/Warsaw: serve.py was DEAD → restarted pid 17300 :8080 (/, /api/account-status 200). Public tunnel dead (WebFetch 500; no cloudflared). Replaced quick tunnel. New LIVE https://pointing-verbal-joyce-switched.trycloudflare.com verified 200 title 'D7 DJ · X7S · Daniel Dydo · Kraków'. workers.dev still unreachable since Oct 1 (no CLOUDFLARE_API_TOKEN). Notifying Daniel (link changed).",
+      "servePid": 17300,
+      "tunnelHttp": 200,
+      "title": "D7 DJ · X7S · Daniel Dydo · Kraków",
+      "userNotify": true
+    },
+    {
+      "at": "2026-10-09T03:12:01+02:00",
+      "status": "restored_new_quick_tunnel",
+      "liveUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "tunnelUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "note": "auto-heal 2026-10-09 03:12 Europe/Warsaw: public link was dead (WebFetch 500; cloudflared process alive but hostname no longer routed). Replaced quick tunnel. New LIVE https://pointing-verbal-joyce-switched.trycloudflare.com verified 200 title 'D7 DJ · X7S · Daniel Dydo · Kraków'. serve.py pid 6998 :8080 OK. workers.dev still unreachable (no CLOUDFLARE_API_TOKEN). Notifying Daniel (link changed)."
+    },
+    {
+      "at": "2026-10-05T15:02:41+02:00",
+      "status": "healthy_via_tunnel",
+      "liveUrl": "https://calendar-but-ages-omissions.trycloudflare.com",
+      "tunnelUrl": "https://calendar-but-ages-omissions.trycloudflare.com",
+      "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "localRoot": 200,
+      "localApi": 200,
+      "tunnelHttp": 200,
+      "workersHttp": 0,
+      "cloudflareApiToken": false,
+      "note": "auto-heal 2026-10-05 15:02:41 CEST: serve.py:8080 OK (/, /api/account-status 200); cloudflared pid 590404 alive; tunnel https://calendar-but-ages-omissions.trycloudflare.com 200 title 'D DJ Pro Fly · PRO · Daniel Dydo · Kraków'; workers https://ddddddd7777777.lilac-drip.workers.dev DNS/resolve fail http 000; no CLOUDFLARE_API_TOKEN — left note, did not spam. liveUrl kept on working tunnel; silent.",
+      "userNotify": false
+    },
+    {
+      "at": "2026-10-04T22:12:50+02:00",
+      "status": "healthy_via_tunnel",
+      "liveUrl": "https://calendar-but-ages-omissions.trycloudflare.com",
+      "tunnelUrl": "https://calendar-but-ages-omissions.trycloudflare.com",
+      "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "localRoot": 200,
+      "localApi": 200,
+      "tunnelHttp": 200,
+      "workersHttp": 0,
+      "cloudflareApiToken": false,
+      "note": "auto-heal 2026-10-04T22:12:50+02:00: serve.py:8080 OK (/, /api/account-status 200); cloudflared pid 590404 alive; tunnel https://calendar-but-ages-omissions.trycloudflare.com 200 title 'D DJ Pro Fly · PRO · Daniel Dydo · Kraków'; workers https://ddddddd7777777.lilac-drip.workers.dev DNS/resolve fail http 000; no CLOUDFLARE_API_TOKEN — left note, did not spam. liveUrl kept on working tunnel; silent.",
+      "userNotify": false
+    },
+    {
+      "at": "2026-10-04T21:25:02+02:00",
+      "status": "healthy_via_tunnel",
+      "liveUrl": "https://calendar-but-ages-omissions.trycloudflare.com",
+      "tunnelUrl": "https://calendar-but-ages-omissions.trycloudflare.com",
+      "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "localRoot": 200,
+      "localApi": 200,
+      "tunnelHttp": 200,
+      "workersHttp": 0,
+      "cloudflareApiToken": false,
+      "note": "auto-heal 2026-10-04T21:25:02+02:00: serve.py:8080 OK (/, /api/account-status 200); cloudflared pid 590404 alive; tunnel https://calendar-but-ages-omissions.trycloudflare.com 200 title 'D DJ Pro Fly · PRO · Daniel Dydo · Kraków'; workers https://ddddddd7777777.lilac-drip.workers.dev DNS/resolve fail http 000; no CLOUDFLARE_API_TOKEN — left note, did not spam. liveUrl kept on working tunnel; silent.",
+      "userNotify": false
+    },
+    {
+      "at": "2026-10-04T12:45:54+02:00",
+      "status": "healthy_via_tunnel",
+      "liveUrl": "https://considers-provider-some-custom.trycloudflare.com",
+      "tunnelUrl": "https://considers-provider-some-custom.trycloudflare.com",
+      "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "localRoot": 200,
+      "localApi": 200,
+      "tunnelHttp": 200,
+      "workersHttp": 0,
+      "cloudflareApiToken": false,
+      "note": "auto-heal 2026-10-04 12:45:54 CEST: serve.py:8080 OK (/, /api/account-status 200); cloudflared pid 5357 alive; tunnel https://considers-provider-some-custom.trycloudflare.com 200 title 'D DJ Pro Fly · PRO · Daniel Dydo · Kraków'; workers https://ddddddd7777777.lilac-drip.workers.dev DNS/resolve fail http 000; no CLOUDFLARE_API_TOKEN — left note, did not spam. liveUrl kept on working tunnel; silent.",
+      "userNotify": false
+    },
+    {
+      "at": "2026-10-04T12:29:40+02:00",
+      "status": "healthy_via_tunnel",
+      "liveUrl": "https://considers-provider-some-custom.trycloudflare.com",
+      "tunnelUrl": "https://considers-provider-some-custom.trycloudflare.com",
+      "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "localRoot": 200,
+      "localApi": 200,
+      "tunnelHttp": 200,
+      "workersHttp": 0,
+      "cloudflareApiToken": false,
+      "note": "auto-heal 2026-10-04 12:29:40 CEST: serve.py:8080 OK (/, /api/account-status 200); cloudflared pid 5357 alive; tunnel https://considers-provider-some-custom.trycloudflare.com 200 title 'D DJ Pro Fly · PRO · Daniel Dydo · Kraków'; workers https://ddddddd7777777.lilac-drip.workers.dev DNS/resolve fail http 000; no CLOUDFLARE_API_TOKEN — left note, did not spam. liveUrl kept on working tunnel; silent.",
+      "userNotify": false
+    },
+    {
+      "at": "2026-10-04T11:41:03+02:00",
+      "status": "healthy_via_tunnel",
+      "liveUrl": "https://considers-provider-some-custom.trycloudflare.com",
+      "tunnelUrl": "https://considers-provider-some-custom.trycloudflare.com",
+      "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "localRoot": 200,
+      "localApi": 200,
+      "tunnelHttp": 200,
+      "workersHttp": 0,
+      "cloudflareApiToken": false,
+      "note": "auto-heal 2026-10-04 11:41:03 CEST: serve.py:8080 OK (/, /api/account-status 200); cloudflared pid 5357 alive; tunnel https://considers-provider-some-custom.trycloudflare.com 200 title 'D DJ Pro Fly · PRO · Daniel Dydo · Kraków'; workers https://ddddddd7777777.lilac-drip.workers.dev DNS/resolve fail http 000; no CLOUDFLARE_API_TOKEN — left note, did not spam. liveUrl kept on working tunnel; silent.",
+      "userNotify": false
+    },
+    "[2026-10-04T09:04:06+02:00 Europe/Warsaw] workers LIVE DNS/HTTP fail: https://ddddddd7777777.lilac-drip.workers.dev could not resolve (curl 6); no CLOUDFLARE_API_TOKEN. Tunnel OK 200 with D DJ title: https://considers-provider-some-custom.trycloudflare.com. liveUrl left on tunnel. Auto-heal silent.",
+    "[2026-10-02T21:19:37+02:00] auto-heal: local :8080 OK; cloudflared OK; tunnel https://clubs-tours-carb-hospital.trycloudflare.com HTTP 200 title contains \"D DJ\"; workers https://ddddddd7777777.lilac-drip.workers.dev DNS fail (http 0); no CLOUDFLARE_API_TOKEN — left note, no user ping",
+    {
+      "at": "2026-10-02T23:45:45+02:00",
+      "status": "ok_tunnel",
+      "note": "auto-heal 2026-10-02T23:45:45+02:00: workers LIVE DNS/resolve fail (ddddddd7777777.lilac-drip.workers.dev → could not resolve; proxy CONNECT 502). No CLOUDFLARE_API_TOKEN. Local serve :8080 OK (/, /api/account-status 200). Tunnel https://clubs-tours-carb-hospital.trycloudflare.com OK 200 title 'D DJ Pro Fly · PRO · Daniel Dydo · Kraków'. liveUrl remains tunnel. Silent (user LIVE via tunnel)."
+    },
+    "[2026-10-03T02:31:48+02:00] workers LIVE DNS fail (could not resolve ddddddd7777777.lilac-drip.workers.dev); no CLOUDFLARE_API_TOKEN. Tunnel https://clubs-tours-carb-hospital.trycloudflare.com OK 200 (title contains D DJ). liveUrl kept on tunnel.",
+    {
+      "at": "2026-10-03T19:42:11+02:00",
+      "status": "healthy_via_tunnel",
+      "workers": "dns_fail_000",
+      "liveUrl": "https://considers-provider-some-custom.trycloudflare.com",
+      "tunnelUrl": "https://considers-provider-some-custom.trycloudflare.com",
+      "local": "200",
+      "api": "200",
+      "cloudflareApiToken": false
+    },
+    "[2026-10-04T08:27:06.855976+02:00 Europe/Warsaw] workers LIVE DNS/HTTP fail: https://ddddddd7777777.lilac-drip.workers.dev could not resolve (curl 6); no CLOUDFLARE_API_TOKEN. Tunnel OK 200 with D DJ title: https://considers-provider-some-custom.trycloudflare.com. liveUrl left on tunnel. Auto-heal silent.",
+    "[2026-10-04T10:40:32+02:00 Europe/Warsaw] workers LIVE DNS/HTTP fail: https://ddddddd7777777.lilac-drip.workers.dev could not resolve (curl 6); no CLOUDFLARE_API_TOKEN. Tunnel OK 200 with D DJ title: https://considers-provider-some-custom.trycloudflare.com. liveUrl left on tunnel. Auto-heal silent.",
+    {
+      "at": "2026-10-08T23:54:20+02:00",
+      "status": "restored_new_quick_tunnel",
+      "liveUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "tunnelUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "note": "2026-10-08 23:54 Europe/Warsaw: link restored — Cloudflare deleted the old quick tunnel (log: 'Unauthorized: Tunnel not found'); started a new cloudflared quick tunnel https://pointing-verbal-joyce-switched.trycloudflare.com (http2, explicit edge IPs since box DNS now returns 198.18.0.1). Verified from box: / 200 title 'D7 DJ · X7S · Daniel Dydo · Kraków', /pro-dj 200, /kali-live 200, /api/account-status 200."
+    }
+  ],
+  "localStatus": "ok",
+  "previousHealNote": "auto-heal 2026-10-04 13:10:19 CEST: serve.py:8080 OK (/, /api/account-status 200); cloudflared pid 5357 alive; tunnel https://considers-provider-some-custom.trycloudflare.com 200 title 'D DJ Pro Fly · PRO · Daniel Dydo · Kraków'; workers https://ddddddd7777777.lilac-drip.workers.dev DNS/resolve fail http 000 (HTTPS_PROXY CONNECT 502); no CLOUDFLARE_API_TOKEN — left note, did not spam. liveUrl kept on working tunnel; silent.",
+  "workersLastChecked": "2026-10-05T12:50:12.294492+00:00",
+  "lastResult": "healthy_via_tunnel",
+  "autoHealNotes": [
+    "auto-heal 2026-10-01 10:55:12 CEST: local serve 200 + /api/account-status 200; tunnel https://appears-madonna-selected-menu.trycloudflare.com 200 with D DJ title; workers https://ddddddd7777777.lilac-drip.workers.dev non-200 (DNS resolve fail / CONNECT 502 via proxy); no CLOUDFLARE_API_TOKEN; liveUrl stays tunnel; silent (do not spam Daniel).",
+    "[2026-10-01T09:45:47+02:00] workers LIVE non-200 (connect fail / proxy 502); no CLOUDFLARE_API_TOKEN; tunnel OK 200 title D DJ Pro Fly; not notifying user",
+    {
+      "at": "2026-10-02T23:45:45+02:00",
+      "status": "ok_tunnel",
+      "note": "auto-heal 2026-10-02T23:45:45+02:00: workers LIVE DNS/resolve fail (ddddddd7777777.lilac-drip.workers.dev → could not resolve; proxy CONNECT 502). No CLOUDFLARE_API_TOKEN. Local serve :8080 OK (/, /api/account-status 200). Tunnel https://clubs-tours-carb-hospital.trycloudflare.com OK 200 title 'D DJ Pro Fly · PRO · Daniel Dydo · Kraków'. liveUrl remains tunnel. Silent (user LIVE via tunnel)."
+    },
+    "[2026-10-03T12:13:12+02:00] workers LIVE https://ddddddd7777777.lilac-drip.workers.dev unreachable (DNS resolve failed / HTTP 000); no CLOUDFLARE_API_TOKEN. Fallback tunnel OK 200 title='D DJ Pro Fly · PRO · Daniel Dydo · Kraków' at https://considers-provider-some-custom.trycloudflare.com. Local serve 8080 OK.",
+    "[2026-10-03T20:27:50Z] workers LIVE https://ddddddd7777777.lilac-drip.workers.dev non-200 (DNS resolve failed); no CLOUDFLARE_API_TOKEN — cannot redeploy. Fallback tunnel OK: https://considers-provider-some-custom.trycloudflare.com (200, title D DJ Pro Fly). liveUrl remains tunnel.",
+    "[2026-10-04T02:09:57+02:00 Europe/Warsaw] auto-heal: workers LIVE https://ddddddd7777777.lilac-drip.workers.dev non-200 (DNS/proxy fail, HTTP 000). No CLOUDFLARE_API_TOKEN. Local serve :8080 and tunnel https://considers-provider-some-custom.trycloudflare.com both 200 with title containing D DJ. liveUrl left on working tunnel. Did not spam user.",
+    {
+      "at": "2026-10-04T02:58:50+02:00",
+      "note": "[2026-10-04T02:58:50+02:00 Europe/Warsaw] workers LIVE DNS fail (https://ddddddd7777777.lilac-drip.workers.dev); no CLOUDFLARE_API_TOKEN. Fallback tunnel healthy: https://considers-provider-some-custom.trycloudflare.com (200, title D DJ Pro Fly). local :8080 and /api/account-status 200.",
+      "status": "ok_tunnel_workers_dns_fail"
+    },
+    "[2026-10-04T09:47:01+02:00] auto-heal: workers LIVE DNS/resolve fail (ddddddd7777777.lilac-drip.workers.dev); no CLOUDFLARE_API_TOKEN; local :8080 OK; tunnel https://considers-provider-some-custom.trycloudflare.com 200 title 'D DJ Pro Fly'; liveUrl remains tunnel.",
+    "[2026-10-04T14:31:55+02:00] workers LIVE unreachable: DNS fail for https://ddddddd7777777.lilac-drip.workers.dev (no CLOUDFLARE_API_TOKEN). Tunnel healthy: https://calendar-but-ages-omissions.trycloudflare.com (200, title contains D DJ). Local serve :8080 OK."
+  ],
+  "workersCheckedAt": "2026-10-05T15:54:24+02:00",
+  "tunnelCheckedAt": "2026-10-05T15:54:24+02:00",
+  "lastHealNote": "[2026-10-04T04:45:46+02:00 Europe/Warsaw] auto-heal ok. serve :8080 200; /api/account-status 200; tunnel https://considers-provider-some-custom.trycloudflare.com 200 (title D DJ Pro Fly). workers LIVE DNS fail (https://ddddddd7777777.lilac-drip.workers.dev); no CLOUDFLARE_API_TOKEN — note only, no user ping.",
+  "tunnelSmoke": {
+    "http": 200,
+    "title": "D DJ Pro Fly · PRO · Daniel Dydo · Kraków"
+  },
+  "autoHealHistory": [
+    {
+      "at": "2026-10-09T04:24:27+02:00",
+      "status": "restored_new_quick_tunnel",
+      "liveUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "tunnelUrl": "https://pointing-verbal-joyce-switched.trycloudflare.com",
+      "note": "auto-heal 2026-10-09 04:23 Europe/Warsaw: serve.py was DEAD → restarted pid 17300 :8080 (/, /api/account-status 200). Public tunnel dead (WebFetch 500; no cloudflared). Replaced quick tunnel. New LIVE https://pointing-verbal-joyce-switched.trycloudflare.com verified 200 title 'D7 DJ · X7S · Daniel Dydo · Kraków'. workers.dev still unreachable since Oct 1 (no CLOUDFLARE_API_TOKEN). Notifying Daniel (link changed).",
+      "servePid": 17300,
+      "tunnelHttp": 200,
+      "title": "D7 DJ · X7S · Daniel Dydo · Kraków",
+      "userNotify": true
+    },
+    {
+      "at": "2026-10-04T12:45:54+02:00",
+      "status": "healthy_via_tunnel",
+      "liveUrl": "https://considers-provider-some-custom.trycloudflare.com",
+      "tunnelUrl": "https://considers-provider-some-custom.trycloudflare.com",
+      "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "localRoot": 200,
+      "localApi": 200,
+      "tunnelHttp": 200,
+      "workersHttp": 0,
+      "cloudflareApiToken": false,
+      "note": "auto-heal 2026-10-04 12:45:54 CEST: serve.py:8080 OK (/, /api/account-status 200); cloudflared pid 5357 alive; tunnel https://considers-provider-some-custom.trycloudflare.com 200 title 'D DJ Pro Fly · PRO · Daniel Dydo · Kraków'; workers https://ddddddd7777777.lilac-drip.workers.dev DNS/resolve fail http 000; no CLOUDFLARE_API_TOKEN — left note, did not spam. liveUrl kept on working tunnel; silent.",
+      "userNotify": false
+    },
+    {
+      "at": "2026-10-03T11:13:00+02:00",
+      "status": "healthy_via_tunnel",
+      "liveUrl": "https://considers-provider-some-custom.trycloudflare.com",
+      "tunnelUrl": "https://considers-provider-some-custom.trycloudflare.com",
+      "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "localRoot": 200,
+      "localApi": 200,
+      "tunnelHttp": 200,
+      "workersHttp": 0,
+      "note": "auto-heal 2026-10-03 11:13:00 CEST: serve.py:8080 OK (/, /api/account-status 200); cloudflared pid 5357 alive; tunnel https://considers-provider-some-custom.trycloudflare.com 200 title 'D DJ Pro Fly · PRO · Daniel Dydo · Kraków'; workers https://ddddddd7777777.lilac-drip.workers.dev DNS/resolve fail http 000; no CLOUDFLARE_API_TOKEN — left note, did not spam. liveUrl kept on working tunnel; silent."
+    },
+    {
+      "at": "2026-10-02T21:28:05Z",
+      "status": "ok_tunnel",
+      "notified": false
+    },
+    {
+      "at": "2026-10-02T18:46:43Z",
+      "status": "healthy_via_tunnel",
+      "liveUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "tunnelUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "workersHttp": 0,
+      "tunnelHttp": 200,
+      "note": "auto-heal 2026-10-02 20:46:43 CEST: local serve:200 + /api/account-status:200; cloudflared pid 7538 alive; tunnel https://clubs-tours-carb-hospital.trycloudflare.com 200 title \"D DJ Pro Fly · PRO · Daniel Dydo · Kraków\"; workers https://ddddddd7777777.lilac-drip.workers.dev DNS/CONNECT fail; no CLOUDFLARE_API_TOKEN; left note only. userLiveOk via tunnel."
+    },
+    {
+      "at": "2026-10-02T19:43:32+02:00",
+      "liveUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "tunnelUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "workersHttp": 0,
+      "tunnelHttp": 200,
+      "localHttp": 200,
+      "localApiHttp": 200,
+      "note": "auto-heal 2026-10-02 19:43:32 CEST: serve.py:8080 OK (/, /api/account-status 200); cloudflared pid 7538 alive; tunnel https://clubs-tours-carb-hospital.trycloudflare.com 200 title 'D DJ Pro Fly · PRO · Daniel Dydo · Kraków'; workers https://ddddddd7777777.lilac-drip.workers.dev DNS/resolve fail http 000; no CLOUDFLARE_API_TOKEN — left note, did not spam. liveUrl kept on working tunnel; silent."
+    },
+    {
+      "at": "2026-10-02T16:03:42.000Z",
+      "atWarsaw": "2026-10-02 18:03:42 CEST",
+      "status": "healthy_via_tunnel",
+      "tunnelHttp": 200,
+      "workersHttp": 0,
+      "notified": false
+    },
+    {
+      "at": "2026-10-02T15:04:25.980187Z",
+      "atWarsaw": "2026-10-02 17:04:25 CEST",
+      "status": "healthy_via_tunnel",
+      "tunnelHttp": 200,
+      "workersHttp": 0,
+      "notified": false
+    },
+    {
+      "at": "2026-10-02T06:17:53+02:00",
+      "atLabel": "2026-10-02 06:17:53 CEST",
+      "localHttp": 200,
+      "localApiHttp": 200,
+      "workersHttp": 0,
+      "workersOk": false,
+      "tunnelHttp": 200,
+      "tunnelOk": true,
+      "liveUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "tunnelUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "title": "D DJ Pro Fly · PRO · Daniel Dydo · Kraków",
+      "userNotifyNeeded": false,
+      "note": "2026-10-02T06:17:53+02:00: workers LIVE DNS/resolve failed (http 000); no CLOUDFLARE_API_TOKEN; local:8080 and tunnel OK (https://clubs-tours-carb-hospital.trycloudflare.com); liveUrl kept on tunnel. Stay silent.",
+      "servePid": 2252,
+      "tunnelPid": 7538,
+      "workers": "non-200",
+      "tunnel": "200"
+    },
+    {
+      "at": "2026-10-02T06:01:06+02:00",
+      "atUtc": "2026-10-02T04:01:06Z",
+      "status": "healthy_tunnel",
+      "workersHttp": 0,
+      "tunnelHttp": 200,
+      "localHttp": 200,
+      "localApiHttp": 200,
+      "liveUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "tunnelUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "cloudflareApiToken": "unset",
+      "note": "2026-10-02T06:01:06+02:00: workers LIVE non-200 (box DNS resolve fail) and CLOUDFLARE_API_TOKEN unset; left as-is. Local :8080 200 + /api/account-status 200. Tunnel https://clubs-tours-carb-hospital.trycloudflare.com 200 with D DJ title. liveUrl remains tunnel. No user ping (tunnel healthy).",
+      "notifiedUser": false
+    },
+    {
+      "at": "2026-10-02T04:18:00+02:00",
+      "result": "ok_tunnel_workers_dns_fail",
+      "liveUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "tunnelUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "workers": "dns_fail",
+      "local": 200,
+      "tunnelHttp": 200,
+      "workersHttp": 0
+    },
+    {
+      "at": "2026-10-02T01:11:00+02:00",
+      "liveUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "tunnelUrl": "https://clubs-tours-carb-hospital.trycloudflare.com",
+      "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "note": "auto-heal 2026-10-02 01:11:00 CEST: serve.py:8080 OK (/, /api/account-status 200); cloudflared pid 7538 alive; tunnel https://clubs-tours-carb-hospital.trycloudflare.com 200 title \"D DJ Pro Fly · PRO · Daniel Dydo · Kraków\"; workers LIVE DNS/CONNECT fail (http 000 / proxy 502); no CLOUDFLARE_API_TOKEN; user LIVE OK via tunnel; silent (no notify)."
+    },
+    {
+      "at": "2026-10-02T23:45:45+02:00",
+      "status": "ok_tunnel",
+      "note": "auto-heal 2026-10-02T23:45:45+02:00: workers LIVE DNS/resolve fail (ddddddd7777777.lilac-drip.workers.dev → could not resolve; proxy CONNECT 502). No CLOUDFLARE_API_TOKEN. Local serve :8080 OK (/, /api/account-status 200). Tunnel https://clubs-tours-carb-hospital.trycloudflare.com OK 200 title 'D DJ Pro Fly · PRO · Daniel Dydo · Kraków'. liveUrl remains tunnel. Silent (user LIVE via tunnel)."
+    },
+    {
+      "at": "2026-10-03T07:42:57.304075Z",
+      "result": "silent_ok",
+      "workers": 0,
+      "tunnel": 200,
+      "liveUrl": "https://considers-provider-some-custom.trycloudflare.com"
+    },
+    {
+      "at": "2026-10-03T09:55:02+02:00",
+      "tunnel": {
+        "url": "https://considers-provider-some-custom.trycloudflare.com",
+        "http": 200
+      },
+      "workers": {
+        "url": "https://ddddddd7777777.lilac-drip.workers.dev",
+        "http": 0
+      },
+      "local": {
+        "root": 200,
+        "api": 200
+      },
+      "liveUrl": "https://considers-provider-some-custom.trycloudflare.com",
+      "note": "2026-10-03 09:55:02 CEST: workers LIVE DNS/resolve failed (http 000); no CLOUDFLARE_API_TOKEN; local:8080 and tunnel OK (https://considers-provider-some-custom.trycloudflare.com HTTP 200 title D DJ Pro Fly · PRO · Daniel Dydo · Kraków); liveUrl kept on tunnel. Silent (user LIVE ok via tunnel)."
+    },
+    {
+      "at": "2026-10-03T11:00:12+02:00",
+      "result": "healthy_via_tunnel",
+      "workers": "dns_fail",
+      "tunnel": "ok_200"
+    },
+    {
+      "at": "2026-10-03T12:58:02+02:00",
+      "status": "healthy_via_tunnel",
+      "liveUrl": "https://considers-provider-some-custom.trycloudflare.com",
+      "notified": false
+    },
+    {
+      "at": "2026-10-03T17:32:52+02:00",
+      "result": "healthy_via_tunnel",
+      "workers": "dns_fail",
+      "tunnel": "ok_200",
+      "local": "ok_200",
+      "notified": false,
+      "userNotified": false,
+      "liveUrl": "https://considers-provider-some-custom.trycloudflare.com",
+      "tunnelUrl": "https://considers-provider-some-custom.trycloudflare.com",
+      "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "title": "D DJ Pro Fly · PRO · Daniel Dydo · Kraków",
+      "reason": "workers DNS fail; tunnel OK — silent"
+    },
+    {
+      "at": "2026-10-03T20:40:30+02:00",
+      "result": "healthy_via_tunnel",
+      "workers": "dns_fail",
+      "tunnel": "ok_200",
+      "local": "ok_200",
+      "notified": false,
+      "liveUrl": "https://considers-provider-some-custom.trycloudflare.com",
+      "tunnelUrl": "https://considers-provider-some-custom.trycloudflare.com",
+      "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "title": "D DJ Pro Fly · PRO · Daniel Dydo · Kraków"
+    },
+    {
+      "at": "2026-10-04T02:42:03+02:00",
+      "result": "healthy_via_tunnel",
+      "workers": "dns_fail",
+      "tunnelHttp": 200,
+      "localHttp": 200
+    },
+    {
+      "at": "2026-10-04T02:58:50+02:00",
+      "note": "[2026-10-04T02:58:50+02:00 Europe/Warsaw] workers LIVE DNS fail (https://ddddddd7777777.lilac-drip.workers.dev); no CLOUDFLARE_API_TOKEN. Fallback tunnel healthy: https://considers-provider-some-custom.trycloudflare.com (200, title D DJ Pro Fly). local :8080 and /api/account-status 200.",
+      "status": "ok_tunnel_workers_dns_fail"
+    },
+    {
+      "at": "2026-10-04T11:59:28+02:00",
+      "status": "healthy_via_tunnel",
+      "liveUrl": "https://considers-provider-some-custom.trycloudflare.com",
+      "tunnelUrl": "https://considers-provider-some-custom.trycloudflare.com",
+      "workersUrl": "https://ddddddd7777777.lilac-drip.workers.dev",
+      "localRoot": 200,
+      "localApi": 200,
+      "tunnelHttp": 200,
+      "workersHttp": 0,
+      "cloudflareApiToken": false,
+      "note": "auto-heal 2026-10-04 11:59:28 CEST: serve.py:8080 OK (/, /api/account-status 200); cloudflared pid 5357 alive; tunnel https://considers-provider-some-custom.trycloudflare.com 200 title 'D DJ Pro Fly · PRO · Daniel Dydo · Kraków'; workers https://ddddddd7777777.lilac-drip.workers.dev DNS/resolve fail http 000; no CLOUDFLARE_API_TOKEN — left note, did not spam. liveUrl kept on working tunnel; silent.",
+      "userNotify": false
+    },
+    {
+      "at": "2026-10-04T13:49:08+02:00",
+      "status": "ok_tunnel_workers_dns_fail",
+      "tunnel": "https://considers-provider-some-custom.trycloudflare.com",
+      "workersHttp": 0
+    }
+  ],
+  "workersNotes": [
+    "[2026-10-05T14:50:12+02:00] workers LIVE unreachable: DNS fail for https://ddddddd7777777.lilac-drip.workers.dev (no CLOUDFLARE_API_TOKEN). Tunnel healthy: https://calendar-but-ages-omissions.trycloudflare.com (200, title contains D DJ). Local serve :8080 OK.",
+    "2026-10-03 23:31:53 CEST: workers LIVE DNS/resolve failed (http 000); no CLOUDFLARE_API_TOKEN; local:8080 and tunnel OK (https://considers-provider-some-custom.trycloudflare.com HTTP 200 title D DJ Pro Fly · PRO · Daniel Dydo · Kraków); liveUrl kept on tunnel. Silent (user LIVE ok via tunnel).",
+    "2026-10-03 21:47:21 CEST: workers LIVE DNS/resolve failed (http 000); no CLOUDFLARE_API_TOKEN; local:8080 and tunnel OK (https://considers-provider-some-custom.trycloudflare.com HTTP 200 title D DJ Pro Fly · PRO · Daniel Dydo · Kraków); liveUrl kept on tunnel. Silent (user LIVE ok via tunnel).",
+    "2026-10-03T15:29:39+02:00: workers LIVE DNS/resolve failed (http 000); no CLOUDFLARE_API_TOKEN; local:8080 and tunnel OK (https://considers-provider-some-custom.trycloudflare.com HTTP 200 title D DJ Pro Fly · PRO · Daniel Dydo · Kraków); liveUrl kept on tunnel. Silent (user LIVE ok via tunnel).",
+    "2026-10-03 14:03:30 CEST: workers LIVE DNS/resolve failed (http 000); no CLOUDFLARE_API_TOKEN; local:8080 and tunnel OK (https://considers-provider-some-custom.trycloudflare.com HTTP 200 title D DJ Pro Fly · PRO · Daniel Dydo · Kraków); liveUrl kept on tunnel. Silent (user LIVE ok via tunnel).",
+    "2026-10-03T13:42:12+02:00: workers LIVE DNS/resolve failed (http 000); no CLOUDFLARE_API_TOKEN; local:8080 and tunnel OK (https://considers-provider-some-custom.trycloudflare.com HTTP 200 title D DJ Pro Fly · PRO · Daniel Dydo · Kraków); liveUrl kept on tunnel. Silent (user LIVE ok via tunnel).",
+    "2026-10-04 13:49:08 CEST: workers LIVE DNS/resolve failed (http 000); no CLOUDFLARE_API_TOKEN; local:8080 and tunnel OK (https://considers-provider-some-custom.trycloudflare.com HTTP 200 title D DJ); liveUrl kept on tunnel. Silent."
+  ],
+  "lastChecked": "2026-10-05T14:50:12+02:00",
+  "proDjUrl": "https://considers-provider-some-custom.trycloudflare.com",
+  "tunnelHttp": 200,
+  "localRootHttp": 200,
+  "localApiHttp": 200,
+  "title": "D7 DJ · PRO8 Fluid · Daniel Dydo · Kraków",
+  "autoHealLastCheck": {
+    "at": "2026-10-06T11:49:17",
+    "workers": "000 (unreachable; no CLOUDFLARE_API_TOKEN)",
+    "tunnel": 200,
+    "local": 200,
+    "api": 200
+  },
+  "lastHealAtUtc": "2026-10-03T11:28:02Z",
+  "workersHttpCode": 0,
+  "workersStatusNote": "[2026-10-04T19:47:30+02:00] workers LIVE DNS fail (https://ddddddd7777777.lilac-drip.workers.dev); no CLOUDFLARE_API_TOKEN. Tunnel healthy https://calendar-but-ages-omissions.trycloudflare.com (200, title D DJ). local :8080 OK. silent.",
+  "autoHealNotePrev": "auto-heal 2026-10-03 22:14:35 CEST: serve.py:8080 OK (/, /api/account-status 200); cloudflared pid 5357 alive; tunnel https://considers-provider-some-custom.trycloudflare.com 200 title 'D DJ Pro Fly · PRO · Daniel Dydo · Kraków'; workers https://ddddddd7777777.lilac-drip.workers.dev DNS/resolve fail http 000; no CLOUDFLARE_API_TOKEN — left note, did not spam. liveUrl kept on working tunnel; silent.",
+  "workersHealthy": false,
+  "tunnelHealthy": true,
+  "localHealthy": true,
+  "workersLastError": "resolve fail HTTP 000; no CLOUDFLARE_API_TOKEN",
+  "previousLastHealNote": "[2026-10-04T02:58:50+02:00 Europe/Warsaw] workers LIVE DNS fail (https://ddddddd7777777.lilac-drip.workers.dev); no CLOUDFLARE_API_TOKEN. Fallback tunnel healthy: https://considers-provider-some-custom.trycloudflare.com (200, title D DJ Pro Fly). local :8080 and /api/account-status 200.",
+  "healNoteWorkers": "workers DNS resolve failed (curl exit 6 / http 000); no CLOUDFLARE_API_TOKEN — cannot redeploy lilac-drip; LIVE via tunnel OK",
+  "lastHealOk": true,
+  "autoHealLastRun": "2026-10-08 14:14",
+  "autoHealResult": "healthy-via-tunnel",
+  "healAt": "2026-10-04T15:45:46+02:00",
+  "localServeStatus": "ok",
+  "healNoteAt": "2026-10-04T18:49:20.769029Z",
+  "lastHealCheck": "2026-10-08T11:28:51+02:00",
+  "userNotify": true,
+  "lastAutoHealCheck": "2026-10-06T07:24:21",
+  "lastHealthCheck": "2026-10-07T00:44:00+02:00",
+  "liveDown": false,
+  "pendingNotify": false,
+  "statusNote": "auto-heal 2026-10-13T08:21:38+02:00: local serve.py :8080 OK (/ and /api/account-status 200, not restarted); old tunnel https://recycling-spy-border-feelings.trycloudflare.com returned Cloudflare 530 (dead); a new quick tunnel was already running (log cloudflared-tunnel-proactive-20261013-082055.log), https://pointing-verbal-joyce-switched.trycloudflare.com verified 200 with title 'D7 DJ · PRO8 Fluid · Daniel Dydo · Kraków'; adopted as liveUrl/tunnelUrl. workers.dev still unreachable (no CLOUDFLARE_API_TOKEN).",
+  "workersDevStatus": "unreachable (HTTP 000) since Oct 1; redeploy needs CLOUDFLARE_API_TOKEN",
+  "statusCheckedAt": "2026-10-13T08:21:38+02:00",
+  "statusUpdatedAt": "2026-10-13T08:21:38+02:00",
+  "status": "2026-10-09 13:53 auto-heal: local 200, tunnel 200 OK; workers.dev unreachable (no token)",
+  "apk": {
+    "versionCode": 48,
+    "versionName": "D77 Studio 48",
+    "file": "D77-Studio-48.apk",
+    "url": "https://pointing-verbal-joyce-switched.trycloudflare.com/downloads/D77-Studio-48.apk",
+    "sha256": "e9c86724000ee3160c3c2b4d80ca8ad09c8687ea8d79f8c12aa7a60a0874c2ed",
+    "mac": {
+      "arm64": "downloads/D77-Studio-48.0.0-mac-arm64.zip",
+      "x64": "downloads/D77-Studio-48.0.0-mac-x64.zip"
+    },
+    "note": "update check only notifies with a link; nothing installs automatically"
+  },
+  "web": {
+    "hub": "https://pointing-verbal-joyce-switched.trycloudflare.com/d/",
+    "pages": [
+      "index",
+      "dj",
+      "studio",
+      "song",
+      "builder",
+      "radio",
+      "agents",
+      "download"
+    ]
+  }
+}

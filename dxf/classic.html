@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <script src="js/d7-apk-config.js?v=43"></script><script src="js/d7-apk-shim.js?v=43"></script><script src="js/dbot-native.js?v=45"></script><script src="js/dbot-state.js?v=46"></script><script src="js/dbot-localai.js?v=46"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
+  <meta name="theme-color" content="#06070b" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#06070b" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="D DJ" />
+  <meta name="description" content="D Bot · Classic — MilkDrop + Mr D Fluid + YouTube trance/techno/Berlin · Daniel Dydo · Kraków" />
+  <link rel="icon" href="favicon.ico" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
+  <title>Super X DJ · Daniel Dydo</title>
+  <link rel="stylesheet" href="css/main.css?v=37" />
+  <link rel="stylesheet" href="css/d7-chat.css?v=43" />
+  <link rel="stylesheet" href="css/d7-liquid.css?v=44" />
+  <link rel="stylesheet" href="css/dbot-center.css?v=45" />
+  <link rel="stylesheet" href="css/dbot-cosmos.css?v=46" />
+  <link rel="stylesheet" href="css/dbot-studio.css?v=48" />
+  <link rel="stylesheet" href="css/dbot-ufo.css?v=48" />
+</head>
+<body>
+  <div class="app app-viz app-one-deck" id="app-root">
+    <div class="viz-stage" id="viz-stage" aria-hidden="true">
+      <canvas id="viz-canvas" class="viz-canvas"></canvas>
+      <img id="shark-overlay" class="shark-overlay" src="icons/bot-d-shark.png" alt="" aria-hidden="true" draggable="false" />
+      <div class="viz-fallback" id="viz-fallback" hidden>WebGL unavailable — decks only</div>
+      <div class="yt-pro-host" id="yt-pro-host" aria-hidden="true" title="YouTube PRO audio">
+        <div id="yt-pro-player"></div>
+      </div>
+      <div class="yt-pro-label" id="yt-pro-label" hidden>PRO · YouTube</div>
+      <div class="live-gen-badge" id="live-gen-badge" hidden>LIVE GENERATOR 💚</div>
+    </div>
+
+    <!-- Immersive viz HUD — only visible in VIZ FULL / fullscreen viz mode -->
+    <div class="viz-hud" id="viz-hud" aria-hidden="true">
+      <button type="button" id="viz-hud-prev" title="Poprzedni preset">◀</button>
+      <button type="button" id="viz-hud-next" title="Następny preset">▶</button>
+      <button type="button" id="viz-hud-rand" title="Losowy">RND</button>
+      <span class="viz-hud-name" id="viz-hud-name">—</span>
+      <button type="button" id="viz-hud-exit" class="viz-hud-exit" title="Wyjdź (Esc)">EXIT</button>
+    </div>
+    <button type="button" class="viz-fs-corner" id="viz-fs-corner" title="Wyjdź z wizualizacji (Esc)" aria-label="Wyjdź">✕</button>
+
+    <header class="topbar">
+      <div class="brand brand-discreet">
+        <h1>D DJ <span>Pro Fly · PRO</span></h1>
+        <div class="sig">Daniel Dydo · Kraków</div>
+      </div>
+      <div class="master-clock">
+        <div>
+          <div class="label">Master BPM</div>
+          <div class="bpm" id="master-bpm">120.0</div>
+        </div>
+      </div>
+      <div class="top-actions">
+        <div class="view-mode" role="group" aria-label="Widok">
+          <button type="button" id="view-viz" class="active" title="Tylko MilkDrop">VIZ</button>
+          <button type="button" id="view-decks" title="Tylko decki">DECKI</button>
+          <button type="button" id="view-both" title="Viz + decki">OBA</button>
+        </div>
+        <label class="auto-sync-toggle" title="Auto sync BPM+faza slave→master">
+          <input type="checkbox" id="auto-sync" checked />
+          <span>AUTO</span>
+        </label>
+        <button type="button" id="btn-sync" title="Sync ręczny slave → master">SYNC</button>
+        <button type="button" id="btn-bot" class="btn-bot-main" title="Mr D Fluid · czat uniwersalny">Mr D</button>
+        <button type="button" id="btn-kali" class="btn-kali-main" title="Kali Radio: beat + AUTO sync + VIZ FULL">KALI</button>
+        <a class="btn-radio-link" id="btn-radio" href="kali-live" title="Kali Radio · Butterchurn (ta sama strona)">RADIO</a>
+        <a class="btn-radio-link" id="btn-pro-dj" href="pro-dj" title="Pro Virtual DJ · 2 decks + MilkDrop 1080p">PRO DJ</a>
+        <button type="button" id="btn-pro" class="btn-pro-main" title="PRO VIZ · MilkDrop + YouTube trance/techno/Berlin + Mr D">PRO</button>
+        <button type="button" id="btn-live-gen" class="btn-live-gen" title="LIVE GENERATOR — endless viz + Kali/techno/trance">LIVE GEN 💚</button>
+        <button type="button" id="btn-fs" class="btn-fs-main" title="Pełny ekran wizualizacji — tylko MilkDrop">VIZ FULL</button>
+      </div>
+    </header>
+
+    <main class="decks">
+      <!-- DECK A -->
+      <section class="deck deck-a deck-pro" id="deck-a">
+        <div class="deck-head">
+          <div class="deck-badge" title="Deck Pro">PRO</div>
+          <div class="track-name">—</div>
+          <div class="bpm-block">
+            <span class="bpm-display">120.0</span>
+            <input class="bpm-input" type="number" step="0.1" min="40" max="250" value="120" title="Manual BPM" />
+          </div>
+          <button type="button" class="btn-master active" title="Set as master">MASTER</button>
+          <button type="button" class="btn-load">LOAD</button>
+          <input class="file-input" type="file" accept="audio/*,.mp3,.wav,.m4a,.flac,.ogg" />
+        </div>
+        <canvas class="waveform" height="88"></canvas>
+        <div class="time-row">
+          <span class="time-pos">0:00.0</span>
+          <span class="loop-info"></span>
+          <span class="time-dur">0:00.0</span>
+        </div>
+        <div class="transport">
+          <button type="button" class="btn-play">Play</button>
+          <button type="button" class="btn-cue">CUE</button>
+          <button type="button" class="btn-set-cue" title="Set cue here">SET CUE</button>
+          <div class="jog">
+            <button type="button" class="jog-prev" title="Nudge −">◀</button>
+            <button type="button" class="jog-next" title="Nudge +">▶</button>
+          </div>
+        </div>
+        <div class="controls-row">
+          <div class="pitch-col">
+            <span class="section-label">Pitch</span>
+            <input class="pitch-fader" type="range" min="0" max="100" value="50" />
+            <span class="pitch-readout">0.0%</span>
+            <div class="pitch-range">
+              <button type="button" data-range="8" class="active">±8</button>
+              <button type="button" data-range="16">±16</button>
+            </div>
+          </div>
+          <div>
+            <div class="eq-grid">
+              <div class="knob-wrap">
+                <label>HI</label>
+                <input class="eq-hi" type="range" min="0" max="100" value="50" />
+              </div>
+              <div class="knob-wrap">
+                <label>MID</label>
+                <input class="eq-mid" type="range" min="0" max="100" value="50" />
+              </div>
+              <div class="knob-wrap">
+                <label>LOW</label>
+                <input class="eq-low" type="range" min="0" max="100" value="50" />
+              </div>
+              <div class="knob-wrap">
+                <label>FILTER</label>
+                <input class="filter-knob" type="range" min="0" max="100" value="0" />
+              </div>
+            </div>
+            <div class="knob-wrap" style="margin-top:0.5rem;align-items:stretch">
+              <label>VOL</label>
+              <input class="vol-fader" type="range" min="0" max="100" value="85" />
+            </div>
+          </div>
+        </div>
+        <p class="section-label">Hot Cues · PPM = clear</p>
+        <div class="pads-row">
+          <button type="button" class="hotcue" data-cue="0">1</button>
+          <button type="button" class="hotcue" data-cue="1">2</button>
+          <button type="button" class="hotcue" data-cue="2">3</button>
+          <button type="button" class="hotcue" data-cue="3">4</button>
+        </div>
+        <p class="section-label">Loop · Roll (hold)</p>
+        <div class="pads-row">
+          <button type="button" class="loop-btn" data-beats="1">1</button>
+          <button type="button" class="loop-btn" data-beats="2">2</button>
+          <button type="button" class="loop-btn" data-beats="4">4</button>
+          <button type="button" class="loop-btn" data-beats="8">8</button>
+          <button type="button" class="loop-clear">CLR</button>
+          <button type="button" class="roll-btn" data-beats="1">R1</button>
+          <button type="button" class="roll-btn" data-beats="2">R2</button>
+        </div>
+      </section>
+
+      <!-- DECK B — optional / collapsed in one-deck mode -->
+      <div class="deck-b-wrap" id="deck-b-wrap">
+      <button type="button" class="deck-b-toggle" id="deck-b-toggle" aria-expanded="false" title="Pokaż / ukryj Deck B">DECK B · opcjonalny</button>
+      <section class="deck deck-b" id="deck-b">
+        <div class="deck-head">
+          <div class="deck-badge">B</div>
+          <div class="track-name">—</div>
+          <div class="bpm-block">
+            <span class="bpm-display">120.0</span>
+            <input class="bpm-input" type="number" step="0.1" min="40" max="250" value="120" title="Manual BPM" />
+          </div>
+          <button type="button" class="btn-master" title="Set as master">MASTER</button>
+          <button type="button" class="btn-load">LOAD</button>
+          <input class="file-input" type="file" accept="audio/*,.mp3,.wav,.m4a,.flac,.ogg" />
+        </div>
+        <canvas class="waveform" height="88"></canvas>
+        <div class="time-row">
+          <span class="time-pos">0:00.0</span>
+          <span class="loop-info"></span>
+          <span class="time-dur">0:00.0</span>
+        </div>
+        <div class="transport">
+          <button type="button" class="btn-play">Play</button>
+          <button type="button" class="btn-cue">CUE</button>
+          <button type="button" class="btn-set-cue" title="Set cue here">SET CUE</button>
+          <div class="jog">
+            <button type="button" class="jog-prev" title="Nudge −">◀</button>
+            <button type="button" class="jog-next" title="Nudge +">▶</button>
+          </div>
+        </div>
+        <div class="controls-row">
+          <div class="pitch-col">
+            <span class="section-label">Pitch</span>
+            <input class="pitch-fader" type="range" min="0" max="100" value="50" />
+            <span class="pitch-readout">0.0%</span>
+            <div class="pitch-range">
+              <button type="button" data-range="8" class="active">±8</button>
+              <button type="button" data-range="16">±16</button>
+            </div>
+          </div>
+          <div>
+            <div class="eq-grid">
+              <div class="knob-wrap">
+                <label>HI</label>
+                <input class="eq-hi" type="range" min="0" max="100" value="50" />
+              </div>
+              <div class="knob-wrap">
+                <label>MID</label>
+                <input class="eq-mid" type="range" min="0" max="100" value="50" />
+              </div>
+              <div class="knob-wrap">
+                <label>LOW</label>
+                <input class="eq-low" type="range" min="0" max="100" value="50" />
+              </div>
+              <div class="knob-wrap">
+                <label>FILTER</label>
+                <input class="filter-knob" type="range" min="0" max="100" value="0" />
+              </div>
+            </div>
+            <div class="knob-wrap" style="margin-top:0.5rem;align-items:stretch">
+              <label>VOL</label>
+              <input class="vol-fader" type="range" min="0" max="100" value="85" />
+            </div>
+          </div>
+        </div>
+        <p class="section-label">Hot Cues · PPM = clear</p>
+        <div class="pads-row">
+          <button type="button" class="hotcue" data-cue="0">1</button>
+          <button type="button" class="hotcue" data-cue="1">2</button>
+          <button type="button" class="hotcue" data-cue="2">3</button>
+          <button type="button" class="hotcue" data-cue="3">4</button>
+        </div>
+        <p class="section-label">Loop · Roll (hold)</p>
+        <div class="pads-row">
+          <button type="button" class="loop-btn" data-beats="1">1</button>
+          <button type="button" class="loop-btn" data-beats="2">2</button>
+          <button type="button" class="loop-btn" data-beats="4">4</button>
+          <button type="button" class="loop-btn" data-beats="8">8</button>
+          <button type="button" class="loop-clear">CLR</button>
+          <button type="button" class="roll-btn" data-beats="1">R1</button>
+          <button type="button" class="roll-btn" data-beats="2">R2</button>
+        </div>
+      </section>
+      </div><!-- /deck-b-wrap -->
+
+      <!-- Slim MIDI sync strip for Deck Pro + Kali -->
+      <section class="midi-strip" id="midi-strip" aria-label="MIDI sync">
+        <div class="midi-strip-brand">MIDI SYNC</div>
+        <button type="button" id="btn-midi" class="botd-btn midi-strip-btn" title="Połącz Web MIDI">CONNECT</button>
+        <select id="midi-in" title="MIDI In"><option value="">IN</option></select>
+        <select id="midi-out" title="MIDI Out"><option value="">OUT</option></select>
+        <label class="midi-master-lab" title="App wysyła clock">
+          <select id="midi-master">
+            <option value="master" selected>Clock OUT</option>
+            <option value="slave">Clock IN</option>
+          </select>
+        </label>
+        <button type="button" id="midi-clock-start" class="botd-btn midi-strip-btn" title="Start MIDI clock @ master BPM">CLK ▶</button>
+        <button type="button" id="midi-clock-stop" class="botd-btn midi-strip-btn" title="Stop MIDI clock">CLK ■</button>
+        <span class="midi-status" id="midi-status">MIDI · gotowy</span>
+      </section>
+    </main>
+
+    <section class="viz-bar" id="viz-bar">
+      <div class="viz-bar-brand">MILKDROP</div>
+      <button type="button" id="viz-prev" title="Poprzedni">◀</button>
+      <button type="button" id="viz-next" title="Następny">▶</button>
+      <button type="button" id="viz-rand" title="Losowy">RND</button>
+      <label class="viz-auto"><input type="checkbox" id="viz-auto" checked /> Auto</label>
+      <select id="viz-preset" title="Preset"></select>
+      <span class="viz-name" id="viz-name">—</span>
+      <span class="viz-count" id="viz-count">0</span>
+    </section>
+
+    <section class="mixer">
+      <div class="xfader-wrap">
+        <div class="xfader-labels"><span class="a">PRO</span><span>CROSSFADER <em class="xf-hint">(Deck B)</em></span><span class="b">B</span></div>
+        <input id="crossfader" type="range" min="0" max="100" value="50" />
+      </div>
+      <div class="knob-wrap" style="min-width:140px">
+        <label>MASTER VOL</label>
+        <input id="master-vol" type="range" min="0" max="100" value="90" />
+      </div>
+    </section>
+
+
+    <!-- Mr D Fluid — uniwersalny czat; ukryty w VIZ FULL (FAB zostaje) -->
+    <button type="button" class="botd-fab" id="botd-fab" title="D Bot · D Beast · YouTube + WA" aria-label="D Bot · D Beast" aria-expanded="false">D&nbsp;Bot</button>
+    <aside class="botd-companion" id="botd-companion" hidden aria-hidden="true">
+      <header class="botd-chat-head">
+        <img class="botd-shark" src="icons/bot-d-shark.png" alt="" width="32" height="32" />
+        <div>
+          <h2>D Bot · D Beast</h2>
+          <span class="botd-sub">international · WhatsApp linked · YouTube control</span>
+        </div>
+        <span class="botd-live on live" id="botd-live" title="LIVE online">💚 LIVE</span>
+        <button type="button" class="botd-close" id="botd-close" title="Zamknij">✕</button>
+      </header>
+      <div class="botd-account" id="botd-account" aria-live="polite">
+        <div class="botd-account-row">
+          <span class="botd-pill" id="botd-pill-drive">Drive · …</span>
+          <span class="botd-pill" id="botd-pill-gmail">Gmail · …</span>
+          <span class="botd-pill" id="botd-pill-memory">Bot Pamięć · …</span>
+          <span class="botd-pill" id="botd-pill-net">Internet · …</span>
+          <span class="botd-pill" id="botd-pill-live">💚 LIVE</span>
+          <span class="botd-pill" id="botd-pill-grok" title="Grok Bot ↔ Mr D Fluid · ucz się LIVE">Grok linked · ucz się</span>
+          <span class="botd-pill heal" id="botd-pill-heal" title="Auto-naprawa klienta">auto-heal · …</span>
+          <span class="botd-pill" id="botd-pill-learn" title="Learning loop LIVE">uczy się LIVE 💚</span>
+          <span class="botd-pill" id="botd-pill-generator" title="Always-on generative viz + learn">LIVE GENERATOR</span>
+          <span class="botd-pill" id="botd-pill-hub" title="Boga Bot hub · my-dax.com — programy pomagające ludziom">hub · my-dax.com</span>
+        </div>
+        <div class="botd-mesh-row" id="botd-mesh-row" aria-label="Bot mesh peers"></div>
+        <p class="botd-account-label" id="botd-account-label">łączę z kontem…</p>
+        <p class="botd-grok-link" id="grok-link-status">Grok ↔ Mr D · uczy się LIVE 💚 · LIVE GENERATOR · hub my-dax.com</p>
+      </div>
+      <p class="botd-status" id="botd-status">international · WhatsApp linked · YouTube control · D Beast LIVE 💚</p>
+
+      <section class="botd-wa-login" id="botd-wa-login" aria-label="WhatsApp logowanie">
+        <p class="botd-section-title">WhatsApp · logowanie</p>
+        <p class="botd-note" id="owner-login-hint">Właściciel: ostatnie 4 cyfry telefonu + PIN (lub pełny numer).</p>
+        <form class="botd-login-form" id="owner-login-form" autocomplete="off">
+          <label class="botd-login-label">Telefon / last 4
+            <input type="tel" id="owner-phone" inputmode="tel" placeholder="7357 lub +48730377357" maxlength="20" />
+          </label>
+          <label class="botd-login-label">PIN
+            <input type="password" id="owner-pin" inputmode="numeric" placeholder="PIN" maxlength="8" />
+          </label>
+          <button type="submit" class="botd-btn botd-btn-pro" id="owner-login-btn">Zaloguj · owner</button>
+        </form>
+        <p class="botd-status" id="owner-login-status" aria-live="polite">Nie zalogowano</p>
+      </section>
+      <section class="botd-remote" id="remote" aria-label="Sterowanie zdalne">
+        <p class="botd-section-title">Sterowanie · remote</p>
+        <div class="botd-remote-row">
+          <input type="search" id="remote-yt-q" placeholder="Szukaj YT / wklej youtu.be / watch?v=" maxlength="200" />
+          <button type="button" class="botd-btn botd-btn-pro" id="remote-yt-go" data-remote="searchPlay">▶ Szukaj / Play</button>
+        </div>
+        <div class="botd-quick botd-remote-btns" id="botd-remote-btns">
+          <button type="button" class="botd-btn" data-remote="playTrack" data-id="D6DNubWWsoI">PLAY DA-X</button>
+          <button type="button" class="botd-btn" data-remote="next">Next</button>
+          <button type="button" class="botd-btn" data-remote="pause">Pause</button>
+          <button type="button" class="botd-btn" data-remote="vizWander">VIZ</button>
+          <button type="button" class="botd-btn" data-remote="vizFs">VIZ FULL</button>
+          <button type="button" class="botd-btn" data-remote="auto">AUTO</button>
+          <button type="button" class="botd-btn" data-remote="botSay" data-text="D Beast live 💚">D Beast</button>
+        </div>
+        <ul class="account-tracklist yt-tracklist" id="remote-yt-results" hidden></ul>
+        <div class="botd-remote-links">
+          <a class="botd-btn botd-btn-wa" id="btn-whatsapp" href="https://wa.me/48730377357" target="_blank" rel="noopener noreferrer">WhatsApp · link remote</a>
+          <a class="botd-btn botd-btn-wa botd-btn-msgr" id="btn-messenger" href="https://m.me/" target="_blank" rel="noopener noreferrer" title="Otwiera Messenger (aplikacja nie czyta czatów Facebook/Messenger)">Messenger · link</a>
+          <a class="botd-btn" id="btn-open-remote" href="/?remote=1&amp;v=36">Otwórz sterowanie</a>
+        </div>
+      </section>
+
+      <div class="botd-quick" id="botd-beats">
+        <button type="button" class="botd-btn" data-bot="account-sync">SYNC · DYSK</button>
+        <button type="button" class="botd-btn" data-bot="load-newest-drive">DRIVE ▶</button>
+        <button type="button" class="botd-btn" data-bot="kali-full">KALI · YT LIVE</button>
+        <button type="button" class="botd-btn botd-btn-pro" data-bot="play-dax">PLAY DA-X</button>
+        <button type="button" class="botd-btn" data-bot="yt-search-ui">SEARCH YT</button>
+        <button type="button" class="botd-btn" data-bot="fs">VIZ</button>
+        <button type="button" class="botd-btn" data-bot="auto">AUTO</button>
+        <button type="button" class="botd-btn" data-bot="pro-next">NEXT YT</button>
+        <button type="button" class="botd-btn botd-btn-live" data-bot="live-gen">LIVE GEN 💚</button>
+        <button type="button" class="botd-btn" data-bot="pro-trance">TRANCE</button>
+        <button type="button" class="botd-btn" data-bot="pro-techno">TECHNO</button>
+        <button type="button" class="botd-btn" data-bot="pro-berlin">BERLIN</button>
+      </div>
+      <div class="botd-playlist-wrap yt-playlist-wrap">
+        <p class="account-playlist-meta" id="yt-playlist-meta">YouTube · D Beast playlist</p>
+        <ul class="account-tracklist yt-tracklist" id="yt-playlist"></ul>
+        <p class="botd-note" style="margin:.4rem 0 .6rem;font-size:.72rem;opacity:.75">
+          Brother Max = ★ OPENING (AUTO). Kali LIVE = #2 · radio 24/7.
+        </p>
+        <a class="botd-btn" id="btn-dl-live-d" href="downloads/milkdrop-live-d-v29.zip" download style="display:inline-block;text-align:center;text-decoration:none;margin-bottom:.5rem">⬇ MilkDrop LIVE D · telefon</a>
+      </div>
+      <div class="botd-playlist-wrap">
+        <p class="account-playlist-meta" id="account-playlist-meta">Playlist konta…</p>
+        <ul class="account-tracklist" id="account-tracklist"></ul>
+      </div>
+      <div class="botd-chat-log" id="botd-chat-log" role="log" aria-live="polite"></div>
+      <form class="botd-chat-form" id="botd-chat-form" autocomplete="off">
+        <input type="text" id="botd-chat-input" maxlength="800" placeholder="yt ferry · play D6DNubWWsoI · next · viz · auto · kali · sync" />
+        <button type="submit" id="botd-chat-send" title="Wyślij">➤</button>
+      </form>
+      <details class="botd-settings">
+        <summary>⚙ Ustawienia LLM (opcjonalnie)</summary>
+        <label>API key <input type="password" id="botd-api-key" placeholder="sk-… (localStorage)" autocomplete="off" /></label>
+        <label>Endpoint <input type="url" id="botd-api-endpoint" placeholder="https://api.openai.com/v1/chat/completions" /></label>
+        <label>Model <input type="text" id="botd-api-model" placeholder="gpt-4o-mini" /></label>
+        <button type="button" class="botd-btn" id="botd-save-settings">Zapisz</button>
+        <p class="botd-note">Bez klucza: lokalny weave + Drive/Gmail/pamięć + most Grok. Klucz tylko w przeglądarce.</p>
+      </details>
+    </aside>
+
+    <footer class="footer brand-corner">Daniel Dydo · Kraków</footer>
+  </div>
+
+  <!-- Audio unlock gate — START then decks + viz -->
+  <div class="audio-gate" id="audio-gate" role="dialog" aria-modal="true" aria-labelledby="audio-gate-title">
+    <canvas id="gate-psych-canvas" class="gate-psych-canvas" aria-hidden="true"></canvas>
+    <div class="audio-gate-inner">
+      <img class="gate-shark" id="gate-shark" src="icons/bot-d-shark.png" alt="" draggable="false" />
+      <div class="audio-gate-card">
+        <p class="gate-kicker">D DJ · MILKDROP · D Beast · KALI</p>
+        <h2 id="audio-gate-title">D Bot</h2><div class="sx-gate-badge">D DJ 55</div>
+        <p class="audio-gate-sub">Brother Max · D Beast · WhatsApp · YouTube</p>
+        <button type="button" class="audio-gate-btn gate-primary" id="audio-gate-btn">▶ AUTO · MilkDrop LIVE D + D Beast</button>
+        <button type="button" class="audio-gate-btn audio-gate-kali" id="audio-gate-kali" hidden aria-hidden="true">▶ KALI · YT LIVE RADIO</button>
+        <button type="button" class="audio-gate-btn audio-gate-pro" id="audio-gate-pro" hidden aria-hidden="true">▶ PRO · VIZ + YT</button>
+        <button type="button" class="audio-gate-btn audio-gate-live" id="audio-gate-live" hidden aria-hidden="true">▶ LIVE GENERATOR 💚</button>
+        <p class="gate-hint">Jeden tap = MilkDrop LIVE D auto-generate · AUTO sync · Kali YT · D Bot · fullscreen. Minimal: <a href="kali-live" style="color:#b8ff3c">kali-live</a> · <a href="pro-dj" style="color:#00e5ff">pro-dj</a>.</p>
+        <p class="gate-radio-link"><a href="kali" id="gate-radio-link">RADIO · Kali Butterchurn →</a></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="libs/butterchurn.min.js?v=37"></script>
+  <script src="libs/butterchurnPresets.min.js?v=37"></script>
+  <script src="libs/butterchurnPresetsExtra.min.js?v=37"></script>
+  
+  <script>
+  /* Gate boot — works even if ES modules fail (Workers / SW / CORS) */
+  (function () {
+    function killGate() {
+      var g = document.getElementById('audio-gate');
+      if (!g) return;
+      g.classList.add('hidden', 'is-gone');
+      g.hidden = true;
+      g.setAttribute('aria-hidden', 'true');
+      g.style.cssText = 'display:none!important;visibility:hidden!important;pointer-events:none!important';
+      document.body.classList.add('live-d', 'pro-viz');
+      var fab = document.getElementById('botd-fab');
+      if (fab) fab.style.display = '';
+      var panel = document.getElementById('botd-companion');
+      if (panel) {
+        panel.hidden = false;
+        panel.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('botd-open');
+      }
+      var root = document.getElementById('app-root');
+      if (root) {
+        root.classList.add('app-viz', 'app-viz-fs');
+      }
+      document.body.classList.add('viz-fs');
+    }
+    function start() {
+      killGate();
+      try {
+        if (typeof window.__ddjUnlock === 'function') {
+          window.__ddjUnlock({ preventDefault: function () {}, target: document.getElementById('audio-gate-btn') });
+          return;
+        }
+      } catch (e) {}
+      // Module slow/missing — keep UI usable; retry unlock briefly
+      var n = 0;
+      var t = setInterval(function () {
+        n++;
+        try {
+          if (typeof window.__ddjUnlock === 'function') {
+            clearInterval(t);
+            window.__ddjUnlock({ preventDefault: function () {}, target: document.getElementById('audio-gate-btn') });
+          }
+        } catch (e) {}
+        if (n > 40) clearInterval(t);
+      }, 250);
+    }
+    function bind() {
+      var btn = document.getElementById('audio-gate-btn');
+      var gate = document.getElementById('audio-gate');
+      if (btn) {
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          start();
+        }, true);
+      }
+      if (gate) {
+        gate.addEventListener('click', function (e) {
+          if (e.target && e.target.closest && e.target.closest('a[href]')) return;
+          e.preventDefault();
+          start();
+        }, true);
+      }
+      window.__ddjKillGate = killGate;
+      window.__ddjStart = start;
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
+    else bind();
+  })();
+  </script>
+
+  <script type="module" src="js/app.js?v=43"></script>
+  <!-- D Bot · Liquid DJ PRO AI (APK v44, chat from v43 + super bot): floating chat „D Bot” (shared history, text + voice) -->
+  <script src="js/google-knowledge.js?v=43"></script>
+  <script src="js/bot-d.js?v=1020"></script>
+  <script src="js/d7-chat.js?v=43"></script>
+  <script src="js/d7-superbot.js?v=52"></script><script src="js/dbot-brains.js?v=47"></script>
+  <script src="js/dbot-live.js?v=45"></script>
+  <script src="js/dbot-agents.js?v=45"></script>
+  <script src="js/dbot-builder.js?v=45"></script>
+  <script src="js/dbot-center.js?v=45"></script>
+  <script src="js/dbot-auto.js?v=46"></script>
+  <script src="js/dbot-doctor.js?v=46"></script>
+  <script src="js/dbot-studio.js?v=48"></script>
+  <script src="js/dbot-ufo.js?v=48"></script>
+  <script src="js/dbot-conductor.js?v=51"></script>
+  <script src="js/dbot-team.js?v=48"></script>
+  <script src="js/dbot-genre.js?v=51"></script>
+  <script src="js/dbot-fly.js?v=48"></script>
+  <script src="js/dbot-v51.js?v=55"></script>
+  <script src="js/dbot-v52.js?v=55"></script>
+  <script src="js/dbot-v53.js?v=55"></script>
+  <script src="js/dbot-alien.js?v=55"></script>
+  <script src="js/dbot-v54.js?v=55"></script>
+  <script src="js/x-lan.js?v=59"></script>
+  <script src="js/dbot-talk.js?v=46"></script>
+</body>
+</html>

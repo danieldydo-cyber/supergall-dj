@@ -1,0 +1,119 @@
+/* D.bot v46 — cosmic upgrade: parallax galaxy + 3 star planes + comet, holographic cards, orbit of agents, STOP, dashboard.
+   Only transform/opacity animations (GPU), paused when hidden, „minimal” theme and prefers-reduced-motion turn motion off. */
+#dbot-cosmos{position:fixed;inset:-6%;z-index:-1;pointer-events:none;overflow:hidden;--px:0;--py:0;contain:strict}
+#dbot-cosmos i{position:absolute;inset:0;display:block;will-change:transform}
+#dbot-cosmos .cz-galaxy{inset:-20%;background:
+  radial-gradient(closest-side at 50% 50%,rgba(255,255,255,.55),rgba(190,160,255,.25) 10%,transparent 22%),
+  conic-gradient(from 0deg at 50% 50%,transparent 0 6%,rgba(46,242,255,.42) 12%,transparent 22%,rgba(178,107,255,.46) 34%,transparent 46%,rgba(255,79,216,.38) 60%,transparent 72%,rgba(61,255,160,.22) 84%,transparent 94%);
+  -webkit-mask:radial-gradient(closest-side,#000 0,#000 42%,transparent 70%);mask:radial-gradient(closest-side,#000 0,#000 42%,transparent 70%);
+  filter:blur(6px);opacity:1;transform:translate3d(calc(var(--px)*-30px),calc(var(--py)*-30px),0) rotate(0deg) scaleY(.55);animation:czSpin 140s linear infinite}
+#dbot-cosmos .cz-stars{background-repeat:repeat;opacity:.9}
+#dbot-cosmos .s1{background-image:radial-gradient(1px 1px at 20px 30px,#fff,transparent),radial-gradient(1px 1px at 140px 80px,#cfe9ff,transparent),radial-gradient(1px 1px at 90px 150px,#fff,transparent),radial-gradient(1px 1px at 200px 190px,#ffd9f6,transparent);background-size:240px 240px;transform:translate3d(calc(var(--px)*-12px),calc(var(--py)*-12px),0);animation:czTw 6s ease-in-out infinite}
+#dbot-cosmos .s2{background-image:radial-gradient(1.5px 1.5px at 60px 40px,#bdf6ff,transparent),radial-gradient(1.5px 1.5px at 250px 260px,#fff,transparent),radial-gradient(1.5px 1.5px at 330px 120px,#e6d1ff,transparent);background-size:380px 380px;transform:translate3d(calc(var(--px)*-28px),calc(var(--py)*-28px),0);animation:czTw 9s ease-in-out infinite reverse}
+#dbot-cosmos .s3{background-image:radial-gradient(2.2px 2.2px at 120px 220px,#fff,transparent),radial-gradient(2px 2px at 430px 60px,#9ff7ff,transparent);background-size:520px 520px;transform:translate3d(calc(var(--px)*-52px),calc(var(--py)*-52px),0);filter:drop-shadow(0 0 3px #2ef2ff)}
+#dbot-cosmos .cz-comet{inset:auto;top:12%;left:-20%;width:160px;height:2px;background:linear-gradient(90deg,transparent,#fff,#2ef2ff);border-radius:2px;opacity:0;transform:rotate(18deg);animation:czComet 23s linear infinite 6s}
+#dbot-cosmos.paused i{animation-play-state:paused}
+html[data-cosmos="nebula"] #dbot-cosmos .cz-galaxy{filter:blur(40px);opacity:.9;transform:translate3d(calc(var(--px)*-30px),calc(var(--py)*-30px),0) scale(1.4)}
+html[data-cosmos="minimal"] #dbot-cosmos .cz-galaxy,html[data-cosmos="minimal"] #dbot-cosmos .s3,html[data-cosmos="minimal"] #dbot-cosmos .cz-comet{display:none}
+html[data-cosmos="minimal"] #dbot-cosmos i{animation:none}
+@keyframes czSpin{to{transform:translate3d(calc(var(--px)*-30px),calc(var(--py)*-30px),0) rotate(360deg) scaleY(.55)}}
+@keyframes czTw{50%{opacity:.55}}
+@keyframes czComet{0%{opacity:0;transform:translate3d(0,0,0) rotate(18deg)}2%{opacity:1}9%{opacity:0;transform:translate3d(140vw,46vw,0) rotate(18deg)}100%{opacity:0;transform:translate3d(140vw,46vw,0) rotate(18deg)}}
+/* holographic cards */
+.dbc-card,.sx-card{position:relative} /* v46: never .d7c-panel — it is position:absolute (chat popup) */
+.dbc-holo::before,.dbc-card:hover::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;pointer-events:none;
+  background:conic-gradient(from var(--hx,0deg),rgba(46,242,255,.7),rgba(255,79,216,.6),rgba(178,107,255,.7),rgba(61,255,160,.5),rgba(46,242,255,.7));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);animation:czHolo 8s linear infinite}
+.dbc-holo{background:linear-gradient(125deg,rgba(46,242,255,.07),rgba(255,79,216,.05) 40%,rgba(178,107,255,.08) 70%,rgba(255,255,255,.03))!important}
+@property --hx{syntax:'<angle>';inherits:false;initial-value:0deg}
+@keyframes czHolo{to{--hx:360deg}}
+.dbc-body>*{animation:lqIn .35s var(--lq-ease,ease) both}
+/* orbit of agents */
+.dbc-orbit{position:relative;width:220px;height:220px;margin:6px auto 4px;border-radius:50%;background:radial-gradient(circle,rgba(46,242,255,.12),transparent 62%)}
+.dbc-orbit::before,.dbc-orbit::after{content:"";position:absolute;inset:18px;border-radius:50%;border:1px dashed rgba(178,107,255,.35)}
+.dbc-orbit::after{inset:52px;border-color:rgba(46,242,255,.25)}
+.dbc-orbit>b{position:absolute;left:50%;top:50%;width:62px;height:62px;margin:-31px;border-radius:50%;display:grid;place-items:center;font:900 30px system-ui;color:#06070b;background:radial-gradient(circle at 35% 30%,#fff,#2ef2ff 45%,#b26bff);box-shadow:0 0 30px rgba(46,242,255,.8),0 0 60px rgba(255,79,216,.4);animation:czPulse 3s ease-in-out infinite}
+.dbc-sat{position:absolute;left:50%;top:50%;width:34px;height:34px;margin:-17px;display:grid;place-items:center;border-radius:50%;font-size:17px;background:rgba(10,12,22,.85);border:1px solid rgba(255,255,255,.15);opacity:.35;
+  transform:rotate(calc(360deg / var(--n) * var(--i))) translateX(92px) rotate(calc(-360deg / var(--n) * var(--i)));animation:czOrbit 30s linear infinite}
+.dbc-sat.on{opacity:1;border-color:rgba(46,242,255,.8);box-shadow:0 0 14px rgba(46,242,255,.7)}
+@keyframes czOrbit{from{transform:rotate(calc(360deg / var(--n) * var(--i))) translateX(92px) rotate(calc(-360deg / var(--n) * var(--i)))}to{transform:rotate(calc(360deg / var(--n) * var(--i) + 360deg)) translateX(92px) rotate(calc(-360deg / var(--n) * var(--i) - 360deg))}}
+@keyframes czPulse{50%{box-shadow:0 0 44px rgba(46,242,255,1),0 0 90px rgba(255,79,216,.6)}}
+.dbc-center-btns{justify-content:center}
+.dbc-mods{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
+.dbc-mod{display:grid;grid-template-columns:22px 1fr;gap:2px 6px;padding:8px 10px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);transition:border-color .4s,box-shadow .4s}
+.dbc-mod small{grid-column:2;opacity:.7}
+.dbc-mod.green{border-color:rgba(61,255,160,.45);box-shadow:inset 0 0 12px rgba(61,255,160,.08)}
+.dbc-mod.yellow{border-color:rgba(255,226,61,.4)}
+.dbc-mod.red{border-color:rgba(255,59,92,.7);box-shadow:0 0 14px rgba(255,59,92,.35)}
+.dbc-pri{display:flex;align-items:center;gap:6px;margin:4px 0}.dbc-pri span{flex:1}
+.dbc-file{cursor:pointer;font:inherit;color:#eef1f8;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:7px 12px}
+.dbc-auto{display:block;width:100%;padding:16px;font:900 18px system-ui;color:#eef1f8;border-radius:16px;cursor:pointer;border:1px solid rgba(46,242,255,.7);background:linear-gradient(90deg,rgba(46,242,255,.3),rgba(178,107,255,.3));box-shadow:0 0 24px rgba(46,242,255,.35)}
+.dbc-auto.on{border-color:rgba(255,59,92,.9);background:linear-gradient(90deg,rgba(255,59,92,.55),rgba(255,79,216,.4))}
+.dbc-log .undone{opacity:.5;text-decoration:line-through}
+/* big STOP */
+.dbot-stop{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:2147483150;display:flex;flex-direction:column;align-items:center;
+  padding:12px 28px;border-radius:999px;border:2px solid #ff3b5c;color:#fff;font:900 20px/1 system-ui;letter-spacing:.06em;cursor:pointer;
+  background:radial-gradient(circle at 30% 20%,rgba(255,120,140,.9),rgba(200,20,60,.92));box-shadow:0 0 30px rgba(255,59,92,.7);animation:czStop 1.6s ease-in-out infinite}
+.dbot-stop small{font:700 10px system-ui;opacity:.85;margin-top:3px}
+.dbot-stop[hidden]{display:none}
+@keyframes czStop{50%{box-shadow:0 0 50px rgba(255,59,92,1)}}
+html.dbot-full-auto .sx-badge{box-shadow:0 0 18px rgba(61,255,160,.8)}
+@media (prefers-reduced-motion:reduce){#dbot-cosmos i,.dbc-sat,.dbc-orbit>b,.dbot-stop,.dbc-holo::before,.dbc-card:hover::before,.dbc-body>*{animation:none!important}}
+
+/* ===== v46 fix: the galaxy must be VISIBLE on every page — opaque page layers become glass over it ===== */
+html{background:#04050b!important}
+html body{background:transparent!important}
+#dbot-cosmos .cz-nebula{inset:-10%;background:
+  radial-gradient(40% 32% at 18% 22%,rgba(46,242,255,.30),transparent 70%),
+  radial-gradient(38% 30% at 82% 30%,rgba(255,79,216,.28),transparent 70%),
+  radial-gradient(46% 36% at 60% 82%,rgba(178,107,255,.32),transparent 70%),
+  radial-gradient(30% 24% at 25% 78%,rgba(61,255,160,.14),transparent 70%);
+  filter:blur(10px);transform:translate3d(calc(var(--px)*-18px),calc(var(--py)*-18px),0);animation:czNeb 40s ease-in-out infinite alternate}
+@keyframes czNeb{to{transform:translate3d(calc(var(--px)*-18px),calc(var(--py)*-18px),0) scale(1.08) rotate(4deg)}}
+#dbot-cosmos .s1,#dbot-cosmos .s2{opacity:1}
+/* PRO8 pages: stage + cards + start gate */
+html body #sx-stage{background:radial-gradient(ellipse at 50% 40%,rgba(18,32,58,.28),rgba(9,11,20,.12) 60%,transparent 85%)!important}
+html body .sx-card{background-color:rgba(14,16,30,.34)!important;-webkit-backdrop-filter:blur(5px) saturate(1.3);backdrop-filter:blur(5px) saturate(1.3);border-color:rgba(160,200,255,.14)!important}
+html body #sx-gate{background:radial-gradient(ellipse at 50% 45%,rgba(6,8,18,.04),rgba(4,5,12,.32) 90%)!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+html body #sx-gate .sx-gate-card{background:rgba(10,12,28,.26)!important;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);border-radius:22px}
+html body .sx-gate-badge{display:inline-block;margin:2px 0 6px;padding:4px 12px;border-radius:999px;font:900 13px/1 system-ui;letter-spacing:.12em;color:#06070b;background:linear-gradient(90deg,#2ef2ff,#b26bff,#ff4fd8);box-shadow:0 0 18px rgba(46,242,255,.6)}
+/* classic pages: audio gate + main panels */
+html body #audio-gate{background:radial-gradient(ellipse at 50% 40%,rgba(10,8,20,.15),rgba(5,5,10,.6) 85%)!important}
+html body .audio-gate-card{background:rgba(10,10,22,.5)!important;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+html body main,html body .app,html body #app,html body .wrap,html body .page{background-color:transparent!important}
+/* ===== v46 live conversation ===== */
+.dbot-live{position:fixed;inset:0;z-index:2147483200;display:flex;flex-direction:column;align-items:center;gap:10px;padding:calc(14px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom));
+  color:#eef1f8;background:radial-gradient(ellipse at 50% 30%,rgba(20,24,52,.55),rgba(4,5,12,.88) 75%);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.dbot-live[hidden]{display:none}
+.dl-top{width:100%;display:flex;justify-content:space-between;align-items:center;font-size:15px}.dl-lang{opacity:.7;font-size:12px}
+.dl-orb{position:relative;width:min(52vw,220px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;cursor:pointer;margin-top:8px}
+.dl-orb i{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#2ef2ff 30%,#b26bff 62%,rgba(255,79,216,.2) 75%,transparent 76%);box-shadow:0 0 40px rgba(46,242,255,.7),0 0 90px rgba(178,107,255,.45);animation:dlBreath 3.2s ease-in-out infinite}
+.dl-orb img{position:relative;width:58%;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5))}
+.dbot-live[data-state="listening"] .dl-orb i{animation:dlBreath 1.6s ease-in-out infinite}
+.dbot-live[data-state="hearing"] .dl-orb i{animation:dlPulse .5s ease-in-out infinite alternate;box-shadow:0 0 60px rgba(61,255,160,.9),0 0 120px rgba(46,242,255,.6)}
+.dbot-live[data-state="thinking"] .dl-orb i{animation:dlSpin 1.2s linear infinite;background:conic-gradient(#2ef2ff,#b26bff,#ff4fd8,#2ef2ff);-webkit-mask:radial-gradient(circle,transparent 52%,#000 53%);mask:radial-gradient(circle,transparent 52%,#000 53%)}
+.dbot-live[data-state="speaking"] .dl-orb i{animation:dlPulse .35s ease-in-out infinite alternate;box-shadow:0 0 70px rgba(255,79,216,.85),0 0 130px rgba(178,107,255,.6)}
+@keyframes dlBreath{50%{transform:scale(1.06);opacity:.9}}@keyframes dlPulse{to{transform:scale(1.1)}}@keyframes dlSpin{to{transform:rotate(360deg)}}
+.dl-state{min-height:22px;font-weight:800;font-size:16px;text-align:center}
+.dl-log{flex:1;width:100%;max-width:640px;overflow:auto;display:flex;flex-direction:column;gap:6px;padding:8px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)}
+.dl-log p{margin:0;padding:8px 10px;border-radius:12px;line-height:1.35;font-size:15px}
+.dl-log p.me{align-self:flex-end;background:rgba(46,242,255,.16)}.dl-log p.bot{align-self:flex-start;background:rgba(178,107,255,.18)}
+.dl-log p.sys{align-self:center;opacity:.7;font-size:12px}.dl-log p.partial{opacity:.65;font-style:italic}
+.dl-btns{display:flex;gap:10px;width:100%;max-width:640px}
+.dl-btns button{flex:1;padding:16px 8px;border-radius:16px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;font:800 16px system-ui;cursor:pointer}
+.dl-btns .dl-end{background:linear-gradient(90deg,rgba(255,59,92,.65),rgba(255,79,216,.5));border-color:#ff3b5c}
+.dbot-live-btn{display:block;width:calc(100% - 16px);margin:6px 8px;padding:12px;border-radius:14px;border:1px solid rgba(46,242,255,.6);cursor:pointer;
+  color:#eef1f8;font:800 15px system-ui;background:linear-gradient(90deg,rgba(46,242,255,.28),rgba(178,107,255,.3),rgba(255,79,216,.26));box-shadow:0 0 16px rgba(46,242,255,.3)}
+.dbot-brain-btns{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.dbot-brain-btns button{padding:8px 12px;border-radius:999px;border:1px solid rgba(46,242,255,.5);background:rgba(46,242,255,.12);color:#eef1f8;font:700 13px system-ui;cursor:pointer}
+.dbot-brain-btns .dbot-brain-dl{border-color:#3dffa0;background:rgba(61,255,160,.16)}
+.dbc-progress{position:relative;height:18px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;margin:8px 0}
+.dbc-progress i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,#2ef2ff,#b26bff,#ff4fd8);transition:width .4s}
+.dbc-progress span{position:relative;display:block;text-align:center;font:800 11px/18px system-ui}
+.dbc-err{color:#ff8fa3}
+@media (prefers-reduced-motion:reduce){#dbot-cosmos .cz-nebula,.dl-orb i{animation:none!important}}
+
+/* denser, brighter star planes (v46 fix) */
+#dbot-cosmos .s1{background-image:radial-gradient(1.4px 1.4px at 20px 30px,#fff,transparent),radial-gradient(1.4px 1.4px at 140px 80px,#cfe9ff,transparent),radial-gradient(1.2px 1.2px at 90px 150px,#fff,transparent),radial-gradient(1.4px 1.4px at 200px 190px,#ffd9f6,transparent),radial-gradient(1.2px 1.2px at 60px 210px,#fff,transparent),radial-gradient(1.2px 1.2px at 175px 20px,#e6f7ff,transparent),radial-gradient(1.2px 1.2px at 230px 120px,#fff,transparent);background-size:240px 240px}
+#dbot-cosmos .s2{background-image:radial-gradient(2px 2px at 60px 40px,#bdf6ff,transparent),radial-gradient(2px 2px at 250px 260px,#fff,transparent),radial-gradient(2px 2px at 330px 120px,#e6d1ff,transparent),radial-gradient(1.8px 1.8px at 150px 330px,#fff,transparent),radial-gradient(1.8px 1.8px at 20px 300px,#ffe1f7,transparent);background-size:380px 380px}
+#dbot-cosmos .s3{background-image:radial-gradient(3px 3px at 120px 220px,#fff,transparent),radial-gradient(2.6px 2.6px at 430px 60px,#9ff7ff,transparent),radial-gradient(2.6px 2.6px at 300px 420px,#ffc6f2,transparent);background-size:520px 520px}

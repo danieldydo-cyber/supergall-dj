@@ -1,0 +1,10 @@
+{
+  "hub": "https://my-dax.com",
+  "brand": "Boga bota",
+  "note": "Helpers/programs that help people — never divinity claims.",
+  "status": "stub",
+  "liveGenerator": true,
+  "storageCapGB": 7,
+  "peersFile": "samples/bot-mesh.json",
+  "updatedAt": "2026-09-24T05:52:33+02:00"
+}

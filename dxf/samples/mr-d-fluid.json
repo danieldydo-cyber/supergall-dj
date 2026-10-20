@@ -1,0 +1,14 @@
+{
+  "name": "Mr D Fluid",
+  "tagline": "Uniwersalny chat bot Daniela — LIVE 💚 — pamięć Drive+Gmail+lokal",
+  "owner": "Daniel Dydo",
+  "city": "Kraków",
+  "memory_bot": "Bot Pamięć",
+  "synced_with": [
+    "internet",
+    "Gmail bot (drafts)",
+    "Drive memory bot",
+    "D DJ Pro Fly live site"
+  ],
+  "updated_at": "2026-09-24T05:43:18+02:00"
+}
