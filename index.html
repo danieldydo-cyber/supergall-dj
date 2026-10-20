@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Super G Music</title><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#ff00ff"><link rel="icon" href="icon.svg"><link rel="apple-touch-icon" href="icon-192.png">
+<title>Super G App v2</title><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#ff00ff"><link rel="icon" href="icon.svg"><link rel="apple-touch-icon" href="icon-192.png">
 <style>
 :root{--n:#0ff;--m:#f0f;--g:#39ff14;--bg:#07040d}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#2a0636,#07040d 60%);color:#ddd;font-family:'Courier New',monospace}
@@ -22,19 +22,20 @@ label{display:block;font-size:.85em;margin-top:4px}input[type=range]{width:100%;
 canvas{width:100%;height:60px;background:#000;border:1px solid #0ff4}
 #auto.on{animation:p 1s infinite}@keyframes p{50%{box-shadow:0 0 25px var(--m)}}
 </style></head><body>
-<h1>🐉 Super <span>G</span> Music 🐉</h1><div class="sub">Techno · Smoczy Neon · Web Audio · <span id="actBot">Bot: domyślny</span> <button id="install" style="display:none">📲 Zainstaluj</button> <button id="proBtn">👑 PRO</button></div>
+<h1>🐉 Super <span>G</span> App <small style="font-size:.4em">v2.0</small> 🐉</h1><div class="sub">Techno · Smoczy Neon · Web Audio · <span id="actBot">Bot: domyślny</span> <button id="install" style="display:none">📲 Zainstaluj</button> <button id="proBtn">👑 PRO</button> <button id="supBtn">💚 Wesprzyj</button></div>
 <div id="pay" style="display:none;position:fixed;inset:0;background:#000c;z-index:99;overflow:auto"><div class="panel" style="max-width:520px;margin:40px auto;text-align:center">
-<h2 style="font-size:1.6em">👑 SUPER G MUSIC PRO 🐉</h2><div id="payMsg" style="color:#39ff14"></div>
+<h2 style="font-size:1.6em" id="payTitle">👑 SUPER G APP PRO 🐉</h2><div id="payMsg" style="color:#39ff14"></div>
 <p>Odblokuj wszystko: <b>Deck B</b>, <b>wszystkie 8 wzorców</b>, <b>Kreator Botów</b>, <b>nagrywanie WAV/WebM</b>, <b>MIDI (Roland MC-707)</b>, pełny AUTO DJ.</p>
 <p style="font-size:1.8em;color:#f0f;text-shadow:0 0 10px #f0f">50 zł <span style="color:#888">lub</span> 10 USD</p>
-<div style="border:1px dashed #0ff;padding:10px;border-radius:8px">💸 <b>Przelew BLIK na telefon 730377357 (Daniel Dydo), w tytule wpisz swój e-mail</b></div>
+<div class="payBox">💸 <b>Przelew BLIK na telefon 730377357 (Daniel Dydo), w tytule wpisz swój e-mail</b><br><button data-copy="730377357">📋 Kopiuj telefon</button></div>
+<div class="payBox">🏦 <b>Przelew Nest Bank</b><br>IBAN: <b>PL45 1870 1045 2083 1058 7576 0001</b><br>Odbiorca: <b>Daniel Dydo</b><br>Tytuł: Twój e-mail<br><button data-copy="PL45187010452083105875760001">📋 Kopiuj IBAN</button><button data-copy="Daniel Dydo">📋 Kopiuj odbiorcę</button></div>
 <p><a id="waLink" target="_blank" rel="noopener" href="https://wa.me/48730377357"><button style="border-color:#25D366;color:#25D366">💬 Wyślij potwierdzenie na WhatsApp</button></a></p>
 <p style="font-size:.85em">Po weryfikacji płatności otrzymasz kod odblokowujący przypisany do Twojego e-maila.</p>
-<label>E-mail (ten z tytułu przelewu)</label><input id="payEmail" type="email" style="width:100%">
+<div id="unlockBox"><label>E-mail (ten z tytułu przelewu)</label><input id="payEmail" type="email" style="width:100%">
 <label>Kod odblokowujący</label><input id="payCode" placeholder="SGM-XXXX-XXXX-XXXX" style="width:100%;text-transform:uppercase">
-<p><button id="payUnlock">🔓 ODBLOKUJ PRO</button><button id="payClose">✖ Zamknij</button></p></div></div>
-<style>.locked{opacity:.4;position:relative}.lockt::after{content:" 🔒"}#proBtn.on{background:#ffd700;color:#000;border-color:#ffd700}</style>
-<div class="row"><button class="tab on" data-tab="main">🎛 PANEL DJ</button><button class="tab" data-tab="builder">🤖 KREATOR BOTÓW</button><button class="tab" data-tab="viz">🌌 WIZUALIZER</button></div>
+</div><p><button id="payUnlock">🔓 ODBLOKUJ PRO</button><button id="payClose">✖ Zamknij</button></p></div></div>
+<style>.payBox{border:1px dashed #0ff;padding:10px;border-radius:8px;margin:6px 0}.card{display:inline-block;width:200px;margin:5px;padding:8px;border:1px solid #f0f6;border-radius:8px;vertical-align:top;text-align:left;background:#0b0614}.badge{font-size:.75em;padding:1px 6px;border-radius:8px;background:#39ff14;color:#000}.badge.off{background:#555;color:#ddd}#gLog{height:260px;overflow:auto;font-size:.85em;color:#39ff14;background:#000;border:1px solid #0ff4;padding:6px;text-align:left}#gCmd{width:70%}.locked{opacity:.4;position:relative}.lockt::after{content:" 🔒"}#proBtn.on{background:#ffd700;color:#000;border-color:#ffd700}</style>
+<div class="row"><button class="tab on" data-tab="main">🎛 PANEL DJ</button><button class="tab" data-tab="builder">🤖 KREATOR BOTÓW</button><button class="tab" data-tab="viz">🌌 WIZUALIZER</button><button class="tab" data-tab="botg">🐲 BOT G</button><button class="tab" data-tab="siec">🕸 SIEĆ BOTÓW</button></div>
 <div id="tab-builder" style="display:none"><div class="row"><div class="panel" style="max-width:520px;flex:1"><h2>EDYTOR BOTA</h2>
 <label>Nazwa</label><input id="bName" value="Mój Smok">
 <label>Styl</label><select id="bStyle"><option>Techno</option><option>Acid</option><option>House</option><option>Trance</option><option>Dub</option><option>Breaks</option><option>Hard</option><option>Electro</option><option>Mix</option></select>
@@ -49,6 +50,11 @@ canvas{width:100%;height:60px;background:#000;border:1px solid #0ff4}
 <div style="margin-top:8px"><button id="bExport">⬇ EKSPORT JSON</button><label style="display:inline"><button onclick="document.getElementById('bImp').click()">⬆ IMPORT JSON</button></label><input type="file" id="bImp" accept=".json,application/json" style="display:none"></div></div></div></div>
 <div id="tab-viz" style="display:none"><div class="row"><div class="panel" style="flex:1;max-width:1100px;text-align:center"><canvas id="viz" width="1000" height="520" style="height:auto;max-height:75vh"></canvas><br>
 <button id="vizFs">⛶ PEŁNY EKRAN</button><button id="vizMode">Tryb: SMOK</button><span id="vizNote" style="font-size:.8em;color:#888"></span></div></div></div>
+<div id="tab-botg" style="display:none"><div class="row"><div class="panel" style="flex:1;max-width:900px"><h2>🐲 BOT G – AUTOMATYCZNY ASYSTENT (offline)</h2>
+<div>Autopilot: <b id="gAp">WYŁ</b> · Harmonogram: <b id="gSchedN">0</b> · <button id="gApBtn">✈ AUTOPILOT</button><button data-g="pomoc">❓ Pomoc</button><button data-g="graj techno 140">graj techno 140</button><button data-g="nowy bot acid">nowy bot acid</button><button data-g="drop">drop</button><button data-g="stop">stop</button></div>
+<div style="margin:6px 0"><input id="gCmd" placeholder="Wpisz komendę, np. graj techno 140 / nowy bot acid / zaplanuj house za 10 / stop"><button id="gGo">▶ WYKONAJ</button></div><div id="gLog"></div></div></div></div>
+<div id="tab-siec" style="display:none"><div class="row"><div class="panel" style="flex:1;max-width:1100px;text-align:center"><h2>🕸 SIEĆ BOTÓW DANIELA</h2>
+<button id="nSync">🔄 SYNC WSZYSTKIE</button><button id="nExport">⬇ EKSPORT SYNC JSON</button><button onclick="document.getElementById('nImp').click()">⬆ IMPORT SYNC JSON</button><input type="file" id="nImp" accept=".json,application/json" style="display:none"><div id="nInfo" style="font-size:.8em;color:#888"></div><div id="nCards"></div></div></div></div>
 <div id="tab-main">
 <div class="row"><div class="panel" style="text-align:center">
 <button id="start">▶ URUCHOM AUDIO</button>
@@ -165,7 +171,7 @@ $('#learnBtn').onclick=()=>{learn=!learn;$('#learnBtn').classList.toggle('on',le
 $('#clrMap').onclick=()=>{map=defMap();localStorage.removeItem('sgMidi');log('Mapa MIDI zresetowana')};
 // Recording
 let mr,chunks=[];
-$('#rec').onclick=()=>{if(!ctx)return;chunks=[];mr=new MediaRecorder(recDest.stream);mr.ondataavailable=e=>chunks.push(e.data);mr.onstop=async()=>{const blob=new Blob(chunks,{type:mr.mimeType||'audio/webm'});const u=URL.createObjectURL(blob);const ts=Date.now();$('#dl').innerHTML=`<a style="color:#0ff" download="supergmusic-${ts}.webm" href="${u}">⬇ WebM</a> `;
+$('#rec').onclick=()=>{if(!ctx)return;chunks=[];mr=new MediaRecorder(recDest.stream);mr.ondataavailable=e=>chunks.push(e.data);mr.onstop=async()=>{const blob=new Blob(chunks,{type:mr.mimeType||'audio/webm'});const u=URL.createObjectURL(blob);const ts=Date.now();$('#dl').innerHTML=`<a style="color:#0ff" download="supergapp-${ts}.webm" href="${u}">⬇ WebM</a> `;
  try{const ab=await ctx.decodeAudioData(await blob.arrayBuffer());$('#dl').innerHTML+=`<a style="color:#f0f" download="supergmusic-${ts}.wav" href="${URL.createObjectURL(wav(ab))}">⬇ WAV</a>`}catch(e){$('#dl').innerHTML+=' (WAV niedostępny: '+e.message+')'}};mr.start();$('#rec').classList.add('on');$('#stopRec').disabled=false;log('⏺ Nagrywanie...')};
 $('#stopRec').onclick=()=>{mr.stop();$('#rec').classList.remove('on');$('#stopRec').disabled=true;log('⏹ Nagranie gotowe')};
 function wav(b){const ch=b.numberOfChannels,len=b.length*ch*2+44,v=new DataView(new ArrayBuffer(len));let o=0;const ws=s=>{for(const c of s)v.setUint8(o++,c.charCodeAt(0))},u32=x=>{v.setUint32(o,x,true);o+=4},u16=x=>{v.setUint16(o,x,true);o+=2};
@@ -197,7 +203,7 @@ function codeFor(email){const h=hmac(SGM_SECRET,email.trim().toLowerCase());cons
 function checkCode(email,code){return !!email&&codeFor(email)===String(code).trim().toUpperCase().replace(/\s/g,'')}
 let PRO=false;try{const p=JSON.parse(localStorage.getItem('sgmPro')||'null');PRO=!!p&&checkCode(p.email,p.code)}catch(e){}
 function paywall(msg){$('#payMsg').textContent=msg||'';$('#pay').style.display='block'}
-function lockedEl(el){if(PRO||!el)return false;const d=el.dataset||{};if(d.deck=='B')return true;if(d.pat!==undefined&&+d.pat>=3)return true;if(d.tab=='builder')return true;
+function lockedEl(el){if(PRO||!el)return false;const d=el.dataset||{};if(d.deck=='B')return true;if(d.pat!==undefined&&+d.pat>=3)return true;if(d.tab=='builder'||d.tab=='botg')return true;
  return ['smart','vizFs','bGen','playB','swB','rec','stopRec','midiBtn','learnBtn','clrMap'].includes(el.id)||(d.run!==undefined)}
 document.addEventListener('click',e=>{const el=e.target.closest('button,[data-ctl],.tab');if(el&&!el.closest('#pay')&&lockedEl(el)){e.preventDefault();e.stopImmediatePropagation();paywall('🔒 Ta funkcja jest dostępna w wersji PRO')}},true);
 function applyLocks(){document.querySelectorAll('button').forEach(b=>b.classList.toggle('lockt',lockedEl(b)));['volB','fltB','delB','revB','disB'].forEach(id=>{const el=document.getElementById(id);if(el)el.disabled=!PRO});
@@ -206,9 +212,9 @@ function applyLocks(){document.querySelectorAll('button').forEach(b=>b.classList
 const _bd=buildDecks;buildDecks=function(){_bd();applyLocks()};
 const _ad=autoDJ;autoDJ=function(){if(PRO)return _ad();const A=decks.A;A.playing=true;A.pend=Math.floor(Math.random()*3);if(Math.random()<.4)A.sweep();nextAuto=bar+8+Math.floor(Math.random()*9);log('🤖 AUTO DJ (FREE): Deck A → '+PAT[A.pend].n+' · pełny AUTO DJ w PRO 👑')};
 const _om=onMidi;onMidi=function(e){if(PRO)_om(e)};
-$('#proBtn').onclick=()=>paywall(PRO?'✅ PRO aktywne dla: '+JSON.parse(localStorage.getItem('sgmPro')).email:'');
+$('#proBtn').onclick=()=>{$('#payTitle').textContent='👑 SUPER G APP PRO 🐉';$('#unlockBox').style.display='';$('#payUnlock').style.display='';paywall(PRO?'✅ PRO aktywne dla: '+JSON.parse(localStorage.getItem('sgmPro')).email:'')};
 $('#payClose').onclick=()=>$('#pay').style.display='none';
-$('#payEmail').oninput=e=>{$('#waLink').href='https://wa.me/48730377357?text='+encodeURIComponent('Super G Music PRO – wysłałem BLIK, e-mail: '+e.target.value)};
+$('#payEmail').oninput=e=>{$('#waLink').href='https://wa.me/48730377357?text='+encodeURIComponent('Super G App PRO – wysłałem płatność, e-mail: '+e.target.value)};
 $('#payUnlock').onclick=()=>{const em=$('#payEmail').value.trim().toLowerCase(),c=$('#payCode').value;if(checkCode(em,c)){localStorage.setItem('sgmPro',JSON.stringify({email:em,code:c.trim().toUpperCase()}));PRO=true;applyLocks();$('#payMsg').textContent='✅ PRO odblokowane! Dziękujemy 🐉';log('👑 PRO odblokowane')}else $('#payMsg').textContent='❌ Nieprawidłowy kod dla tego e-maila'};
 applyLocks();
 
@@ -243,9 +249,9 @@ function runBot(id){actId=id;const b=activeBot();saveBots();if(b.midi){map=Objec
 $('#bList').onclick=e=>{const t=e.target.dataset;if(t.run)runBot(t.run);else if(t.edit)fillEditor(bots.find(b=>b.id==t.edit));
  else if(t.dup){const b=bots.find(x=>x.id==t.dup);bots.push(norm(Object.assign({},b,{id:null,name:b.name+' (kopia)'})));saveBots();renderBots()}
  else if(t.del){if(bots.length<2)return alert('Musi zostać przynajmniej jeden bot');if(!confirm('Usunąć bota?'))return;bots=bots.filter(b=>b.id!=t.del);if(actId==t.del)actId=bots[0].id;saveBots();renderBots()}};
-$('#bExport').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({app:'Super G Music',version:1,bots},null,2)],{type:'application/json'}));a.download='supergmusic-boty.json';a.click()};
+$('#bExport').onclick=()=>saveBlob(new Blob([JSON.stringify({app:'Super G App',version:2,bots},null,2)],{type:'application/json'}),'supergapp-boty.json');
 $('#bImp').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const j=JSON.parse(await f.text());const arr=Array.isArray(j)?j:(j.bots||[j]);let n=0;arr.forEach(x=>{const b=norm(x);const i=bots.findIndex(y=>y.id==b.id);if(i>=0)bots[i]=b;else bots.push(b);n++});saveBots();renderBots();log(`⬆ Zaimportowano ${n} botów`)}catch(err){alert('Błędny JSON: '+err.message)}e.target.value=''};
-function showTab(t){document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.tab==t));$('#tab-main').style.display=t=='main'?'':'none';$('#tab-builder').style.display=t=='builder'?'':'none';$('#tab-viz').style.display=t=='viz'?'':'none'}
+function showTab(t){document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.tab==t));$('#tab-main').style.display=t=='main'?'':'none';$('#tab-builder').style.display=t=='builder'?'':'none';$('#tab-viz').style.display=t=='viz'?'':'none';$('#tab-botg').style.display=t=='botg'?'':'none';$('#tab-siec').style.display=t=='siec'?'':'none'}
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
 renderBots();fillEditor(activeBot());
 // PWA
@@ -290,9 +296,60 @@ function enter(ph,t){phase=ph;const L=LEN[ph];phaseLeft=L[0]+Math.floor(Math.ran
 function smartBar(t){if(--phaseLeft>0)return;const nx=ARC[phase];let n=nx[Math.floor(Math.random()*nx.length)];if(phase=='groove'&&energy<7&&Math.random()<.5)n='build';enter(n,t)}
 $('#smart').onclick=()=>{if(!ctx)$('#start').click();smartOn=!smartOn;$('#smart').classList.toggle('on',smartOn);for(const k in decks)decks[k].mute={};if(smartOn){decks.A.playing=true;updDeckUI();enter('intro',ctx.currentTime);log('🧠 SMART DJ WŁĄCZONY – łuk energii: intro → build → drop → groove/breakdown')}else{log('🧠 SMART DJ wyłączony');$('#phase').textContent='—'}};
 // ===== AUTO-GENERATE BOT =====
-$('#bGen').onclick=()=>{const A=['Neonowy','Kwasowy','Mroczny','Ognisty','Cyber','Głęboki','Szalony','Kosmiczny','Stalowy','Elektryczny'],B=['Smok','Wiwern','Bazyliszek','Feniks','Golem','Kraken','Tytan','Duch','Robot','Wilk'],C=['z Krakowa','z Otchłani','2077','Nocy','Burzy','MK-707','z Wawy','Zero','Alfa','Omega'];
- const r=a=>a[Math.floor(Math.random()*a.length)],st=r(Object.keys(STYLE_POOL)),base={Techno:126,Acid:134,House:122,Trance:138,Dub:116,Breaks:132,Hard:142,Electro:128,Mix:128}[st];
+function genBot(fs){const A=['Neonowy','Kwasowy','Mroczny','Ognisty','Cyber','Głęboki','Szalony','Kosmiczny','Stalowy','Elektryczny'],B=['Smok','Wiwern','Bazyliszek','Feniks','Golem','Kraken','Tytan','Duch','Robot','Wilk'],C=['z Krakowa','z Otchłani','2077','Nocy','Burzy','MK-707','z Wawy','Zero','Alfa','Omega'];
+ const r=a=>a[Math.floor(Math.random()*a.length)],st=(fs&&STYLE_POOL[fs])?fs:r(Object.keys(STYLE_POOL)),base={Techno:126,Acid:134,House:122,Trance:138,Dub:116,Breaks:132,Hard:142,Electro:128,Mix:128}[st];
  let pool=[...STYLE_POOL[st]];PAT.forEach((_,i)=>{if(!pool.includes(i)&&Math.random()<.2)pool.push(i)});const iMin=4+Math.floor(Math.random()*9);
  const b=norm({name:`${r(A)} ${r(B)} ${r(C)}`,style:st,bpmMin:base-2-Math.floor(Math.random()*6),bpmMax:base+2+Math.floor(Math.random()*6),pool,fx:20+Math.floor(Math.random()*80),iMin,iMax:iMin+4+Math.floor(Math.random()*8),xfBars:[1,2,4,8][Math.floor(Math.random()*4)]});
- bots.push(b);saveBots();renderBots();fillEditor(b);log('🎲 Wygenerowano bota: '+b.name)};
+ bots.push(b);saveBots();renderBots();fillEditor(b);log('🎲 Wygenerowano bota: '+b.name);return b}
+$('#bGen').onclick=()=>genBot();
+
+// ===== SAVE (browser + Android bridge) =====
+function saveBlob(blob,name){if(window.AndroidSave){const fr=new FileReader();fr.onload=()=>{try{const r=AndroidSave.save(name,String(fr.result).split(',')[1],blob.type||'application/octet-stream');log('💾 '+r)}catch(e){log('❌ Zapis: '+e.message)}};fr.readAsDataURL(blob)}
+ else{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove()}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[download]');if(a&&window.AndroidSave){e.preventDefault();fetch(a.href).then(r=>r.blob()).then(b=>saveBlob(b,a.download))}},true);
+// ===== PAYMENT helpers =====
+document.addEventListener('click',e=>{const b=e.target.closest('[data-copy]');if(!b)return;const t=b.dataset.copy;(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>{b.textContent='✅ Skopiowano'},()=>{const x=document.createElement('textarea');x.value=t;document.body.appendChild(x);x.select();document.execCommand('copy');x.remove();b.textContent='✅ Skopiowano'})});
+$('#supBtn').onclick=()=>{$('#payTitle').textContent='💚 WESPRZYJ SUPER G APP 🐉';$('#unlockBox').style.display='none';$('#payUnlock').style.display='none';paywall('Każda kwota pomaga rozwijać smoka! Dziękuję – Daniel')};
+// ===== BOT G =====
+let gAp=false,gApT=null,gSched=[];
+function glog(m,c){const l=$('#gLog');l.innerHTML=`<div style="color:${c||'#39ff14'}">[${new Date().toLocaleTimeString()}] ${esc(m)}</div>`+l.innerHTML}
+const STY={techno:'Techno',acid:'Acid',kwas:'Acid',house:'House',trance:'Trance',trans:'Trance',dub:'Dub',breaks:'Breaks',break:'Breaks',hard:'Hard',electro:'Electro',mix:'Mix'};
+function gEnsure(){if(!ctx)$('#start').click()}
+function gPlay(st,b){gEnsure();let bot=bots.find(x=>x.style==st)||genBot(st);if(b){bot.bpmMin=Math.max(80,b-3);bot.bpmMax=Math.min(180,b+3);saveBots()}runBot(bot.id);if(b)setBpm(b);if(!smartOn)$('#smart').click();showTab('botg');glog(`🎧 Gram: ${bot.name} (${bot.style}) ${bpm} BPM · Smart DJ aktywny`)}
+function gStop(){for(const k in decks){decks[k].playing=false;decks[k].mute={}}autoOn=false;$('#auto').classList.remove('on');if(smartOn)$('#smart').click();updDeckUI();glog('⏹ Stop – wszystko wyciszone')}
+function gAutopilot(on){gAp=on;$('#gAp').textContent=on?'WŁ':'WYŁ';$('#gApBtn').classList.toggle('on',on);clearInterval(gApT);if(!on)return glog('✈ Autopilot wyłączony');
+ const tick=()=>{const r=Math.random();if(r<.25||bots.length<4){const b=genBot();glog('✈ Autopilot: nowy bot '+b.name);gPlay(b.style)}else{const b=bots[Math.floor(Math.random()*bots.length)];gEnsure();runBot(b.id);if(!smartOn)$('#smart').click();showTab('botg');glog('✈ Autopilot: przełączam na '+b.name+' ('+b.style+')')}};
+ tick();gApT=setInterval(tick,(60/bpm)*4*32*1000);glog('✈ Autopilot włączony – zmiana bota co ~32 takty')}
+function gSchedRun(){const n=Date.now();gSched=gSched.filter(s=>{if(s.t<=n){glog('⏰ Zaplanowany set: '+s.st);gPlay(s.st,s.b);return false}return true});$('#gSchedN').textContent=gSched.length}
+setInterval(gSchedRun,5000);
+function gCmd(raw){const c=raw.trim().toLowerCase();if(!c)return;glog('> '+raw,'#0ff');if(!PRO&&!/^(pomoc|help|\?)$/.test(c))return paywall('🔒 BOT G jest w wersji PRO');
+ const w=c.split(/\s+/),num=(c.match(/\d+/g)||[]).map(Number),st=w.map(x=>STY[x]).find(Boolean);
+ if(/^(pomoc|help|\?)/.test(c))return glog('Komendy: graj <styl> [bpm] · nowy bot <styl> · stop · drop · breakdown · build · bpm <n> · autopilot wł/wył · zaplanuj <styl> [bpm] za <min> · plan · boty · sync. Style: techno, acid, house, trance, dub, breaks, hard, electro, mix');
+ if(w[0]=='graj'||w[0]=='play')return gPlay(st||'Techno',num[0]&&num[0]>=80?num[0]:0);
+ if(c.startsWith('nowy bot')||w[0]=='generuj'){const b=genBot(st);return glog('🎲 Nowy bot: '+b.name+' ('+b.style+', '+b.bpmMin+'-'+b.bpmMax+' BPM)')}
+ if(w[0]=='stop')return gStop();
+ if(['drop','breakdown','build'].includes(w[0])){gEnsure();if(!smartOn)$('#smart').click();enter(w[0],ctx.currentTime+.05);return glog('⚡ '+w[0].toUpperCase()+' teraz!')}
+ if(w[0]=='bpm'&&num[0]){setBpm(num[0]);return glog('BPM → '+bpm)}
+ if(w[0]=='autopilot')return gAutopilot(!/(wył|wyl|off|stop)/.test(c));
+ if(w[0]=='zaplanuj'){const m=c.match(/za\s+(\d+)/),min=m?+m[1]:5,b=num.find(x=>x>=80&&x<=180)||0;gSched.push({t:Date.now()+min*60000,st:st||'Mix',b});$('#gSchedN').textContent=gSched.length;return glog(`📅 Zaplanowano ${st||'Mix'}${b?' '+b+' BPM':''} za ${min} min (${new Date(Date.now()+min*60000).toLocaleTimeString()})`)}
+ if(w[0]=='plan')return glog(gSched.length?gSched.map(s=>s.st+' @ '+new Date(s.t).toLocaleTimeString()).join(' · '):'Brak zaplanowanych setów');
+ if(w[0]=='boty')return glog(bots.map(b=>b.name).join(' · '));
+ if(w[0]=='sync'){showTab('siec');return $('#nSync').click()}
+ glog('🤔 Nie rozumiem. Wpisz „pomoc”.','#f80')}
+$('#gGo').onclick=()=>{gCmd($('#gCmd').value);$('#gCmd').value=''};$('#gCmd').onkeydown=e=>{if(e.key=='Enter')$('#gGo').click()};
+document.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>gCmd(b.dataset.g));$('#gApBtn').onclick=()=>gCmd('autopilot '+(gAp?'wył':'wł'));
+glog('🐲 BOT G gotowy. Wpisz „pomoc”.');
+// ===== SIEĆ BOTÓW =====
+const NET0=['SuperGAll','SuperGrok','D','SuperBotD','SuperStarG','SuperGeox','SuperGrokBandyta','ProAuto','DargonMoon','Super Bot G PRO','Super Bot G','AutoFix','SuperCharger','MoePieseDevil','Nova G','SuperProDevil','Universal','FullProMaxG','G DMX Super SI','Web G','Super APK Builder','Super Mobile Universal','77','Dragon'];
+let net=JSON.parse(localStorage.getItem('sgNet')||'null')||NET0.map(n=>({name:n,status:'sync',last:null,note:''}));
+NET0.forEach(n=>{if(!net.find(x=>x.name==n))net.push({name:n,status:'sync',last:null,note:''})});
+function saveNet(){localStorage.setItem('sgNet',JSON.stringify(net))}
+function renderNet(){$('#nCards').innerHTML=net.map((b,i)=>`<div class="card"><b style="color:#0ff">🤖 ${esc(b.name)}</b> <span class="badge ${b.status=='sync'?'':'off'}">${b.status=='sync'?'✓ sync':'⏸ '+esc(b.status)}</span><br><small>Ostatni sync: ${b.last?new Date(b.last).toLocaleString():'—'}</small><br>
+<button data-ns="${i}">🔄</button><button data-nt="${i}">⏯</button></div>`).join('');$('#nInfo').textContent=`${net.length} botów · ${net.filter(b=>b.status=='sync').length} w sync · ${bots.length} presetów DJ`}
+$('#nCards').onclick=e=>{const d=e.target.dataset;if(d.ns){net[d.ns].status='sync';net[d.ns].last=Date.now()}else if(d.nt){net[d.nt].status=net[d.nt].status=='sync'?'pauza':'sync'}else return;saveNet();renderNet()};
+$('#nSync').onclick=()=>{const t=Date.now();net.forEach(b=>{if(b.status=='sync')b.last=t});saveNet();renderNet();log('🔄 Sieć botów zsynchronizowana');glog('🔄 Sync sieci: '+net.filter(b=>b.status=='sync').length+' botów')};
+$('#nExport').onclick=()=>saveBlob(new Blob([JSON.stringify({app:'Super G App',version:2,type:'sync',exported:new Date().toISOString(),network:net,bots,activeBot:actId,midiMap:map},null,2)],{type:'application/json'}),'supergapp-sync.json');
+$('#nImp').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const j=JSON.parse(await f.text());let n=0,p=0;(j.network||[]).forEach(x=>{if(!x||!x.name)return;const o={name:String(x.name).slice(0,40),status:x.status=='sync'?'sync':'pauza',last:+x.last||null,note:String(x.note||'')};const i=net.findIndex(y=>y.name==o.name);if(i>=0)net[i]=o;else net.push(o);n++});
+ (j.bots||[]).forEach(x=>{const b=norm(x);const i=bots.findIndex(y=>y.id==b.id);if(i>=0)bots[i]=b;else bots.push(b);p++});saveNet();saveBots();renderNet();renderBots();log(`⬆ Import sync: ${n} botów sieci, ${p} presetów`)}catch(err){alert('Błędny JSON: '+err.message)}e.target.value=''};
+renderNet();
 </script></body></html>
